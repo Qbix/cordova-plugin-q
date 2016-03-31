@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="com.q.cordova"
+        version="0.0.2">
+
+  <name>Q.Cordova</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/q_cordova.js" target="js/q_cordova.js"/>
+
+  <js-module src="www/q_cordova.js" name="Q.Cordova">
+    <clobbers target="Q.Cordova" />
+  </js-module>
+
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="QCordova">
+        <param name="android-package" value="com.q.cordova.plugin.QCordova"/>
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/QCordova.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/Config.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/FileSystemHelper.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QbixWebViewClient.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/BaseActivity.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/network/NetworkApi.java" target-dir="src/com/q/cordova/plugin/network"/>
+    <source-file src="src/android/network/NetworkService.java" target-dir="src/com/q/cordova/plugin/network"/>
+    <source-file src="src/android/network/models/PingResponse.java" target-dir="src/com/q/cordova/plugin/network/models/"/>
+
+    <framework src="com.squareup.retrofit2:retrofit:2.0.0" />
+    <framework src="com.squareup.retrofit2:converter-gson:2.0.0" />
+
+  </platform>
+
+  <platform name="ios">
+    
+    <config-file target="config.xml" parent="/widget">
+      <feature name="QCordova">
+        <param name="ios-package" value="QCordova" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/Base/Q.h" target-dir="QCordovaPlugin/Base"/>
+    <source-file src="src/ios/Base/Q.m" target-dir="QCordovaPlugin/Base"/>
+    <header-file src="src/ios/Base/QWebViewController.h" target-dir="QCordovaPlugin/Base"/>
+    <source-file src="src/ios/Base/QWebViewController.m" target-dir="QCordovaPlugin/Base"/>
+
+    <header-file src="src/ios/Config/Config.h" target-dir="QCordovaPlugin/Config"/>
+    <source-file src="src/ios/Config/Config.m" target-dir="QCordovaPlugin/Config"/>
+
+    <header-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.h" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
+    <source-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.m" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
+
+    <header-file src="src/ios/ExternalLibraries/OpenUDID/OpenUDID.h" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
+    <source-file src="src/ios/ExternalLibraries/OpenUDID/OpenUDID.m" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
+
+    <header-file src="src/ios/Network/Model/Request/PingRequest.h" target-dir="QCordovaPlugin/Network/Model/Request"/>
+    <source-file src="src/ios/Network/Model/Request/PingRequest.m" target-dir="QCordovaPlugin/Network/Model/Request"/>
+    <header-file src="src/ios/Network/Model/Response/PingDataResponse.h" target-dir="QCordovaPlugin/Network/Model/Response"/>
+    <source-file src="src/ios/Network/Model/Response/PingDataResponse.m" target-dir="QCordovaPlugin/Network/Model/Response"/>
+    <header-file src="src/ios/Network/Model/Response/PingStatusModel.h" target-dir="QCordovaPlugin/Network/Model/Response"/>
+    <source-file src="src/ios/Network/Model/Response/PingStatusModel.m" target-dir="QCordovaPlugin/Network/Model/Response"/>
+    <header-file src="src/ios/Network/Model/Response/Sticky.h" target-dir="QCordovaPlugin/Network/Model/Response"/>
+    <source-file src="src/ios/Network/Model/Response/Sticky.m" target-dir="QCordovaPlugin/Network/Model/Response"/>
+    <header-file src="src/ios/Network/QbixApi.h" target-dir="QCordovaPlugin/Network"/>
+    <source-file src="src/ios/Network/QbixApi.m" target-dir="QCordovaPlugin/Network"/>
+
+    <header-file src="src/ios/Utils/FileSystem/FileSystemHelper.h" target-dir="QCordovaPlugin/Utils/FileSystem"/>
+    <source-file src="src/ios/Utils/FileSystem/FileSystemHelper.m" target-dir="QCordovaPlugin/Utils/FileSystem"/>
+    <header-file src="src/ios/Utils/QJsonModel/QJSONModel.h" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
+    <source-file src="src/ios/Utils/QJsonModel/QJSONModel.m" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
+
+    <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
+    <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
+
+  </platform>
+
+</plugin>
