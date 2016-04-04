@@ -15,6 +15,8 @@
     <clobbers target="Q.Cordova" />
   </js-module>
 
+  <preference name="URL_SCHEME" default="qcordova" />
+
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
@@ -23,9 +25,18 @@
       </feature>
     </config-file>
 
+    <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+          <intent-filter>
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+              <data android:scheme="$URL_SCHEME" />
+          </intent-filter>
+    </config-file>
+
     <source-file src="src/android/Q.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QCordova.java" target-dir="src/com/q/cordova/plugin/"/>
-    <source-file src="src/android/Config.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QConfig.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/FileSystemHelper.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QbixWebViewClient.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/BaseActivity.java" target-dir="src/com/q/cordova/plugin/"/>
@@ -52,8 +63,8 @@
     <header-file src="src/ios/Base/QWebViewController.h" target-dir="QCordovaPlugin/Base"/>
     <source-file src="src/ios/Base/QWebViewController.m" target-dir="QCordovaPlugin/Base"/>
 
-    <header-file src="src/ios/Config/Config.h" target-dir="QCordovaPlugin/Config"/>
-    <source-file src="src/ios/Config/Config.m" target-dir="QCordovaPlugin/Config"/>
+    <header-file src="src/ios/Config/QConfig.h" target-dir="QCordovaPlugin/QConfig"/>
+    <source-file src="src/ios/Config/QConfig.m" target-dir="QCordovaPlugin/QConfig"/>
 
     <header-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.h" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
     <source-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.m" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
@@ -79,6 +90,17 @@
 
     <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
+
+    <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+      <array>
+        <dict>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>$URL_SCHEME</string>
+          </array>
+        </dict>
+      </array>
+    </config-file>
 
   </platform>
 
