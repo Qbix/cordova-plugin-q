@@ -2,7 +2,7 @@ package com.q.cordova.plugin.network;
 
 import android.content.Context;
 
-import com.q.cordova.plugin.Config;
+import com.q.cordova.plugin.QConfig;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,7 +20,7 @@ public class NetworkService {
     private NetworkApi api;
 
     public NetworkService(Context ctx) {
-        END_POINT = Config.getInstance(ctx).getPingUrl();
+        END_POINT = QConfig.getInstance(ctx).getPingUrl();
         Retrofit service = new Retrofit.Builder()
                 .baseUrl(END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())

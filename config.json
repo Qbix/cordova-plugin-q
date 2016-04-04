@@ -1,14 +1,17 @@
 {
-	"remoteCacheId":"groups-cache",
-	"remoteMode": true,
-	"pathToBundle":"www/Shipping",
-	"injectCordovaScripts":false,
-	"bundleTimestamp":1457567385,
-	"enableLoadBundleCache":false,
-	"pingUrl":"http://groups.qbix.com/iphone/daily/",
-	"isAcceptPingResponse":false,
-	"loadUrl":"http://encompasstest.com/Shipping/",
-	"loadBaseUrl":"http://encompasstest.com/Shipping/",
-	"openUrlScheme":"cordovaapp",
-	"userAgentHeader":"QCordova AppleWebKit"
+  "Q": {
+	"cordova": {
+	  "cacheBaseUrl":"groups-cache",
+	  "pathToBundle":"www/Shipping",
+	  "injectCordovaScripts":false,
+	  "bundleTimestamp":1457567385,
+	  "enableLoadBundleCache":false,
+	  "pingUrl":"http://groups.qbix.com/iphone/daily/",
+	  "isAcceptPingResponse":false,
+	  "url":"http://encompasstest.com/Shipping/",
+	  "baseUrl":"http://encompasstest.com/Shipping/",
+	  "openUrlScheme":"qcordova",
+	  "userAgentSuffix":"QCordova AppleWebKit"
+	}
+  }
 }

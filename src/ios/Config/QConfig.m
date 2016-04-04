@@ -6,24 +6,22 @@
 //
 //
 
-#import "Config.h"
+#import "QConfig.h"
 
-@implementation Config
+@implementation QConfig
 
 @synthesize configDict;
 @synthesize configFilename;
 @synthesize pingUrl;
-@synthesize loadUrl;
-@synthesize loadBaseUrl;
+@synthesize url;
+@synthesize baseUrl;
 @synthesize enableLoadBundleCache;
 @synthesize bundleTimestamp;
-@synthesize remoteMode;
 @synthesize injectCordovaScripts;
 @synthesize pathToBundle;
-@synthesize remoteCacheId;
+@synthesize cacheBaseUrl;
 @synthesize openUrlScheme;
-@synthesize userAgentHeader;
-@synthesize isAcceptPingResponse;
+@synthesize userAgentSuffix;
 
 -(id) init {
     self = [super init];
@@ -40,9 +38,17 @@
         self.configFilename = [[NSBundle mainBundle] pathForResource:filename ofType:@"json"];
         NSError *error=nil;
         NSData *jsonData = [NSData dataWithContentsOfFile:self.configFilename options:NSDataReadingUncached error:&error];
+        NSDictionary *tmpDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+        if(error != nil)
+            @throw([NSException exceptionWithName:@"Wrong JSON format" reason:@"Can't parse settings file" userInfo:nil]);
         
-        self.configDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+        NSDictionary* q = [tmpDict objectForKey:@"Q"];
+        if(q == nil)
+            @throw([NSException exceptionWithName:@"Didn't find need key" reason:@"Can't found Q param in settings file" userInfo:nil]);
         
+        self.configDict = [q objectForKey:@"cordova"];
+        if(self.configDict == nil)
+            @throw([NSException exceptionWithName:@"Didn't find need key" reason:@"Can't found Q.cordova param in settings file" userInfo:nil]);
     }
     
     return self;
@@ -83,35 +89,35 @@
 }
 
 #define PINGURL_FLAG @"pingUrl"
--(void)setPingUrl:(NSString *)url {
-    [self saveValueToStorage:url forKey:PINGURL_FLAG];
+-(void)setPingUrl:(NSString *)_url {
+    [self saveValueToStorage:_url forKey:PINGURL_FLAG];
 }
 -(NSString*)pingUrl {
     return [self getValueFromStorage:PINGURL_FLAG];
 }
 -(NSString*) getPingUrlServer {
-    NSURL* url = [NSURL URLWithString:[self pingUrl]];
-    return [NSString stringWithFormat:@"%@://%@", [url scheme], [url host]];
+    NSURL* _url = [NSURL URLWithString:[self pingUrl]];
+    return [NSString stringWithFormat:@"%@://%@", [_url scheme], [_url host]];
 }
 -(NSString*) getPingUrlRelativePath {
-    NSURL* url = [NSURL URLWithString:[self pingUrl]];
-    return [NSString stringWithFormat:@"%@", [url path]];
+    NSURL* _url = [NSURL URLWithString:[self pingUrl]];
+    return [NSString stringWithFormat:@"%@", [_url path]];
 }
 
-#define LOADURL_FLAG @"loadUrl"
--(void)setLoadUrl:(NSString *)url {
-    [self saveValueToStorage:url forKey:LOADURL_FLAG];
+#define URL_FLAG @"url"
+-(void)setUrl:(NSString *) _url {
+    [self saveValueToStorage:_url forKey:URL_FLAG];
 }
--(NSString*)loadUrl {
-    return [self getValueFromStorage:LOADURL_FLAG];
+-(NSString*)url {
+    return [self getValueFromStorage:URL_FLAG];
 }
 
-#define LOADBASEURL_FLAG @"loadBaseUrl"
--(void)setLoadBaseUrl:(NSString *)url {
-    [self saveValueToStorage:url forKey:LOADBASEURL_FLAG];
+#define BASEURL_FLAG @"baseUrl"
+-(void)setLoadBaseUrl:(NSString *)_url {
+    [self saveValueToStorage:_url forKey:BASEURL_FLAG];
 }
--(NSString*)loadBaseUrl {
-    return [self getValueFromStorage:LOADBASEURL_FLAG];
+-(NSString*)baseUrl {
+    return [self getValueFromStorage:BASEURL_FLAG];
 }
 
 #define ENABLELOADBUNDLECACHE_FLAG @"enableLoadBundleCache"
@@ -131,22 +137,13 @@
     return [[self getValueFromStorage:BUNDLETIMESTAMP_FLAG] longValue];
 }
 
-#define REMOTEMODE_FLAG @"remoteMode"
--(void)setRemoteMode:(BOOL)value {
-    [self saveValueToStorage:[NSNumber numberWithBool:value] forKey:REMOTEMODE_FLAG];
+#define CACHEBASEURL_FLAG @"cacheBaseUrl"
+-(void)setCacheBaseUrl:(NSString*)value {
+    [self saveValueToStorage:value forKey:CACHEBASEURL_FLAG];
 }
 
--(BOOL)remoteMode {
-    return [[self getValueFromStorage:REMOTEMODE_FLAG] boolValue];
-}
-
-#define REMOTECACHEID_FLAG @"remoteCacheId"
--(void)setRemoteCacheId:(NSString*)value {
-    [self saveValueToStorage:value forKey:REMOTECACHEID_FLAG];
-}
-
--(NSString*)remoteCacheId {
-    return [self getValueFromStorage:REMOTECACHEID_FLAG];
+-(NSString*)cacheBaseUrl {
+    return [self getValueFromStorage:CACHEBASEURL_FLAG];
 }
 
 #define INJECTCORDOVASCRIPTS_FLAG @"remoteMode"
@@ -176,21 +173,13 @@
     return [self getValueFromStorage:OPENURLSCHEME_FLAG];
 }
 
-#define USERAGENTHEADERSCHEME_FLAG @"userAgentHeader"
--(void)setUserAgentHeader:(NSString *)mUserAgentHeader {
-    [self saveValueToStorage:mUserAgentHeader forKey:USERAGENTHEADERSCHEME_FLAG];
+#define USERAGENTSUFFIX_FLAG @"userAgentSuffix"
+-(void)setUserAgentSuffix:(NSString *)mUserAgentSuffix {
+    [self saveValueToStorage:mUserAgentSuffix forKey:USERAGENTSUFFIX_FLAG];
 }
 
--(NSString*)userAgentHeader {
-    return [self getValueFromStorage:USERAGENTHEADERSCHEME_FLAG];
-}
-
-#define ISACCEPTPINGREPONSECACHE_FLAG @"enableLoadBundleCache"
--(void)setIsAcceptPingResponse:(BOOL) status {
-    [self saveValueToStorage:[NSNumber numberWithBool:status] forKey:ISACCEPTPINGREPONSECACHE_FLAG];
-}
--(BOOL)isAcceptPingResponse {
-    return [[self getValueFromStorage:ISACCEPTPINGREPONSECACHE_FLAG] boolValue];
+-(NSString*)userAgentSuffix {
+    return [self getValueFromStorage:USERAGENTSUFFIX_FLAG];
 }
 
 

@@ -39,15 +39,9 @@ static Q *instance = nil;
 -(void) initialize {
     [self initSharedCache];
     
-    if([[[Config alloc] init] remoteMode]) {
-        self.appDelegate.viewController = [self prepeareQGroupsController];
-    } else {
-        self.appDelegate.viewController = [[QWebViewController alloc] init];
-    }
-    
-    if(![[[[Config alloc] init] userAgentHeader] isEqualToString:@""]) {
-        self.appDelegate.viewController.baseUserAgent = [[[Config alloc] init] userAgentHeader];
-    }
+    self.appDelegate.viewController = [self prepeareQGroupsController];
+
+    self.appDelegate.viewController.baseUserAgent = [NSString stringWithFormat:@"%@ %@",self.appDelegate.viewController.baseUserAgent, [[[QConfig alloc] init] userAgentSuffix] ];
     
     [self sendPingRequest];
     
@@ -60,25 +54,20 @@ static Q *instance = nil;
 }
 
 -(void) initSharedCache {
-    if([[[Config alloc] init] remoteMode]) {
-        CordovaWebViewURLCache* sharedCache = [self prepeareCordovaWebViewUrlCacheMemory:CACHE_SIZE_MEMORY andDisk:CACHE_SIZE_DISK];
-        [NSURLCache setSharedURLCache:sharedCache];
-    } else {
-        NSURLCache* sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:CACHE_SIZE_MEMORY diskCapacity:CACHE_SIZE_DISK diskPath:@"nsurlcache"];
-        [NSURLCache setSharedURLCache:sharedCache];
-    }
+    CordovaWebViewURLCache* sharedCache = [self prepeareCordovaWebViewUrlCacheMemory:CACHE_SIZE_MEMORY andDisk:CACHE_SIZE_DISK];
+    [NSURLCache setSharedURLCache:sharedCache];
 }
 
 -(CordovaWebViewURLCache*) prepeareCordovaWebViewUrlCacheMemory:(int) cache_size_memory andDisk:(int) cache_size_disk {
-    Config *conf = [[Config alloc] init];
+    QConfig *conf = [[QConfig alloc] init];
     
     CordovaWebViewURLCache* sharedCache = [[CordovaWebViewURLCache alloc] initWithMemoryCapacity:cache_size_memory diskCapacity:cache_size_disk diskPath:@"nsurlcache"];
     
     [sharedCache setIsReturnCahceFilesFromBundle:[conf enableLoadBundleCache]];
     [sharedCache setPathToBundle:[conf pathToBundle]];
-    [sharedCache setRemoteCacheId:[conf remoteCacheId]];
+    [sharedCache setRemoteCacheId:[conf cacheBaseUrl]];
     
-    if([[[Config alloc] init] injectCordovaScripts]) {
+    if([conf injectCordovaScripts]) {
         NSMutableArray *filesToInject = [NSMutableArray array];
         
         // add cordova_plugins.js files with all plugins
@@ -95,13 +84,13 @@ static Q *instance = nil;
 }
 
 - (QWebViewController*) prepeareQGroupsController {
-    Config *conf = [[Config alloc] init];
+    QConfig *conf = [[QConfig alloc] init];
     
-    return [[QWebViewController alloc] initWithUrl:[conf loadUrl] andParameters:[self getAdditionalParamsForUrl]];
+    return [[QWebViewController alloc] initWithUrl:[conf url] andParameters:[self getAdditionalParamsForUrl]];
 }
 
 -(NSDictionary*) getAdditionalParamsForUrl {
-    Config *conf = [[Config alloc] init];
+    QConfig *conf = [[QConfig alloc] init];
     NSDictionary *paramsLoadUrl = nil;
     if([conf enableLoadBundleCache]) {
         paramsLoadUrl = @{
@@ -120,29 +109,26 @@ static Q *instance = nil;
 }
 
 -(void)handleOpenUrlScheme:(NSURL*)url {
+    QConfig* conf = [[QConfig alloc] init];
+
+    if([[url scheme] isEqualToString:[conf openUrlScheme]]) {
     
-    Config* conf = [[Config alloc] init];
-    
-    if([conf remoteMode]) {
-        if([[url scheme] isEqualToString:[conf openUrlScheme]]) {
+        NSDictionary *customParamsDict = [self getAdditionalParamsForUrl];
+        NSString *customParams = @"";
+        for (NSString* key in customParamsDict) {
+            id value = [customParamsDict objectForKey:key];
+            if(value != nil)
+                customParams = [customParams stringByAppendingString:[NSString stringWithFormat:@"%@=%@&", key, (NSString*)value]];
+        }
         
-            NSDictionary *customParamsDict = [self getAdditionalParamsForUrl];
-            NSString *customParams = @"";
-            for (NSString* key in customParamsDict) {
-                id value = [customParamsDict objectForKey:key];
-                if(value != nil)
-                    customParams = [customParams stringByAppendingString:[NSString stringWithFormat:@"%@=%@&", key, (NSString*)value]];
-            }
-            
-            
-            NSString *urlStr = [NSString stringWithFormat:@"%@%@?%@%@#%@", [[[Config alloc] init] loadBaseUrl], [url path], customParams, [url query], [url fragment]];
-            
-            NSString *fragment = [url fragment];
-            if([fragment isEqualToString:@"newWindow"]) {
-                //Open in additional webview
-            } else {
-                //Open in main webview
-            }
+        
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?%@%@#%@", [conf baseUrl], [url path], customParams, [url query], [url fragment]];
+        
+        NSString *fragment = [url fragment];
+        if([fragment isEqualToString:@"newWindow"]) {
+            //Open in additional webview
+        } else {
+            //Open in main webview
         }
     }
 }

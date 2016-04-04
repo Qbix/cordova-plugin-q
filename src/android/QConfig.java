@@ -11,12 +11,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
 
 /**
  * Created by adventis on 3/11/16.
  */
-public class Config {
+public class QConfig {
     private final String TAG = "ConfigTAG";
 
     public static final String assetsFolderPath = "file:///android_asset";
@@ -26,10 +25,10 @@ public class Config {
     }
 
     private Context ctx;
-    public static Config instance;
-    public static Config getInstance(Context context) {
+    public static QConfig instance;
+    public static QConfig getInstance(Context context) {
         if(instance == null) {
-            instance = new Config(context);
+            instance = new QConfig(context);
             instance.setCtx(context);
         }
 
@@ -39,20 +38,9 @@ public class Config {
     private JSONObject properties;
 
     public String getRemoteCacheId() {
-        return getConfigValue("remoteCacheId");
+        return getConfigValue("cacheBaseUrl");
     }
-    private String remoteCacheId;
-
-
-    public Boolean getRemoteMode() {
-        String value = getConfigValue("remoteMode");
-        if(value.equalsIgnoreCase("true")) {
-            return true;
-        }
-
-        return false;
-    }
-    private Boolean remoteMode;
+    private String cacheBaseUrl;
 
     public String getPathToBundle() {
         return getConfigValue("pathToBundle");
@@ -97,31 +85,21 @@ public class Config {
 
     private String pingUrl;
 
-    public Boolean getIsAcceptPingResponse() {
-        String value = getConfigValue("isAcceptPingResponse");
-        if(value.equalsIgnoreCase("true")) {
-            return true;
-        }
-
-        return false;
-    }
-    private Boolean isAcceptPingResponse;
-
-    public String getLoadUrl() {
-        return getConfigValue("loadUrl");
+    public String getUrl() {
+        return getConfigValue("url");
     }
 
-    public void setLoadUrl(String loadUrl) {
-        this.loadUrl = loadUrl;
-        setConfigValue("loadUrl", loadUrl);
+    public void setUrl(String _url) {
+        this.url = _url;
+        setConfigValue("url", _url);
     }
 
-    private String loadUrl;
+    private String url;
 
-    public String getLoadBaseUrl() {
-        return getConfigValue("loadBaseUrl");
+    public String getBaseUrl() {
+        return getConfigValue("baseUrl");
     }
-    private String loadBaseUrl;
+    private String baseUrl;
 
     public String getOpenUrlScheme() {
         return getConfigValue("openUrlScheme");
@@ -129,12 +107,12 @@ public class Config {
     private String openUrlScheme;
 
 
-    public String getUserAgentHeader() {
-        return getConfigValue("userAgentHeader");
+    public String getUserAgentSuffix() {
+        return getConfigValue("userAgentSuffix");
     }
-    private String userAgentHeader;
+    private String userAgentSuffix;
 
-    public Config(Context context) {
+    public QConfig(Context context) {
         Resources resources = context.getResources();
 
         try {
@@ -143,7 +121,10 @@ public class Config {
             rawResource.read(buffer);
             rawResource.close();
 
-            this.properties = new JSONObject(new String(buffer, "UTF-8"));
+            JSONObject tmpProperties = new JSONObject(new String(buffer, "UTF-8"));
+            JSONObject q = tmpProperties.getJSONObject("Q");
+
+            this.properties = q.getJSONObject("cordova");
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Unable to find the config file: " + e.getMessage());
         } catch (IOException e) {
@@ -186,6 +167,6 @@ public class Config {
 
     public void acceptPingResponse(PingResponse response) {
         this.setPingUrl(response.pingUrl);
-        this.setLoadUrl(response.loadUrl);
+        this.setUrl(response.loadUrl);
     }
 }

@@ -73,21 +73,20 @@
 //    }
 //
 //}
-
--(void) sendPing:(void (^)(PingDataResponse *pingdata, NSError *error))completionHandler{
+-(void) sendPing:(NSString*) url callback:(void (^)(PingDataResponse *pingdata, NSError *error))completionHandler {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSString *requestParams = [[NSString alloc] initWithFormat:@"udid=%@", [OpenUDID value]];
     NSData *requestData = [requestParams dataUsingEncoding:NSUTF8StringEncoding];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:[[[Config alloc] init] pingUrl]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:url]];
     
     [request setHTTPMethod: @"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
     [request setHTTPBody: requestData];
     
     [[session dataTaskWithRequest:request completionHandler:^(NSData *data,
-                                                             NSURLResponse *response,
-                                                             NSError *error) {
+                                                              NSURLResponse *response,
+                                                              NSError *error) {
         if (error) {
             completionHandler(nil, error);
         } else {
@@ -99,7 +98,6 @@
                 if(err) {
                     completionHandler(nil, error);
                 } else {
-                    [[[Config alloc] init] applyConfigParameters:pingResponse];
                     completionHandler(pingResponse, nil);
                 }
             }

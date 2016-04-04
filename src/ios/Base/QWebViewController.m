@@ -135,7 +135,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView*)theWebView
 {
-    Config *conf = [[Config alloc] init];
+    QConfig *conf = [[QConfig alloc] init];
     // Black base color for background matches the native apps
     theWebView.backgroundColor = [UIColor blackColor];
     

@@ -9,23 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "PingDataResponse.h"
 
-@interface Config : NSObject
+@interface QConfig : NSObject
 
 @property (nonatomic, strong) NSDictionary *configDict;
 @property (nonatomic, strong) NSString *configFilename;
 
+
+
 @property (nonatomic, copy) NSString *pingUrl;
-@property (nonatomic, copy) NSString *loadUrl;
-@property (nonatomic, copy) NSString *loadBaseUrl;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *baseUrl;
 @property (nonatomic, readwrite) BOOL enableLoadBundleCache;
 @property (nonatomic, readwrite) long bundleTimestamp;
-@property (nonatomic, readwrite) BOOL remoteMode;
-@property (nonatomic, copy) NSString *remoteCacheId;
+@property (nonatomic, copy) NSString *cacheBaseUrl;
 @property (nonatomic, readwrite) BOOL injectCordovaScripts;
 @property (nonatomic, copy) NSString *pathToBundle;
 @property (nonatomic, copy) NSString *openUrlScheme;
-@property (nonatomic, copy) NSString *userAgentHeader;
-@property (nonatomic, readwrite) BOOL isAcceptPingResponse;
+@property (nonatomic, copy) NSString *userAgentSuffix;
+
 
 -(id) initWithFilename:(NSString*) filename;
 -(void) applyConfigParameters:(PingDataResponse*)response;

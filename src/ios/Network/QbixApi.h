@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "PingDataResponse.h"
-#import "Config.h"
 #import "OpenUDID.h"
 
 @interface QbixApi : NSObject
 
--(void) sendPing:(void (^)(PingDataResponse *pingdata, NSError *error))completionHandler;
+-(void) sendPing:(NSString*) url callback:(void (^)(PingDataResponse *pingdata, NSError *error))completionHandler;
 
 @end

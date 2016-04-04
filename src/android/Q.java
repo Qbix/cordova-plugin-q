@@ -1,34 +1,26 @@
 package com.q.cordova.plugin;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.telephony.TelephonyManager;
-import android.util.Log;
+import android.text.TextUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.q.cordova.plugin.network.NetworkApi;
 import com.q.cordova.plugin.network.NetworkService;
 import com.q.cordova.plugin.network.models.PingResponse;
+import com.qbix.cordovaapp.MainActivity;
 
-import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.ExposedJsApi;
 import org.apache.cordova.engine.SystemWebViewEngine;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,14 +33,14 @@ public class Q {
 
     private static Q instance;
 
-    public CordovaActivity getActivity() {
+    public MainActivity getActivity() {
         return activity;
     }
 
-    public void setActivity(CordovaActivity activity) {
+    public void setActivity(MainActivity activity) {
         this.activity = activity;
     }
-    private CordovaActivity activity;
+    private MainActivity activity;
 
     public Context getContext() {
         return context;
@@ -60,13 +52,19 @@ public class Q {
 
     private Context context;
 
-    public static Q initWith(CordovaActivity activity) {
+    public static Q initWith(MainActivity activity) {
         if(instance == null) {
             instance = new Q();
         }
         instance.setContext(activity.getApplicationContext());
         instance.setActivity(activity);
         instance.initialize();
+
+        if(activity.getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
+            if(activity.getIntent().getData()!=null) {
+                instance.handleOpenUrl(activity.getIntent().getData());
+            }
+        }
 
 
         return instance;
@@ -83,22 +81,16 @@ public class Q {
 
 
     private void initialize() {
-        if(Config.getInstance(getContext()).getRemoteMode()) {
-            this.getActivity().loadUrl(prepeareQGroupsController());
-            //loadUrl(Config.getInstance(this).getLoadUrl());
-        } else {
-            this.getActivity().loadUrl(getLaunchUrl());
-        }
+
+        this.getActivity().loadUrl(prepeareQGroupsController());
 
         initSharedCache();
 
-        if(!Config.getInstance(this.getContext()).getUserAgentHeader().isEmpty()) {
+        if(!QConfig.getInstance(this.getContext()).getUserAgentSuffix().isEmpty()) {
             CordovaWebView cordovaWebView = getSystemWebEngine();
             WebSettings settings = ((WebView)cordovaWebView.getEngine().getView()).getSettings();
-            settings.setUserAgentString(Config.getInstance(getContext()).getUserAgentHeader());
+            settings.setUserAgentString(TextUtils.concat(settings.getUserAgentString(), "", QConfig.getInstance(getContext()).getUserAgentSuffix()).toString());
         }
-
-
 
         sendPingRequest();
     }
@@ -107,13 +99,11 @@ public class Q {
         // Sent request
         final Context applicationContext = this.getContext().getApplicationContext();
         NetworkApi api = new NetworkService(applicationContext).getApi();
-        api.ping(Config.getInstance(applicationContext).getUdid()).enqueue(new Callback<PingResponse>() {
+        api.ping(QConfig.getInstance(applicationContext).getUdid()).enqueue(new Callback<PingResponse>() {
             @Override
             public void onResponse(Call<PingResponse> call, Response<PingResponse> response) {
                 if (response.isSuccessful()) {
-                    if (Config.getInstance(applicationContext).getIsAcceptPingResponse()) {
-                        Config.getInstance(applicationContext).acceptPingResponse(response.body());
-                    }
+                    //QConfig.getInstance(applicationContext).acceptPingResponse(response.body());
                 }
             }
 
@@ -124,15 +114,36 @@ public class Q {
         });
     }
 
+    private void handleOpenUrl(Uri data) {
+        QConfig config = QConfig.getInstance(getContext());
+        if(config.getOpenUrlScheme().equalsIgnoreCase(data.getScheme())) {
+
+            String customParams = "";
+            Map<String, String> additionalParams = getAdditionalParamsForUrl();
+            for (Map.Entry<String,String> entry : additionalParams.entrySet()) {
+                customParams += (entry.getKey()+"="+entry.getValue()+"&");
+            }
+
+            String urlStr = String.format("%s%s?%s%s#%s", config.getBaseUrl(), data.getPath(), customParams, data.getQuery(), data.getFragment());
+
+            String fragment = data.getFragment();
+            if(fragment.equalsIgnoreCase("newWindow")) {
+                //Open in additional webview
+            } else {
+                //Open in main webview
+            }
+        }
+    }
+
 
     // get protected field "launchUrl" of CordovaActivity class using reflection
     private String getLaunchUrl() {
         String launchUrl = null;
-
         try {
             Class cordovaActivityClass = getActivity().getClass();
             Field launchUrlField = getField(cordovaActivityClass, "launchUrl");
             launchUrlField.setAccessible(true);
+
             launchUrl = (String)launchUrlField.get(getActivity());
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -184,13 +195,13 @@ public class Q {
 
     protected void initSharedCache()  {
         Context applicationContext = getActivity().getApplicationContext();
-        if(Config.getInstance(applicationContext).getRemoteMode()) {
-            QbixWebViewClient qbixWebViewClient = new QbixWebViewClient((SystemWebViewEngine)getSystemWebEngine().getEngine());
-            qbixWebViewClient.setIsReturnCahceFilesFromBundle(Config.getInstance(applicationContext).getEnableLoadBundleCache());
-            qbixWebViewClient.setPathToBundle(Config.getInstance(applicationContext).getPathToBundle());
-            qbixWebViewClient.setRemoteCacheId(Config.getInstance(applicationContext).getRemoteCacheId());
 
-            if(Config.getInstance(getActivity()).getInjectCordovaScripts()) {
+            QbixWebViewClient qbixWebViewClient = new QbixWebViewClient((SystemWebViewEngine)getSystemWebEngine().getEngine());
+            qbixWebViewClient.setIsReturnCahceFilesFromBundle(QConfig.getInstance(applicationContext).getEnableLoadBundleCache());
+            qbixWebViewClient.setPathToBundle(QConfig.getInstance(applicationContext).getPathToBundle());
+            qbixWebViewClient.setRemoteCacheId(QConfig.getInstance(applicationContext).getRemoteCacheId());
+
+            if(QConfig.getInstance(getActivity()).getInjectCordovaScripts()) {
                 ArrayList<String> filesToInject = new ArrayList<String>();
                 filesToInject.add("www/cordova_plugins.js");
 
@@ -207,11 +218,10 @@ public class Q {
             }
 
             ((WebView) getSystemWebEngine().getView()).setWebViewClient(qbixWebViewClient);
-        }
     }
 
     public String prepeareQGroupsController() {
-        String remoteUrl = Config.getInstance(getActivity()).getLoadUrl();
+        String remoteUrl = QConfig.getInstance(getActivity()).getUrl();
 
         Map<String, String> additionalParams = getAdditionalParamsForUrl();
         if(additionalParams == null)
@@ -241,8 +251,8 @@ public class Q {
         params.put("Q.udid", "TestUdid");
 
         params.put("Q.cordova", CordovaWebView.CORDOVA_VERSION);
-        if(Config.getInstance(getActivity()).getEnableLoadBundleCache()) {
-            params.put("Q.ct", String.valueOf(Config.getInstance(getActivity()).getBundleTimestamp()));
+        if(QConfig.getInstance(getActivity()).getEnableLoadBundleCache()) {
+            params.put("Q.ct", String.valueOf(QConfig.getInstance(getActivity()).getBundleTimestamp()));
         }
 
         return params;
