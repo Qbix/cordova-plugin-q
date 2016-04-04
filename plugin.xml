@@ -88,6 +88,13 @@
     <header-file src="src/ios/Utils/QJsonModel/QJSONModel.h" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
     <source-file src="src/ios/Utils/QJsonModel/QJSONModel.m" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
 
+    <header-file src="src/ios/TestQ/MultiTestBaseViewController.h" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
+    <source-file src="src/ios/TestQ/MultiTestBaseViewController.m" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
+    <header-file src="src/ios/TestQ/MultiTestChooserViewController.h" target-dir="QCordovaPlugin/TestQ/MultiTestChooserViewController"/>
+    <source-file src="src/ios/TestQ/MultiTestChooserViewController.m" target-dir="QCordovaPlugin/TestQ/MultiTestChooserViewController"/>
+
+    <resource-file src="src/ios/TestQ/QTestStoryboard.storyboard" />
+    
     <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
 

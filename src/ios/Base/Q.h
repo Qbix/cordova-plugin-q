@@ -18,6 +18,7 @@
 
 @property(nonatomic, retain) CDVAppDelegate *appDelegate;
 
++(Q*)initTestWith:(CDVAppDelegate *)appDelegate;
 +(Q*) initWith:(CDVAppDelegate*) appDelegate;
 +(Q*) getInstance;
 

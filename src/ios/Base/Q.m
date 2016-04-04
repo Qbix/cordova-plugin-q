@@ -16,6 +16,16 @@
 
 static Q *instance = nil;
 
++ (Q*)initTestWith:(CDVAppDelegate *)appDelegate {
+    if (instance == nil) {
+        instance = [[super alloc] init];
+    }
+    [instance setAppDelegate:appDelegate];
+    [instance initializeTest];
+    
+    return instance;
+}
+
 + (Q*)initWith:(CDVAppDelegate *)appDelegate {
     if (instance == nil) {
         instance = [[super alloc] init];
@@ -45,6 +55,14 @@ static Q *instance = nil;
     
     [self sendPingRequest];
     
+}
+
+-(void) initializeTest {
+    [self initSharedCache];
+    
+    UIStoryboard *testStoryboard = [UIStoryboard storyboardWithName:@"QTestStoryboard" bundle:nil];
+    UIViewController *testLaunchViewController = [testStoryboard instantiateInitialViewController];
+    self.appDelegate.viewController = (CDVViewController*)testLaunchViewController;
 }
 
 -(void) sendPingRequest {
