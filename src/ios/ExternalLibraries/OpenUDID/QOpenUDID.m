@@ -179,7 +179,7 @@ static int const kOpenUDIDRedundancySlots = 100;
         localDict = [NSMutableDictionary dictionaryWithDictionary:localDict]; // we might need to set/overwrite the redundancy slot
         openUDID = [localDict objectForKey:kOpenUDIDKey];
         myRedundancySlotPBid = [localDict objectForKey:kOpenUDIDSlotKey];
-        OpenUDIDLog(@"localDict = %@",localDict);
+        QOpenUDIDLog(@"localDict = %@",localDict);
     }
     
     // Here we go through a sequence of slots, each of which being a UIPasteboard created by each participating app
@@ -194,14 +194,14 @@ static int const kOpenUDIDRedundancySlots = 100;
 #else
         NSPasteboard* slotPB = [NSPasteboard pasteboardWithName:slotPBid];
 #endif
-        OpenUDIDLog(@"SlotPB name = %@",slotPBid);
+        QOpenUDIDLog(@"SlotPB name = %@",slotPBid);
         if (slotPB==nil) {
             // assign availableSlotPBid to be the first one available
             if (availableSlotPBid==nil) availableSlotPBid = slotPBid;
         } else {
             NSDictionary* dict = [QOpenUDID _getDictFromPasteboard:slotPB];
             NSString* oudid = [dict objectForKey:kOpenUDIDKey];
-            OpenUDIDLog(@"SlotPB dict = %@",dict);
+            QOpenUDIDLog(@"SlotPB dict = %@",dict);
             if (oudid==nil) {
                 // availableSlotPBid could inside a non null slot where no oudid can be found
                 if (availableSlotPBid==nil) availableSlotPBid = slotPBid;
@@ -225,7 +225,7 @@ static int const kOpenUDIDRedundancySlots = 100;
     //
     NSArray* arrayOfUDIDs = [frequencyDict keysSortedByValueUsingSelector:@selector(compare:)];
     NSString* mostReliableOpenUDID = (arrayOfUDIDs!=nil && [arrayOfUDIDs count]>0)? [arrayOfUDIDs lastObject] : nil;
-    OpenUDIDLog(@"Freq Dict = %@\nMost reliable %@",frequencyDict,mostReliableOpenUDID);
+    QOpenUDIDLog(@"Freq Dict = %@\nMost reliable %@",frequencyDict,mostReliableOpenUDID);
     
     // if openUDID was not retrieved from the local preferences, then let's try to get it from the frequency dictionary above
     //
@@ -260,7 +260,7 @@ static int const kOpenUDIDRedundancySlots = 100;
     
     // Here we store in the available PB slot, if applicable
     //
-    OpenUDIDLog(@"Available Slot %@ Existing Slot %@",availableSlotPBid,myRedundancySlotPBid);
+    QOpenUDIDLog(@"Available Slot %@ Existing Slot %@",availableSlotPBid,myRedundancySlotPBid);
     if (availableSlotPBid!=nil && (myRedundancySlotPBid==nil || [availableSlotPBid isEqualToString:myRedundancySlotPBid])) {
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
         UIPasteboard* slotPB = [UIPasteboard pasteboardWithName:availableSlotPBid create:YES];
