@@ -76,7 +76,7 @@
 -(void) sendPing:(NSString*) url callback:(void (^)(PingDataResponse *pingdata, NSError *error))completionHandler {
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString *requestParams = [[NSString alloc] initWithFormat:@"udid=%@", [OpenUDID value]];
+    NSString *requestParams = [[NSString alloc] initWithFormat:@"udid=%@", [QOpenUDID value]];
     NSData *requestData = [requestParams dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString:url]];
     

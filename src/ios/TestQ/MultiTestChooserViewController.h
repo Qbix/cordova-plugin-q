@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MultiTestBaseViewController.h"
 #import "QWebViewController.h"
-#import "OpenUDID.h"
+#import "QOpenUDID.h"
 #import "Q.h"
 
 @interface MultiTestChooserViewController : MultiTestBaseViewController<UITextFieldDelegate>

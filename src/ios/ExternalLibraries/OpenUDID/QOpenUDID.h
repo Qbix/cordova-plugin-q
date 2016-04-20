@@ -64,7 +64,7 @@
 
 #endif
 
-@interface OpenUDID : NSObject {
+@interface QOpenUDID : NSObject {
 }
 + (NSString*) value;
 + (NSString*) valueWithError:(NSError**)error;

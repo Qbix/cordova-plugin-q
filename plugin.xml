@@ -69,8 +69,8 @@
     <header-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.h" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
     <source-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.m" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
 
-    <header-file src="src/ios/ExternalLibraries/OpenUDID/OpenUDID.h" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
-    <source-file src="src/ios/ExternalLibraries/OpenUDID/OpenUDID.m" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
+    <header-file src="src/ios/ExternalLibraries/OpenUDID/QOpenUDID.h" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
+    <source-file src="src/ios/ExternalLibraries/OpenUDID/QOpenUDID.m" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
 
     <header-file src="src/ios/Network/Model/Request/PingRequest.h" target-dir="QCordovaPlugin/Network/Model/Request"/>
     <source-file src="src/ios/Network/Model/Request/PingRequest.m" target-dir="QCordovaPlugin/Network/Model/Request"/>
