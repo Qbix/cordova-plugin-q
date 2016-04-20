@@ -93,7 +93,7 @@ static Q *instance = nil;
         
         // add another files
         NSString *pathToCordovaPlugins = [NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"plugins"];
-        [filesToInject addObjectsFromArray:[FileSystemHelper recursivePathsForResourcesOfType:@"js" inDirectory:pathToCordovaPlugins]];
+        [filesToInject addObjectsFromArray:[QFileSystemHelper recursivePathsForResourcesOfType:@"js" inDirectory:pathToCordovaPlugins]];
         
         [sharedCache setListOfJsInjects:filesToInject];
     }

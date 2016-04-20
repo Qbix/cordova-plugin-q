@@ -83,8 +83,8 @@
     <header-file src="src/ios/Network/QbixApi.h" target-dir="QCordovaPlugin/Network"/>
     <source-file src="src/ios/Network/QbixApi.m" target-dir="QCordovaPlugin/Network"/>
 
-    <header-file src="src/ios/Utils/FileSystem/FileSystemHelper.h" target-dir="QCordovaPlugin/Utils/FileSystem"/>
-    <source-file src="src/ios/Utils/FileSystem/FileSystemHelper.m" target-dir="QCordovaPlugin/Utils/FileSystem"/>
+    <header-file src="src/ios/Utils/FileSystem/QFileSystemHelper.h" target-dir="QCordovaPlugin/Utils/FileSystem"/>
+    <source-file src="src/ios/Utils/FileSystem/QFileSystemHelper.m" target-dir="QCordovaPlugin/Utils/FileSystem"/>
     <header-file src="src/ios/Utils/QJsonModel/QJSONModel.h" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
     <source-file src="src/ios/Utils/QJsonModel/QJSONModel.m" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
 

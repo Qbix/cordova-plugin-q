@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FileSystemHelper : NSObject
+@interface QFileSystemHelper : NSObject
 +(NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath;
 @end

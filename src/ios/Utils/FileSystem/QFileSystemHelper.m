@@ -6,9 +6,9 @@
 //
 //
 
-#import "FileSystemHelper.h"
+#import "QFileSystemHelper.h"
 
-@implementation FileSystemHelper
+@implementation QFileSystemHelper
 
 + (NSArray *)recursivePathsForResourcesOfType:(NSString *)type inDirectory:(NSString *)directoryPath {
     
