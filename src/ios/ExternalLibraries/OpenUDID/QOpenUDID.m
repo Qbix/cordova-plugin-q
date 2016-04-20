@@ -234,7 +234,7 @@ static int const kOpenUDIDRedundancySlots = 100;
             // this is the case where this app instance is likely to be the first one to use OpenUDID on this device
             // we create the OpenUDID, legacy or semi-random (i.e. most certainly unique)
             //
-            openUDID = [OpenUDID _getOpenUDID];
+            openUDID = [QOpenUDID _getOpenUDID];
         } else {
             // or we leverage the OpenUDID shared by other apps that have already gone through the process
             //
