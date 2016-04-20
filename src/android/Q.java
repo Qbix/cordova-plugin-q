@@ -81,9 +81,6 @@ public class Q {
 
 
     private void initialize() {
-
-        this.getActivity().loadUrl(prepeareQGroupsController());
-
         initSharedCache();
 
         if(!QConfig.getInstance(this.getContext()).getUserAgentSuffix().isEmpty()) {
@@ -93,6 +90,10 @@ public class Q {
         }
 
         sendPingRequest();
+    }
+
+    public void showQWebView() {
+        this.getActivity().loadUrl(prepeareQGroupsController());
     }
 
     private void sendPingRequest() {

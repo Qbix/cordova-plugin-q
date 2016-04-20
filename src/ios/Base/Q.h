@@ -23,6 +23,7 @@
 +(Q*) getInstance;
 
 //-(void) initPlugin:(CDVAppDelegate*) appDelegate;
+-(void) showQWebView;
 -(void) initSharedCache;
 -(CordovaWebViewURLCache*) prepeareCordovaWebViewUrlCacheMemory:(int) cache_size_memory andDisk:(int) cache_size_disk;
 -(QWebViewController*) prepeareQGroupsController;

@@ -49,12 +49,14 @@ static Q *instance = nil;
 -(void) initialize {
     [self initSharedCache];
     
-    self.appDelegate.viewController = [self prepeareQGroupsController];
-
     self.appDelegate.viewController.baseUserAgent = [NSString stringWithFormat:@"%@ %@",self.appDelegate.viewController.baseUserAgent, [[[QConfig alloc] init] userAgentSuffix] ];
     
     [self sendPingRequest];
     
+}
+
+-(void) showQWebView {
+    self.appDelegate.viewController = [self prepeareQGroupsController];
 }
 
 -(void) initializeTest {
