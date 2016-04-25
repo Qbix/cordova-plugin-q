@@ -146,7 +146,7 @@
     return [self getValueFromStorage:CACHEBASEURL_FLAG];
 }
 
-#define INJECTCORDOVASCRIPTS_FLAG @"remoteMode"
+#define INJECTCORDOVASCRIPTS_FLAG @"injectCordovaScripts"
 -(void)setInjectCordovaScripts:(BOOL)value {
     [self saveValueToStorage:[NSNumber numberWithBool:value] forKey:INJECTCORDOVASCRIPTS_FLAG];
 }
