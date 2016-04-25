@@ -74,6 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewDidFinishLoad:) name:CDVPageDidLoadNotification object:nil];
     // Do any additional setup after loading the view from its nib.
     ((UIWebView*)self.webView).delegate = self;
 }
@@ -81,6 +82,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -140,21 +142,22 @@
     theWebView.backgroundColor = [UIColor blackColor];
     
     if([conf injectCordovaScripts]) {
-        NSString *pathToCordovaJS = [NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova.js"];
-        theWebView = [self injectJavascript:pathToCordovaJS toWebView:theWebView];
+        [webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');script.src='www/cordova.js';document.head.appendChild(script)"];
+        // NSString *pathToCordovaJS = [NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova.js"];
+        // theWebView = [self injectJavascript:pathToCordovaJS toWebView:theWebView];
     }
     
 //    ((UIWebView*)self.webView) 
 //    return [super webViewDidFinishLoad:theWebView];
 }
 
-- (UIWebView*)injectJavascript:(NSString *)jsPath toWebView:(UIWebView*) webView {
-    NSString *js = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:NULL];
+// - (UIWebView*)injectJavascript:(NSString *)jsPath toWebView:(UIWebView*) webView {
+//     NSString *js = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:NULL];
     
-    [webView stringByEvaluatingJavaScriptFromString:js];
+//     [webView stringByEvaluatingJavaScriptFromString:js];
     
-    return webView;
-}
+//     return webView;
+// }
 
 @end
 

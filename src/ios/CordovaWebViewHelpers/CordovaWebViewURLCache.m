@@ -73,15 +73,25 @@
         return nil;
     }
     
-    NSString *fileName = [[fileToSearch componentsSeparatedByString:@"/"] lastObject];
+    NSString *fileName = [self getFilenameWithFolder:fileToSearch];
     
     for (NSString* file in listOfJsInjects) {
-        if([[[file componentsSeparatedByString:@"/"] lastObject] isEqualToString:fileName]) {
+        if([[self getFilenameWithFolder:file] isEqualToString:fileName]) {
             return file;
         }
     }
     
     return nil;
+}
+
+
+-(NSString*) getFilenameWithFolder:(NSString*) path {
+    NSArray * array = [path componentsSeparatedByString:@"/"];
+    NSUInteger size = [array count];
+    NSString *folder = [array objectAtIndex:size-2];
+    NSString *file = [array objectAtIndex:size-1];
+    
+    return [NSString stringWithFormat:@"%@/%@", folder, file ];
 }
 
 @end

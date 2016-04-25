@@ -92,6 +92,8 @@ static Q *instance = nil;
     if([conf injectCordovaScripts]) {
         NSMutableArray *filesToInject = [NSMutableArray array];
         
+        // add cordova.js file 
+        [filesToInject addObject:[NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova.js"]];
         // add cordova_plugins.js files with all plugins
         [filesToInject addObject:[NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova_plugins.js"]];
         
