@@ -25,6 +25,8 @@
                               @"js",
                               @"text/css",
                               @"css",
+                              @"text/html",
+                              @"html",
                               nil];
     
     return [mimeDict objectForKey:[file pathExtension]];
@@ -71,6 +73,14 @@
 -(NSString*) isFileInListOfInjects:(NSString*) fileToSearch {
     if(listOfJsInjects == nil || fileToSearch == nil) {
         return nil;
+    }
+    
+    if([[[fileToSearch componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"cordova.js"]) {
+        return [listOfJsInjects objectAtIndex:0];
+    }
+    
+    if([[[fileToSearch componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"cordova_plugins.js"]) {
+        return [listOfJsInjects objectAtIndex:1];
     }
     
     NSString *fileName = [self getFilenameWithFolder:fileToSearch];

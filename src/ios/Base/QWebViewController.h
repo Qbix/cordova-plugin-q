@@ -28,8 +28,9 @@
 #import <Cordova/CDVViewController.h>
 #import <Cordova/CDVCommandDelegateImpl.h>
 #import <Cordova/CDVCommandQueue.h>
+#import "QConfig.h"
 
-@interface QWebViewController : CDVViewController<UIWebViewDelegate>
+@interface QWebViewController : CDVViewController
 - (id)initWithUrl:(NSString*) url andParameters:(NSDictionary*) dict;
 @end
 
