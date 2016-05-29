@@ -7,7 +7,6 @@
 	  "bundleTimestamp":1457567385,
 	  "enableLoadBundleCache":false,
 	  "pingUrl":"http://groups.qbix.com/iphone/daily/",
-	  "isAcceptPingResponse":false,
 	  "url":"http://encompasstest.com/Shipping/",
 	  "baseUrl":"http://encompasstest.com/Shipping/",
 	  "openUrlScheme":"qcordova",
