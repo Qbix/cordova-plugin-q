@@ -151,7 +151,8 @@ public class QbixWebViewClient extends SystemWebViewClient {
         String fileName = getFileNameFromPath(fileToSearch);
 
         for(String file: listOfJsInjects) {
-            if(fileName.equalsIgnoreCase(getFileNameFromPath(file))) {
+            if(fileName.equalsIgnoreCase(getFileNameFromPath(file))
+                    && fileToSearch.contains(file)) {
                 return file;
             }
         }
