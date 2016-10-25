@@ -2,10 +2,10 @@
   "Q": {
 	"cordova": {
 	  "cacheBaseUrl":"groups-cache",
-	  "pathToBundle":"www/Shipping",
-	  "injectCordovaScripts":false,
+	  "pathToBundle":"www/Bundle",
+	  "injectCordovaScripts":true,
 	  "bundleTimestamp":1457567385,
-	  "enableLoadBundleCache":false,
+	  "enableLoadBundleCache":true,
 	  "pingUrl":"http://groups.qbix.com/iphone/daily/",
 	  "url":"http://encompasstest.com/Shipping/",
 	  "baseUrl":"http://encompasstest.com/Shipping/",
