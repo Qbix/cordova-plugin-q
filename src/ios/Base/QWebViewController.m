@@ -143,7 +143,7 @@
 //    theWebView.backgroundColor = [UIColor blackColor];
     
     if([conf injectCordovaScripts] && ![self isCordovaJS:self.webView]) {
-        [self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');script.src='www/cordova.js';document.head.appendChild(script)"];
+        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');script.src='www/cordova.js';document.head.appendChild(script)"];
         
         // NSString *pathToCordovaJS = [NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova.js"];
         // theWebView = [self injectJavascript:pathToCordovaJS toWebView:theWebView];
