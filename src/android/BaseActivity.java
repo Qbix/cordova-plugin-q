@@ -32,13 +32,12 @@ public class BaseActivity extends CordovaActivity {
     }
 
     protected void initSharedCache()  {
-        if(Config.getInstance(this).getRemoteMode()) {
             QbixWebViewClient qbixWebViewClient = new QbixWebViewClient(getSystemWebEngine());
-            qbixWebViewClient.setIsReturnCahceFilesFromBundle(Config.getInstance(this).getEnableLoadBundleCache());
-            qbixWebViewClient.setPathToBundle(Config.getInstance(this).getPathToBundle());
-            qbixWebViewClient.setRemoteCacheId(Config.getInstance(this).getRemoteCacheId());
+            qbixWebViewClient.setIsReturnCahceFilesFromBundle(QConfig.getInstance(this).getEnableLoadBundleCache());
+            qbixWebViewClient.setPathToBundle(QConfig.getInstance(this).getPathToBundle());
+            qbixWebViewClient.setRemoteCacheId(QConfig.getInstance(this).getRemoteCacheId());
 
-            if(Config.getInstance(this).getInjectCordovaScripts()) {
+            if(QConfig.getInstance(this).getInjectCordovaScripts()) {
                 ArrayList<String> filesToInject = new ArrayList<String>();
                 filesToInject.add("www/cordova_plugins.js");
 
@@ -55,11 +54,10 @@ public class BaseActivity extends CordovaActivity {
             }
 
             ((WebView) getSystemWebEngine().getView()).setWebViewClient(qbixWebViewClient);
-        }
     }
 
     public String prepeareQGroupsController() {
-        String remoteUrl = Config.getInstance(this).getLoadUrl();
+        String remoteUrl = QConfig.getInstance(this).getUrl();
 
         Map<String, String> additionalParams = getAdditionalParamsForUrl();
         if(additionalParams == null)
@@ -89,8 +87,8 @@ public class BaseActivity extends CordovaActivity {
         params.put("Q.udid", "TestUdid");
 
         params.put("Q.cordova", CordovaWebView.CORDOVA_VERSION);
-        if(Config.getInstance(this).getEnableLoadBundleCache()) {
-            params.put("Q.ct", String.valueOf(Config.getInstance(this).getBundleTimestamp()));
+        if(QConfig.getInstance(this).getEnableLoadBundleCache()) {
+            params.put("Q.ct", String.valueOf(QConfig.getInstance(this).getBundleTimestamp()));
         }
 
         return params;
