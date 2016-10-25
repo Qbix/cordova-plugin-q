@@ -207,6 +207,7 @@ public class Q {
 
             if(QConfig.getInstance(getActivity()).getInjectCordovaScripts()) {
                 ArrayList<String> filesToInject = new ArrayList<String>();
+                filesToInject.add("www/cordova.js");
                 filesToInject.add("www/cordova_plugins.js");
 
                 FileSystemHelper fileSystemHelper = new FileSystemHelper();

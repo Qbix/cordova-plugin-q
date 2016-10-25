@@ -174,6 +174,18 @@ public class QbixWebViewClient extends SystemWebViewClient {
 
         return filePathTemp;
     }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        String injectJS = "var script = document.createElement('script');script.src='www/cordova.js';document.head.appendChild(script)";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            view.evaluateJavascript(injectJS, null);
+        } else {
+            view.loadUrl(injectJS);
+        }
+
+        super.onPageFinished(view, url);
+    }
 }
 
 
