@@ -1,5 +1,6 @@
 package com.q.cordova.plugin;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,13 +12,15 @@ import android.webkit.WebView;
 import com.q.cordova.plugin.network.NetworkApi;
 import com.q.cordova.plugin.network.NetworkService;
 import com.q.cordova.plugin.network.models.PingResponse;
-import com.qbix.cordovaapp.MainActivity;
 
+import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.engine.SystemWebViewEngine;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,14 +36,14 @@ public class Q {
 
     private static Q instance;
 
-    public MainActivity getActivity() {
+    public CordovaActivity getActivity() {
         return activity;
     }
 
-    public void setActivity(MainActivity activity) {
+    public void setActivity(CordovaActivity activity) {
         this.activity = activity;
     }
-    private MainActivity activity;
+    private CordovaActivity activity;
 
     public Context getContext() {
         return context;
@@ -52,7 +55,7 @@ public class Q {
 
     private Context context;
 
-    public static Q initWith(MainActivity activity) {
+    public static Q initWith(CordovaActivity activity) {
         if(instance == null) {
             instance = new Q();
         }
