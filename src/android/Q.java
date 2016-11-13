@@ -63,7 +63,7 @@ public class Q {
         instance.setActivity(activity);
         instance.initialize();
 
-        if(activity.getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
+        if(activity.getIntent().getAction()!=null && activity.getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
             if(activity.getIntent().getData()!=null) {
                 instance.handleOpenUrl(activity.getIntent().getData());
             }
@@ -96,7 +96,11 @@ public class Q {
     }
 
     public void showQWebView() {
-        this.getActivity().loadUrl(prepeareQGroupsController());
+        this.getActivity().loadUrl(prepeareQGroupsController(null));
+    }
+
+    public void showQTestWebView(String url) {
+        this.getActivity().loadUrl(prepeareQGroupsController(url));
     }
 
     private void sendPingRequest() {
@@ -225,8 +229,9 @@ public class Q {
             ((WebView) getSystemWebEngine().getView()).setWebViewClient(qbixWebViewClient);
     }
 
-    public String prepeareQGroupsController() {
-        String remoteUrl = QConfig.getInstance(getActivity()).getUrl();
+    public String prepeareQGroupsController(String remoteUrl) {
+        if(remoteUrl == null)
+            remoteUrl = QConfig.getInstance(getActivity()).getUrl();
 
         Map<String, String> additionalParams = getAdditionalParamsForUrl();
         if(additionalParams == null)
