@@ -52,7 +52,7 @@
     <source-file src="src/android/network/NetworkService.java" target-dir="src/com/q/cordova/plugin/network"/>
     <source-file src="src/android/network/models/PingResponse.java" target-dir="src/com/q/cordova/plugin/network/models/"/>
 
-    <source-file src="src/android/multi_test_chooser_activity.xml" target-dir="res/layout/multi_test_chooser_activity.xml"/>
+    <source-file src="src/android/multi_test_chooser_activity.xml" target-dir="res/layout/"/>
 
     <framework src="com.squareup.retrofit2:retrofit:2.0.0" />
     <framework src="com.squareup.retrofit2:converter-gson:2.0.0" />
