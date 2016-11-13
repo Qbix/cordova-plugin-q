@@ -37,6 +37,9 @@
               <data android:scheme="$URL_SCHEME" />
           </intent-filter>
     </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:name="com.q.cordova.plugin.MultiTestChooserActivity" />
+    </config-file>
 
     <source-file src="src/android/Q.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QCordova.java" target-dir="src/com/q/cordova/plugin/"/>
@@ -44,9 +47,12 @@
     <source-file src="src/android/FileSystemHelper.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QbixWebViewClient.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/BaseActivity.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/MultiTestChooserActivity.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/network/NetworkApi.java" target-dir="src/com/q/cordova/plugin/network"/>
     <source-file src="src/android/network/NetworkService.java" target-dir="src/com/q/cordova/plugin/network"/>
     <source-file src="src/android/network/models/PingResponse.java" target-dir="src/com/q/cordova/plugin/network/models/"/>
+
+    <source-file src="src/android/multi_test_chooser_activity.xml" target-dir="res/layout/multi_test_chooser_activity.xml"/>
 
     <framework src="com.squareup.retrofit2:retrofit:2.0.0" />
     <framework src="com.squareup.retrofit2:converter-gson:2.0.0" />
