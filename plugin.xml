@@ -96,6 +96,8 @@
     <source-file src="src/ios/TestQ/MultiTestBaseViewController.m" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
     <header-file src="src/ios/TestQ/MultiTestChooserViewController.h" target-dir="QCordovaPlugin/TestQ/MultiTestChooserViewController"/>
     <source-file src="src/ios/TestQ/MultiTestChooserViewController.m" target-dir="QCordovaPlugin/TestQ/MultiTestChooserViewController"/>
+    <header-file src="src/ios/TestQ/MultiTestUINavigationController.h" target-dir="QCordovaPlugin/TestQ/MultiTestUINavigationController"/>
+    <source-file src="src/ios/TestQ/MultiTestUINavigationController.m" target-dir="QCordovaPlugin/TestQ/MultiTestUINavigationController"/>
 
     <resource-file src="src/ios/TestQ/QTestStoryboard.storyboard" />
     
