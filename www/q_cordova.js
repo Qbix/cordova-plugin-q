@@ -25,7 +25,7 @@ module.exports = {
         });
     },
     schema: function(successCallback, errorCallback) {
-    	readQConfigValue("openUrlScheme", successCallback, errorCallback);
+    	this.readQConfigValue("openUrlScheme", successCallback, errorCallback);
     },
     readQConfigValue: function(key, successCallback, errorCallback) {
 		cordova.exec(successCallback, errorCallback, "QCordova", "readQConfigValue", [key]);
