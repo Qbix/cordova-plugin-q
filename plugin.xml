@@ -25,8 +25,9 @@
 
 
   <platform name="android">
-    <preference name="AndroidLaunchMode" value="singleInstance"/>
+
     <config-file target="res/xml/config.xml" parent="/*">
+      <preference name="AndroidLaunchMode" value="singleInstance"/>
       <feature name="QCordova">
         <param name="android-package" value="com.q.cordova.plugin.QCordova"/>
       </feature>
