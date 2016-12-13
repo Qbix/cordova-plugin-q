@@ -30,6 +30,17 @@ import com.q.cordova.R;
 
 public class MultiTestChooserActivity extends Activity {
     public final static String QTESTURL = "QTESTURL";
+    public final static int REQUEST_CODE = 12345;
+
+    private static String loadUrl;
+
+    public static void setLoadUrl(String loadUrl) {
+        MultiTestChooserActivity.loadUrl = loadUrl;
+    }
+
+    public static String getLoadUrl() {
+        return loadUrl;
+    }
 
     EditText inputEditText;
     ListView urlHistoryListView;
@@ -86,8 +97,11 @@ public class MultiTestChooserActivity extends Activity {
     }
 
     private void loadQCordovaApp(String url) {
-        startActivity((new Intent(this, MainActivity.class)).putExtra(QTESTURL, url));
+        //startActivity((new Intent(this, MainActivity.class)).putExtra(QTESTURL, url));
         addNewBookmark(url);
+        MultiTestChooserActivity.setLoadUrl(url);
+        setResult(RESULT_OK);
+        finish();
     }
 
     private URL getNSURLFromString(String rawUrl) {

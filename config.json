@@ -5,7 +5,7 @@
 	  "pathToBundle":"www/Bundle",
 	  "injectCordovaScripts":true,
 	  "bundleTimestamp":1457567385,
-	  "enableLoadBundleCache":true,
+	  "enableLoadBundleCache":false,
 	  "pingUrl":"http://groups.qbix.com/iphone/daily/",
 	  "url":"http://encompasstest.com/Shipping/",
 	  "baseUrl":"http://encompasstest.com/Shipping/",

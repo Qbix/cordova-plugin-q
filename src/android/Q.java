@@ -55,6 +55,16 @@ public class Q {
 
     private Context context;
 
+    public Boolean getTestMode() {
+        return testMode;
+    }
+
+    private Boolean testMode;
+
+    public void setTestMode(Boolean testMode) {
+        this.testMode = testMode;
+    }
+
     public static Q initWith(CordovaActivity activity) {
         if(instance == null) {
             instance = new Q();
@@ -85,14 +95,23 @@ public class Q {
 
     private void initialize() {
         initSharedCache();
+        setTestMode(false);
 
         if(!QConfig.getInstance(this.getContext()).getUserAgentSuffix().isEmpty()) {
-            CordovaWebView cordovaWebView = getSystemWebEngine();
-            WebSettings settings = ((WebView)cordovaWebView.getEngine().getView()).getSettings();
+            WebSettings settings = getSystemWebSettings();
             settings.setUserAgentString(TextUtils.concat(settings.getUserAgentString(), "", QConfig.getInstance(getContext()).getUserAgentSuffix()).toString());
         }
 
         sendPingRequest();
+    }
+
+    public void onResume() {
+        if(getTestMode()) {
+            WebSettings settings = getSystemWebSettings();
+
+            settings.setAppCacheEnabled(false);
+            settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        }
     }
 
     public void showQWebView() {
@@ -100,6 +119,7 @@ public class Q {
     }
 
     public void showQTestWebView(String url) {
+        setTestMode(true);
         this.getActivity().loadUrl(prepeareQGroupsController(url));
     }
 
@@ -164,6 +184,11 @@ public class Q {
         }
 
         throw new RuntimeException("Can't find lauchUrl in CordovaActivity");
+    }
+
+    private WebSettings getSystemWebSettings() {
+        CordovaWebView cordovaWebView = getSystemWebEngine();
+        return ((WebView)cordovaWebView.getEngine().getView()).getSettings();
     }
 
     // get protected field "appView" of CordovaActivity class using reflection

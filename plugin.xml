@@ -34,6 +34,7 @@
     </config-file>
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+      <activity android:launchMode="singleInstance"/>
           <!-- <intent-filter>
               <action android:name="android.intent.action.VIEW" />
               <category android:name="android.intent.category.DEFAULT" />
