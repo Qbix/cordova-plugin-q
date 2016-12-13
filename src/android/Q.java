@@ -63,11 +63,11 @@ public class Q {
         instance.setActivity(activity);
         instance.initialize();
 
-        if(activity.getIntent().getAction()!=null && activity.getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
-            if(activity.getIntent().getData()!=null) {
-                instance.handleOpenUrl(activity.getIntent().getData());
-            }
-        }
+        // if(activity.getIntent().getAction()!=null && activity.getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
+        //     if(activity.getIntent().getData()!=null) {
+        //         instance.handleOpenUrl(activity.getIntent().getData());
+        //     }
+        // }
 
 
         return instance;
@@ -122,26 +122,26 @@ public class Q {
         });
     }
 
-    private void handleOpenUrl(Uri data) {
-        QConfig config = QConfig.getInstance(getContext());
-        if(config.getOpenUrlScheme().equalsIgnoreCase(data.getScheme())) {
+    // private void handleOpenUrl(Uri data) {
+    //     QConfig config = QConfig.getInstance(getContext());
+    //     if(config.getOpenUrlScheme().equalsIgnoreCase(data.getScheme())) {
 
-            String customParams = "";
-            Map<String, String> additionalParams = getAdditionalParamsForUrl();
-            for (Map.Entry<String,String> entry : additionalParams.entrySet()) {
-                customParams += (entry.getKey()+"="+entry.getValue()+"&");
-            }
+    //         String customParams = "";
+    //         Map<String, String> additionalParams = getAdditionalParamsForUrl();
+    //         for (Map.Entry<String,String> entry : additionalParams.entrySet()) {
+    //             customParams += (entry.getKey()+"="+entry.getValue()+"&");
+    //         }
 
-            String urlStr = String.format("%s%s?%s%s#%s", config.getBaseUrl(), data.getPath(), customParams, data.getQuery(), data.getFragment());
+    //         String urlStr = String.format("%s%s?%s%s#%s", config.getBaseUrl(), data.getPath(), customParams, data.getQuery(), data.getFragment());
 
-            String fragment = data.getFragment();
-            if(fragment.equalsIgnoreCase("newWindow")) {
-                //Open in additional webview
-            } else {
-                //Open in main webview
-            }
-        }
-    }
+    //         String fragment = data.getFragment();
+    //         if(fragment.equalsIgnoreCase("newWindow")) {
+    //             //Open in additional webview
+    //         } else {
+    //             //Open in main webview
+    //         }
+    //     }
+    // }
 
 
     // get protected field "launchUrl" of CordovaActivity class using reflection
