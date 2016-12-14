@@ -184,7 +184,7 @@ public class QbixWebViewClient extends SystemWebViewClient {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             view.evaluateJavascript(injectJS, null);
         } else {
-            view.loadUrl(injectJS);
+            view.loadUrl("javascript:"+injectJS);
         }
 
         super.onPageFinished(view, url);

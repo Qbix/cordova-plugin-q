@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.q.cordova.MainActivity;
 import com.q.cordova.R;
 
 /**
@@ -99,7 +100,8 @@ public class MultiTestChooserActivity extends Activity {
         //startActivity((new Intent(this, MainActivity.class)).putExtra(QTESTURL, url));
         addNewBookmark(url);
         MultiTestChooserActivity.setLoadUrl(url);
-        setResult(RESULT_OK);
+        //setResult(RESULT_OK);
+        startActivity((new Intent(this, MainActivity.class)).putExtra(QTESTURL, url));
         finish();
     }
 
