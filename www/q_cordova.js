@@ -28,6 +28,12 @@ module.exports = {
     	this.readQConfigValue("openUrlScheme", successCallback, errorCallback);
     },
     readQConfigValue: function(key, successCallback, errorCallback) {
-		cordova.exec(successCallback, errorCallback, "QCordova", "readQConfigValue", [key]);
+		  cordova.exec(successCallback, errorCallback, "QCordova", "readQConfigValue", [key]);
+    },
+    chooseLink: function(initialUrl, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "QCordova", "chooseLink", [initialUrl]);
+    },
+    chooseImage(initialUrl, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "QCordova", "chooseImage", [initialUrl]);
     }
 };

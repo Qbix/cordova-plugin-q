@@ -38,6 +38,7 @@
     
     // Get the path for the request
     NSString *pathString = [requestUrl relativePath];
+    NSLog(@"%@", [requestUrl absoluteString]);
     NSString *filePath = nil;
     
     NSString* host = [requestUrl host];
@@ -82,7 +83,7 @@
     if([[[fileToSearch componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"cordova_plugins.js"]) {
         return [listOfJsInjects objectAtIndex:1];
     }
-    
+      
     NSString *fileName = [self getFilenameWithFolder:fileToSearch];
     
     for (NSString* file in listOfJsInjects) {

@@ -113,6 +113,10 @@ static Q *instance = nil;
     return [[QWebViewController alloc] initWithUrl:[conf url] andParameters:[self getAdditionalParamsForUrl]];
 }
 
+- (QWebViewController*) prepeareQWebViewControllerWith:(NSString*) url {
+    return [[QWebViewController alloc] initWithUrl:url andParameters:[self getAdditionalParamsForUrl]];
+}
+
 -(NSDictionary*) getAdditionalParamsForUrl {
     QConfig *conf = [[QConfig alloc] init];
     NSDictionary *paramsLoadUrl = nil;

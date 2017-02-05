@@ -31,7 +31,11 @@
 #import "QConfig.h"
 
 @interface QWebViewController : CDVViewController
+- (id)initWithFrame:(CGRect)frame andUrl:(NSString*) url andParameters:(NSDictionary*) dict;
 - (id)initWithUrl:(NSString*) url andParameters:(NSDictionary*) dict;
+- (void) invokeJSCode:(NSString*) jsCode;
+- (NSString*) getUrl:(NSString*) mainUrl withParams:(NSDictionary*) params;
+- (void) loadUrl:(NSString*) url;
 @end
 
 @interface QCommandDelegate : CDVCommandDelegateImpl

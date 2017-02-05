@@ -83,6 +83,15 @@
     <header-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.h" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
     <source-file src="src/ios/CordovaWebViewHelpers/CordovaWebViewURLCache.m" target-dir="QCordovaPlugin/CordovaWebViewHelpers"/>
 
+    <header-file src="src/ios/CustomViewControllers/QChooseLinkDelegate.h" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <header-file src="src/ios/CustomViewControllers/QBaseChooseDataViewController.h" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <source-file src="src/ios/CustomViewControllers/QBaseChooseDataViewController.m" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <header-file src="src/ios/CustomViewControllers/QChooseImageViewController.h" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <source-file src="src/ios/CustomViewControllers/QChooseImageViewController.m" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <header-file src="src/ios/CustomViewControllers/QChooseLinkViewController.h" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <source-file src="src/ios/CustomViewControllers/QChooseLinkViewController.m" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <resource-file src="src/ios/CustomViewControllers/QCustomVCStoryboard.storyboard" />
+
     <header-file src="src/ios/ExternalLibraries/OpenUDID/QOpenUDID.h" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
     <source-file src="src/ios/ExternalLibraries/OpenUDID/QOpenUDID.m" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
 

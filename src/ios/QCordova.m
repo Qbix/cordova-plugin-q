@@ -1,4 +1,7 @@
 #import "QCordova.h"
+#import "QChooseLinkViewController.h"
+#import "QChooseImageViewController.h"
+
 
 @implementation QCordova
 
@@ -33,6 +36,58 @@
                                messageAsString:msg];
 
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
+- (void)chooseLink:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* initUrl = [[command arguments] objectAtIndex:0];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"QCustomVCStoryboard" bundle:nil];
+    UINavigationController *qChooseLinkNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"QChooseLinkViewControllerNavigation"];
+    
+    [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setInitUrl:initUrl];
+    [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setDelegate:self];
+    [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setCallbackId:callbackId];
+    
+    [self.viewController showModalController:qChooseLinkNavigationController];
+    
+    CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
+    [result setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
+- (void)chooseImage:(CDVInvokedUrlCommand*)command
+{
+    NSString* callbackId = [command callbackId];
+    NSString* initUrl = [[command arguments] objectAtIndex:0];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"QCustomVCStoryboard" bundle:nil];
+    UINavigationController *qChooseImageNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"QChooseImageViewControllerNavigation"];
+    
+    [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setInitUrl:initUrl];
+    [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setDelegate:self];
+    [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setCallbackId:callbackId];
+    
+    [self.viewController showModalController:qChooseImageNavigationController];
+    
+    CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
+    [result setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
+-(void) cancelChooseLink:(NSString*) callbackId {
+    if(callbackId != nil) {
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Cancel"];
+        [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    }
+}
+
+-(void) chooseLink:(NSString*) url withCallback:(NSString*) callbackId {
+    if(callbackId != nil) {
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:url];
+        [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    }
 }
 
 @end

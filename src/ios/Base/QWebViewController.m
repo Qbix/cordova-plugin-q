@@ -103,6 +103,18 @@
 }
 */
 
+-(UIWebView*) getWebView {
+    return (UIWebView*)self.webView;
+}
+
+-(void) invokeJSCode:(NSString*) jsCode {
+    if( self.webView != nil)
+        [[super webViewEngine] evaluateJavaScript:jsCode completionHandler:^(id data, NSError *error) {
+            NSLog(@"Invoke JS");
+        }];
+    //[self.webView stringByEvaluatingJavaScriptFromString:jsCode];
+}
+
 - (id)initWithUrl:(NSString*) url andParameters:(NSDictionary*) dict
 {
     self = [super init];
@@ -110,6 +122,13 @@
         [self setStartPage:[self getUrl:url withParams:dict]];
     }
     return self;
+}
+
+- (void) loadUrl:(NSString*) url {
+    [self setStartPage:url];
+    if( [self getWebView] != nil) {
+        [[self getWebView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    }
 }
 
 -(NSString*) getUrl:(NSString*) mainUrl withParams:(NSDictionary*) params
@@ -138,17 +157,20 @@
 
 - (void)webViewDidFinishLoad:(UIWebView*)theWebView
 {
+    NSLog(@"catch webViewDidFinishLoad");
     QConfig *conf = [[QConfig alloc] init];
     // Black base color for background matches the native apps
 //    theWebView.backgroundColor = [UIColor blackColor];
     
     if([conf injectCordovaScripts] && ![self isCordovaJS:self.webView]) {
-        [(UIWebView*)self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');script.src='www/cordova.js';document.head.appendChild(script)"];
+        [self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');script.src='www/cordova.js';document.head.appendChild(script)"];
+        //[self.webView stringByEvaluatingJavaScriptFromString:@"var script = document.createElement('script');script.src='cordova.js';document.head.appendChild(script)"];
         
         // NSString *pathToCordovaJS = [NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova.js"];
         // theWebView = [self injectJavascript:pathToCordovaJS toWebView:theWebView];
     }
-
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.addEventListener('deviceready', function(){console.log('load custom deviceready')}, false);"];
+    
 //    ((UIWebView*)self.webView) 
 //    return [super webViewDidFinishLoad:theWebView];
 }
