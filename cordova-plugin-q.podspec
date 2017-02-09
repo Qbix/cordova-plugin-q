@@ -8,5 +8,5 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => 'https://kvofreelance@bitbucket.org/qbixtemp/cordova-plugin-q.git', :tag => spec.version }
   spec.source_files = 'src/ios/*.{h,m}','src/ios/**/*{h,m}','src/ios/**/**/*{h,m}','src/ios/**/**/**/*{h,m}'
   spec.resources    = 'src/ios/**/*.{storyboard}'
-  spec.preserve_paths = www/*.js
+  spec.preserve_paths = 'www/*.js'
 end
