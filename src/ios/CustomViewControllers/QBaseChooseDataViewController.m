@@ -33,7 +33,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"QWebViewSegue"]) {
         [self setQWebViewController:(QWebViewController*)segue.destinationViewController];
-        [self loadUrl:self.initUrl];
+        [self loadUrl:self.startUrl];
     }
 }
 
@@ -58,9 +58,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)dealloc {
-    [self.qWebViewController release];
-    [super dealloc];
-}
+//- (void)dealloc {
+//    [self.qWebViewController release];
+//    [super dealloc];
+//}
 
 @end

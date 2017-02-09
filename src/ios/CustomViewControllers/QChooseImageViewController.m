@@ -42,9 +42,9 @@
     }
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
+//- (void)dealloc {
+//    [super dealloc];
+//}
 - (IBAction)cancelAction:(id)sender {
     [super closeAction];
 }

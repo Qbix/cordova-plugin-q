@@ -14,6 +14,6 @@
 
 @interface MultiTestChooserViewController : MultiTestBaseViewController<UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *inputTextField;
+@property (strong, nonatomic) IBOutlet UITextField *inputTextField;
 
 @end

@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) id delegate;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

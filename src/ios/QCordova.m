@@ -45,11 +45,11 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"QCustomVCStoryboard" bundle:nil];
     UINavigationController *qChooseLinkNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"QChooseLinkViewControllerNavigation"];
     
-    [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setInitUrl:initUrl];
+    [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setStartUrl:initUrl];
     [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setDelegate:self];
     [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setCallbackId:callbackId];
     
-    [self.viewController showModalController:qChooseLinkNavigationController];
+    [self.viewController presentModalViewController:qChooseLinkNavigationController animated:NO];
     
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
     [result setKeepCallbackAsBool:YES];
@@ -64,11 +64,11 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"QCustomVCStoryboard" bundle:nil];
     UINavigationController *qChooseImageNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"QChooseImageViewControllerNavigation"];
     
-    [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setInitUrl:initUrl];
+    [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setStartUrl:initUrl];
     [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setDelegate:self];
     [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setCallbackId:callbackId];
     
-    [self.viewController showModalController:qChooseImageNavigationController];
+    [self.viewController presentModalViewController:qChooseImageNavigationController animated:NO];
     
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
     [result setKeepCallbackAsBool:YES];

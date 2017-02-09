@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.urlEditText setText:self.initUrl];
+    [self.urlEditText setText:self.startUrl];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,11 +32,11 @@
     [super prepareForSegue:segue sender:sender];
 }
 
-- (void)dealloc {
-    [_urlEditText release];
-    [_chooseBtn release];
-    [super dealloc];
-}
+//- (void)dealloc {
+//    [_urlEditText release];
+//    [_chooseBtn release];
+//    [super dealloc];
+//}
 - (IBAction)closeAction:(id)sender {
     [super closeAction];
 }
