@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.urlEditText setText:self.startUrl];
-    [self setInjectedJavascriptCode:@"(function () {console.log(location.href); for (var k in window.history) {if (typeof window.history[k]  === 'function') {var a = window.history[k];window.history[k] = function () { var r = a.apply(this, arguments); _updateUrl(); return r; }}}function _updateUrl() {console.log(location.href);}})();"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,6 +30,7 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self setInjectedJavascriptCode:@"(function () {console.log(location.href); for (var k in window.history) {if (typeof window.history[k]  === 'function') {var a = window.history[k];window.history[k] = function () { var r = a.apply(this, arguments); _updateUrl(); return r; }}}function _updateUrl() {console.log(location.href);}})();"];
     [super prepareForSegue:segue sender:sender];
 }
 

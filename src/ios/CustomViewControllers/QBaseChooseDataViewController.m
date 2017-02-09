@@ -40,6 +40,7 @@
 -(void) loadUrl:(NSString*) url {
     [self setCurrentUrl:url];
     [self.qWebViewController loadUrl:url];
+    [self.qWebViewController setInjectedJavascriptCode:self.injectedJavascriptCode];
 }
 
 -(void) closeAction {
