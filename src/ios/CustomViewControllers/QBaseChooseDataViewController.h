@@ -14,6 +14,7 @@
 @property(nonatomic,strong) id<QChooseLinkDelegate> delegate;
 @property(nonatomic,strong) NSString *callbackId;
 @property(nonatomic, strong) NSString *currentUrl;
+@property(nonatomic, strong) NSString *injectedJavascriptCode;
 
 -(void) loadUrl:(NSString*) url;
 

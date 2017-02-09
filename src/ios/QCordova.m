@@ -26,7 +26,6 @@
 
 - (void)hello:(CDVInvokedUrlCommand*)command
 {
-
     NSString* callbackId = [command callbackId];
     NSString* msg = @"Hello, from Q";
 

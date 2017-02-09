@@ -19,6 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(copyToClipboard:) name:UIPasteboardChangedNotification object:nil];
+    [self setInjectedJavascriptCode:@"(function () {setInterval(function () {var imgs = document.getElementsByTagName('img');for (var i=0, l=imgs.length; i<l; ++i) {var img = imgs[i];var found = null;var p = img;while (p = p.parentNode) {if (p.tagName && p.tagName.toUpperCase() === 'A') {found = p;break;}}if (found) {continue;}img.removeEventListener('click', _handleTouchStart);img.addEventListener('click', _handleTouchStart);}function _handleTouchStart(e) {var src = e.target.getAttribute('src');console.log('#Q.img.src=' + encodeURIComponent(src));}}, 300);})();"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -31,6 +31,8 @@
 #import "QConfig.h"
 
 @interface QWebViewController : CDVViewController
+@property(nonatomic, strong) NSString *injectedJavascriptCode;
+    
 - (id)initWithFrame:(CGRect)frame andUrl:(NSString*) url andParameters:(NSDictionary*) dict;
 - (id)initWithUrl:(NSString*) url andParameters:(NSDictionary*) dict;
 - (void) invokeJSCode:(NSString*) jsCode;
