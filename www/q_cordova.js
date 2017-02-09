@@ -1,7 +1,7 @@
 /*global cordova, module*/
 
 module.exports = {
-    hello: function(onSuccess, onError) {
+    hello: function(successCallback, errorCallback) {
       cordova.exec(successCallback, errorCallback, "QCordova", "hello", []);
     },
     openUrl: function(url, options, onSuccess, onError) {
