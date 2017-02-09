@@ -38,5 +38,11 @@ module.exports = {
     },
     chooseImage: function(initialUrl, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "QCordova", "chooseImage", [initialUrl]);
+    },
+    changeInnerUrlEvent: function(url, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "QCordova", "changeInnerUrlEvent", [url]);
+    },
+    chooseImageEvent: function(image, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "QCordova", "chooseImageEvent", [image]);
     }
 };

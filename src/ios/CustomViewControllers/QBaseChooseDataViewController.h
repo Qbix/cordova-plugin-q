@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "QChooseLinkDelegate.h"
 
-@interface QBaseChooseDataViewController : UIViewController
+@protocol QBaseChooseDataViewControllerDelegate <NSObject>
+-(void) changeUrl:(NSString*) newUrl;
+-(void) chooseImage:(NSString*) image;
+@end
+
+@interface QBaseChooseDataViewController : UIViewController<QBaseChooseDataViewControllerDelegate>
 @property(nonatomic,strong) NSString *startUrl;
 @property(nonatomic,strong) id<QChooseLinkDelegate> delegate;
 @property(nonatomic,strong) NSString *callbackId;

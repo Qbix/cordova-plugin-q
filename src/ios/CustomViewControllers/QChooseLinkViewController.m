@@ -30,7 +30,7 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self setInjectedJavascriptCode:@"(function () {console.log(location.href); for (var k in window.history) {if (typeof window.history[k]  === 'function') {var a = window.history[k];window.history[k] = function () { var r = a.apply(this, arguments); _updateUrl(); return r; }}}function _updateUrl() {console.log(location.href);}})();"];
+    [self setInjectedJavascriptCode:@"(function () {_updateUrl(); for (var k in window.history) {if (typeof window.history[k]  === 'function') {var a = window.history[k];window.history[k] = function () { var r = a.apply(this, arguments); _updateUrl(); return r; }}}function _updateUrl() {Q.Cordova.changeInnerUrlEvent(location.href, null, null);}})();"];
     [super prepareForSegue:segue sender:sender];
 }
 
@@ -44,7 +44,7 @@
 }
 
 - (IBAction)chooseAction:(id)sender {
-    [super chooseLink:self.currentUrl];
+    [super chooseLink:self.urlEditText.text];
     
 }
 - (IBAction)urlBeginEdit:(id)sender {
@@ -56,4 +56,9 @@
     if(![self.urlEditText.text isEqualToString:[super currentUrl]])
         [super loadUrl:self.urlEditText.text];
 }
+
+-(void) changeUrl:(NSString*) newUrl {
+    [self.urlEditText setText:newUrl];
+}
+    
 @end

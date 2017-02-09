@@ -32,7 +32,7 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self setInjectedJavascriptCode:@"(function () {setInterval(function () {var imgs = document.getElementsByTagName('img');for (var i=0, l=imgs.length; i<l; ++i) {var img = imgs[i];var found = null;var p = img;while (p = p.parentNode) {if (p.tagName && p.tagName.toUpperCase() === 'A') {found = p;break;}}if (found) {continue;}img.removeEventListener('click', _handleTouchStart);img.addEventListener('click', _handleTouchStart);}function _handleTouchStart(e) {var src = e.target.getAttribute('src');console.log('#Q.img.src=' + encodeURIComponent(src));}}, 300);})();"];
+    [self setInjectedJavascriptCode:@"(function () {setInterval(function () {var imgs = document.getElementsByTagName('img');for (var i=0, l=imgs.length; i<l; ++i) {var img = imgs[i];var found = null;var p = img;while (p = p.parentNode) {if (p.tagName && p.tagName.toUpperCase() === 'A') {found = p;break;}}if (found) {continue;}img.removeEventListener('click', _handleTouchStart);img.addEventListener('click', _handleTouchStart);}function _handleTouchStart(e) {var src = e.target.getAttribute('src');Q.Cordova.chooseImageEvent(encodeURIComponent(src), null, null);}}, 300);})();"];
     [super prepareForSegue:segue sender:sender];
 }
 
@@ -42,6 +42,10 @@
     if(clipboard != nil && clipboard.string != nil) {
         [super chooseLink:clipboard.string];
     }
+}
+    
+-(void) chooseImage:(NSString*) image {
+    [super chooseLink:image];
 }
 
 //- (void)dealloc {
