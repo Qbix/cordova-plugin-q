@@ -1,7 +1,12 @@
 #import "QCordova.h"
 #import "QChooseLinkViewController.h"
 #import "QChooseImageViewController.h"
+#import "QCustomChooseWebViewController.h"
 
+@interface QCordova()
+    @property(nonatomic, strong) NSString *callbackId;
+    @property(nonatomic, strong) UIViewController *customController;
+@end
 
 @implementation QCordova
 
@@ -39,6 +44,7 @@
 - (void)chooseLink:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
+    [self setCallbackId:callbackId];
     NSString* initUrl = [[command arguments] objectAtIndex:0];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"QCustomVCStoryboard" bundle:nil];
@@ -48,6 +54,7 @@
     [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setDelegate:self];
     [(QChooseLinkViewController*)[qChooseLinkNavigationController.viewControllers firstObject] setCallbackId:callbackId];
     
+    [self setCustomController:qChooseLinkNavigationController];
     [self.viewController presentModalViewController:qChooseLinkNavigationController animated:NO];
     
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
@@ -58,6 +65,7 @@
 - (void)chooseImage:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = [command callbackId];
+    [self setCallbackId:callbackId];
     NSString* initUrl = [[command arguments] objectAtIndex:0];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"QCustomVCStoryboard" bundle:nil];
@@ -67,12 +75,45 @@
     [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setDelegate:self];
     [(QChooseImageViewController*)[qChooseImageNavigationController.viewControllers firstObject] setCallbackId:callbackId];
     
+    [self setCustomController:qChooseImageNavigationController];
     [self.viewController presentModalViewController:qChooseImageNavigationController animated:NO];
     
     CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
     [result setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }
+    
+- (void)changeInnerUrlEvent:(CDVInvokedUrlCommand*)command {
+    NSString* callbackId = [command callbackId];
+    NSString* url = [[command arguments] objectAtIndex:0];
+    
+    if([self.viewController isKindOfClass:[QCustomChooseWebViewController class]]) {
+        [(QCustomChooseWebViewController*)self.viewController chooseLink:url];
+    }
+    
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+    
+- (void)chooseImageEvent:(CDVInvokedUrlCommand*)command {
+    NSString* callbackId = [command callbackId];
+    NSString* url = [[command arguments] objectAtIndex:0];
+    
+    if([self.viewController isKindOfClass:[QCustomChooseWebViewController class]]) {
+        [(QCustomChooseWebViewController*)self.viewController chooseImage:url];
+    }
+    
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+//changeInnerUrlEvent: function(url, successCallback, errorCallback) {
+//    cordova.exec(successCallback, errorCallback, "QCordova", "changeInnerUrlEvent", [url]);
+//},
+//chooseImageEvent: function(image, successCallback, errorCallback) {
+//    cordova.exec(successCallback, errorCallback, "QCordova", "chooseImageEvent", [image]);
+//}
 
 -(void) cancelChooseLink:(NSString*) callbackId {
     if(callbackId != nil) {

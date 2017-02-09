@@ -112,7 +112,7 @@
             <objects>
                 <navigationController storyboardIdentifier="QChooseLinkViewControllerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="hYr-PZ-DS5" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O8Y-UO-gCe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="O8Y-UO-gCe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -125,10 +125,10 @@
             </objects>
             <point key="canvasLocation" x="125.59999999999999" y="121.88905547226388"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Custom Choose Web View Controller-->
         <scene sceneID="H9M-UD-oPM">
             <objects>
-                <viewController id="ZU9-XA-DgD" customClass="QWebViewController" sceneMemberID="viewController">
+                <viewController id="ZU9-XA-DgD" customClass="QCustomChooseWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BZL-Td-1er"/>
                         <viewControllerLayoutGuide type="bottom" id="ow7-ob-V4r"/>
@@ -148,7 +148,7 @@
             <objects>
                 <navigationController storyboardIdentifier="QChooseImageViewControllerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="Hx7-k2-dka" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="etF-NC-kWU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="etF-NC-kWU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -161,10 +161,10 @@
             </objects>
             <point key="canvasLocation" x="126" y="922"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Custom Choose Web View Controller-->
         <scene sceneID="XtA-7h-XI5">
             <objects>
-                <viewController id="sVg-ks-Y6G" customClass="QWebViewController" sceneMemberID="viewController">
+                <viewController id="sVg-ks-Y6G" customClass="QCustomChooseWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eqt-jC-QXs"/>
                         <viewControllerLayoutGuide type="bottom" id="1Zp-P3-iAD"/>

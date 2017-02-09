@@ -8,9 +8,10 @@
 
 #import "QBaseChooseDataViewController.h"
 #import "QWebViewController.h"
+#import "QCustomChooseWebViewController.h"
 
 @interface QBaseChooseDataViewController ()
-@property(nonatomic, strong) QWebViewController *qWebViewController;
+@property(nonatomic, strong) QCustomChooseWebViewController *qWebViewController;
 
 @end
 
@@ -32,7 +33,8 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"QWebViewSegue"]) {
-        [self setQWebViewController:(QWebViewController*)segue.destinationViewController];
+        [self setQWebViewController:(QCustomChooseWebViewController*)segue.destinationViewController];
+        [self.qWebViewController setDelegate:self];
         [self loadUrl:self.startUrl];
     }
 }
@@ -58,6 +60,7 @@
     self.delegate = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 //- (void)dealloc {
 //    [self.qWebViewController release];
