@@ -5,5 +5,7 @@
 @interface QCordova : CDVPlugin<QChooseLinkDelegate>
 
 - (void) hello:(CDVInvokedUrlCommand*)command;
+- (void)chooseLink:(CDVInvokedUrlCommand*)command;
+- (void)chooseImage:(CDVInvokedUrlCommand*)command;
 
 @end

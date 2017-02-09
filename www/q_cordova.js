@@ -1,6 +1,9 @@
 /*global cordova, module*/
 
 module.exports = {
+    hello: function(onSuccess, onError) {
+      cordova.exec(successCallback, errorCallback, "QCordova", "hello", []);
+    },
     openUrl: function(url, options, onSuccess, onError) {
         SafariViewController.isAvailable(function (available) {
             if (available) {
@@ -33,7 +36,7 @@ module.exports = {
     chooseLink: function(initialUrl, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "QCordova", "chooseLink", [initialUrl]);
     },
-    chooseImage(initialUrl, successCallback, errorCallback) {
+    chooseImage: function(initialUrl, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "QCordova", "chooseImage", [initialUrl]);
     }
 };
