@@ -89,20 +89,21 @@ static Q *instance = nil;
     [sharedCache setPathToBundle:[conf pathToBundle]];
     [sharedCache setRemoteCacheId:[conf cacheBaseUrl]];
     
-    if([conf injectCordovaScripts]) {
-        NSMutableArray *filesToInject = [NSMutableArray array];
+    // Cordova plugins inject by separate plugin
+    // if([conf injectCordovaScripts]) {
+    //     NSMutableArray *filesToInject = [NSMutableArray array];
         
-        // add cordova.js file 
-        [filesToInject addObject:[NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova.js"]];
-        // add cordova_plugins.js files with all plugins
-        [filesToInject addObject:[NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova_plugins.js"]];
+    //     // add cordova.js file 
+    //     [filesToInject addObject:[NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova.js"]];
+    //     // add cordova_plugins.js files with all plugins
+    //     [filesToInject addObject:[NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"cordova_plugins.js"]];
         
-        // add another files
-        NSString *pathToCordovaPlugins = [NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"plugins"];
-        [filesToInject addObjectsFromArray:[QFileSystemHelper recursivePathsForResourcesOfType:@"js" inDirectory:pathToCordovaPlugins]];
+    //     // add another files
+    //     NSString *pathToCordovaPlugins = [NSString stringWithFormat:@"%@/%@%@", [[NSBundle mainBundle] resourcePath], @"www/", @"plugins"];
+    //     [filesToInject addObjectsFromArray:[QFileSystemHelper recursivePathsForResourcesOfType:@"js" inDirectory:pathToCordovaPlugins]];
         
-        [sharedCache setListOfJsInjects:filesToInject];
-    }
+    //     [sharedCache setListOfJsInjects:filesToInject];
+    // }
     
     return sharedCache;
 }
