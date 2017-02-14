@@ -20,6 +20,16 @@
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(copyToClipboard:) name:UIPasteboardChangedNotification object:nil];
     
+    //customize choose image hint view
+    [self.bottomImageSelectHint setBackgroundColor:[self.navigationController.navigationBar barTintColor]];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
+                                      forBarPosition:UIBarPositionAny
+                                          barMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
