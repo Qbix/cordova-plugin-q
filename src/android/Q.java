@@ -234,22 +234,23 @@ public class Q {
             qbixWebViewClient.setPathToBundle(QConfig.getInstance(applicationContext).getPathToBundle());
             qbixWebViewClient.setRemoteCacheId(QConfig.getInstance(applicationContext).getRemoteCacheId());
 
-            if(QConfig.getInstance(getActivity()).getInjectCordovaScripts()) {
-                ArrayList<String> filesToInject = new ArrayList<String>();
-                filesToInject.add("www/cordova.js");
-                filesToInject.add("www/cordova_plugins.js");
+            // Cordova plugins inject by separate plugin
+            // if(QConfig.getInstance(getActivity()).getInjectCordovaScripts()) {
+            //     ArrayList<String> filesToInject = new ArrayList<String>();
+            //     filesToInject.add("www/cordova.js");
+            //     filesToInject.add("www/cordova_plugins.js");
 
-                FileSystemHelper fileSystemHelper = new FileSystemHelper();
-                try {
-                    fileSystemHelper.recursiveSearchByExtension(applicationContext, "www/plugins", "js");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                ArrayList<String> fileNames = fileSystemHelper.getSearchedFiles();
-                filesToInject.addAll(fileNames);
+            //     FileSystemHelper fileSystemHelper = new FileSystemHelper();
+            //     try {
+            //         fileSystemHelper.recursiveSearchByExtension(applicationContext, "www/plugins", "js");
+            //     } catch (IOException e) {
+            //         e.printStackTrace();
+            //     }
+            //     ArrayList<String> fileNames = fileSystemHelper.getSearchedFiles();
+            //     filesToInject.addAll(fileNames);
 
-                qbixWebViewClient.setListOfJsInjects(filesToInject);
-            }
+            //     qbixWebViewClient.setListOfJsInjects(filesToInject);
+            // }
 
             ((WebView) getSystemWebEngine().getView()).setWebViewClient(qbixWebViewClient);
     }

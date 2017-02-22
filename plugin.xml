@@ -22,6 +22,7 @@
   <dependency id="cordova-plugin-safariviewcontroller" url="https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller"/>
   <dependency id="cordova-plugin-inappbrowser" url="https://github.com/apache/cordova-plugin-inappbrowser"/>
   <dependency id="cordova-plugin-customurlscheme" url="https://github.com/EddyVerbruggen/Custom-URL-scheme"/>
+  <dependency id="cordova-plugin-remote-injection" url="https://kvofreelance@bitbucket.org/qbixtemp/cordova-plugin-remote-injection.git" commit="9fca230"/>
 
 
   <platform name="android">
