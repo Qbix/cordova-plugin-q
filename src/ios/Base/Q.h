@@ -12,7 +12,6 @@
 #import "QWebViewController.h"
 #import "CordovaWebViewURLCache.h"
 #import "QFileSystemHelper.h"
-#import "QOpenUDID.h"
 
 @interface Q : NSObject {}
 

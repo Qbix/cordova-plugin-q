@@ -33,4 +33,6 @@
 -(NSString*) getPingUrlServer;
 -(NSString*) getPingUrlRelativePath;
 
++(NSString*) UUID;
+
 @end

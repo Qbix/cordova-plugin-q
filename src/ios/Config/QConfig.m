@@ -182,5 +182,10 @@
     return [self getValueFromStorage:USERAGENTSUFFIX_FLAG];
 }
 
++(NSString*) UUID {
+    UIDevice *dev = [UIDevice currentDevice];
+    return [[dev identifierForVendor] UUIDString];
+}
+
 
 @end

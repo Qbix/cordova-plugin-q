@@ -93,9 +93,6 @@
     <source-file src="src/ios/CustomViewControllers/QChooseLinkViewController.m" target-dir="QCordovaPlugin/CustomViewControllers"/>
     <resource-file src="src/ios/CustomViewControllers/QCustomVCStoryboard.storyboard" />
 
-    <header-file src="src/ios/ExternalLibraries/OpenUDID/QOpenUDID.h" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
-    <source-file src="src/ios/ExternalLibraries/OpenUDID/QOpenUDID.m" target-dir="QCordovaPlugin/ExternalLibraries/OpenUDID"/>
-
     <header-file src="src/ios/Network/Model/Request/PingRequest.h" target-dir="QCordovaPlugin/Network/Model/Request"/>
     <source-file src="src/ios/Network/Model/Request/PingRequest.m" target-dir="QCordovaPlugin/Network/Model/Request"/>
     <header-file src="src/ios/Network/Model/Response/PingDataResponse.h" target-dir="QCordovaPlugin/Network/Model/Response"/>

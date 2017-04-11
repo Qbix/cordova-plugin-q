@@ -123,13 +123,13 @@ static Q *instance = nil;
     NSDictionary *paramsLoadUrl = nil;
     if([conf enableLoadBundleCache]) {
         paramsLoadUrl = @{
-                          @"Q.udid" : [NSString stringWithString:[QOpenUDID value]],
+                          @"Q.udid" : [NSString stringWithString:[QConfig UUID]],
                           @"Q.cordova" : [NSString stringWithString:CDV_VERSION],
                           @"Q.ct" : [NSNumber numberWithInt:[conf bundleTimestamp]]
                           };
     } else {
         paramsLoadUrl = @{
-                          @"Q.udid" : [NSString stringWithString:[QOpenUDID value]],
+                          @"Q.udid" : [NSString stringWithString:[QConfig UUID]],
                           @"Q.cordova" : [NSString stringWithString:CDV_VERSION]
                           };
     }

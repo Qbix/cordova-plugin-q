@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "PingDataResponse.h"
-#import "QOpenUDID.h"
 
 @interface QbixApi : NSObject
 
