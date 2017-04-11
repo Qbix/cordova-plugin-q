@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PingDataResponse.h"
+#import "QConfig.h"
 
 @interface QbixApi : NSObject
 
