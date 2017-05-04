@@ -49,22 +49,26 @@
     if(self.delegate != nil) {
         [self.delegate cancelChooseLink:self.callbackId];
     }
-    self.delegate = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self closeVC];
 }
 
 -(void) chooseLink:(NSString*) url {
     if(self.delegate != nil) {
         [self.delegate chooseLink:url withCallback:self.callbackId];
     }
+    [self closeVC];
+}
+
+-(void) closeVC {
     self.delegate = nil;
+    [self.qWebViewController setDelegate:nil];
+    self.qWebViewController = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-//- (void)dealloc {
-//    [self.qWebViewController release];
-//    [super dealloc];
-//}
+- (void)dealloc {
+    [self.qWebViewController release];
+    [super dealloc];
+}
 
 @end

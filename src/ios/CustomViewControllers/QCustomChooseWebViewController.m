@@ -17,4 +17,9 @@
     if(self.delegate != nil)
     [self.delegate chooseImage:image];
 }
+
+- (void)dealloc {
+    [super dealloc];
+}
+
 @end

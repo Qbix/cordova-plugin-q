@@ -10,7 +10,7 @@
 #import "QWebViewController.h"
 
 @interface QChooseImageViewController ()
-@property(nonatomic, strong) QWebViewController *qWebViewController;
+//@property(nonatomic, strong) QWebViewController *qWebViewController;
 @end
 
 @implementation QChooseImageViewController
