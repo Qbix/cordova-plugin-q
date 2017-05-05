@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -152,7 +152,7 @@
         <!--Custom Choose Web View Controller-->
         <scene sceneID="H9M-UD-oPM">
             <objects>
-                <viewController id="ZU9-XA-DgD" customClass="QCustomChooseWebViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ZU9-XA-DgD" customClass="QCustomChooseWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BZL-Td-1er"/>
                         <viewControllerLayoutGuide type="bottom" id="ow7-ob-V4r"/>
@@ -172,7 +172,7 @@
             <objects>
                 <navigationController storyboardIdentifier="QChooseImageViewControllerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="Hx7-k2-dka" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" shadowImage="arrow_up.png" id="etF-NC-kWU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" shadowImage="arrow_up.png" id="etF-NC-kWU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -189,7 +189,7 @@
         <!--Custom Choose Web View Controller-->
         <scene sceneID="XtA-7h-XI5">
             <objects>
-                <viewController id="sVg-ks-Y6G" customClass="QCustomChooseWebViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sVg-ks-Y6G" customClass="QCustomChooseWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eqt-jC-QXs"/>
                         <viewControllerLayoutGuide type="bottom" id="1Zp-P3-iAD"/>
@@ -202,7 +202,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4f8-Zw-Frc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1877" y="723"/>
+            <point key="canvasLocation" x="1878" y="922"/>
         </scene>
     </scenes>
     <resources>
