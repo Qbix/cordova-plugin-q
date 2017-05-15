@@ -43,7 +43,7 @@
                                 <action selector="closeAction:" destination="Nwv-k0-nUO" id="8Ia-3C-g1i"/>
                             </connections>
                         </barButtonItem>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="CCp-Md-x2Q">
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="CCp-Md-x2Q">
                             <rect key="frame" x="102.5" y="7" width="170" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
@@ -91,13 +91,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by tapping on it" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiY-vY-n5o">
-                                        <rect key="frame" x="137" y="2" width="101" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <rect key="frame" x="124" y="0.5" width="127" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="kiY-vY-n5o" firstAttribute="centerY" secondItem="fsT-Jc-lJx" secondAttribute="centerY" id="8ke-bU-cdC"/>
                                     <constraint firstItem="kiY-vY-n5o" firstAttribute="centerX" secondItem="fsT-Jc-lJx" secondAttribute="centerX" id="IWA-ur-fnH"/>
@@ -136,7 +136,7 @@
             <objects>
                 <navigationController storyboardIdentifier="QChooseLinkViewControllerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="hYr-PZ-DS5" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O8Y-UO-gCe">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="O8Y-UO-gCe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -172,7 +172,7 @@
             <objects>
                 <navigationController storyboardIdentifier="QChooseImageViewControllerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="Hx7-k2-dka" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" shadowImage="arrow_up.png" id="etF-NC-kWU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" shadowImage="arrow_up.png" id="etF-NC-kWU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
