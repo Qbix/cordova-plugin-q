@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
 @interface NSString (SHA1)
 -(NSString*) sha1;
