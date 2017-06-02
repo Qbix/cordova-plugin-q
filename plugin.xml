@@ -89,6 +89,8 @@
     <source-file src="src/ios/CustomViewControllers/QChooseImageViewController.m" target-dir="QCordovaPlugin/CustomViewControllers"/>
     <header-file src="src/ios/CustomViewControllers/QChooseLinkViewController.h" target-dir="QCordovaPlugin/CustomViewControllers"/>
     <source-file src="src/ios/CustomViewControllers/QChooseLinkViewController.m" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <header-file src="src/ios/CustomViewControllers/QCustomChooseWebViewController.h" target-dir="QCordovaPlugin/CustomViewControllers"/>
+    <source-file src="src/ios/CustomViewControllers/QCustomChooseWebViewController.m" target-dir="QCordovaPlugin/CustomViewControllers"/>
     <resource-file src="src/ios/CustomViewControllers/QCustomVCStoryboard.storyboard" />
 
     <header-file src="src/ios/Network/Model/Request/PingRequest.h" target-dir="QCordovaPlugin/Network/Model/Request"/>
