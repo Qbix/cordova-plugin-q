@@ -20,7 +20,7 @@
   <dependency id="cordova-plugin-safariviewcontroller" url="https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller"/>
   <dependency id="cordova-plugin-inappbrowser" url="https://github.com/apache/cordova-plugin-inappbrowser"/>
   <dependency id="cordova-plugin-customurlscheme" url="https://github.com/EddyVerbruggen/Custom-URL-scheme"/>
-  <dependency id="cordova-plugin-remote-injection" url="https://kvofreelance@bitbucket.org/qbixtemp/cordova-plugin-remote-injection.git" commit="9fca230"/>
+  <dependency id="cordova-plugin-remote-injection" url="https://github.com/TruckMovers/cordova-plugin-remote-injection"/>
 
 
   <platform name="android">
@@ -106,6 +106,10 @@
     <source-file src="src/ios/Utils/FileSystem/QFileSystemHelper.m" target-dir="QCordovaPlugin/Utils/FileSystem"/>
     <header-file src="src/ios/Utils/QJsonModel/QJSONModel.h" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
     <source-file src="src/ios/Utils/QJsonModel/QJSONModel.m" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
+    <header-file src="src/ios/Utils/NSString/NSString+SHA1.h" target-dir="QCordovaPlugin/Utils/NSString"/>
+    <source-file src="src/ios/Utils/NSString/NSString+SHA1.m" target-dir="QCordovaPlugin/Utils/NSString"/>
+
+    
 
     <header-file src="src/ios/TestQ/MultiTestBaseViewController.h" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
     <source-file src="src/ios/TestQ/MultiTestBaseViewController.m" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
