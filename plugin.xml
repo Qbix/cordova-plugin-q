@@ -27,6 +27,7 @@
 
     <config-file target="res/xml/config.xml" parent="/*">
       <preference name="AndroidLaunchMode" value="singleInstance"/>
+      <preference name="CRIPageLoadPromptInterval" value="60" />
       <feature name="QCordova">
         <param name="android-package" value="com.q.cordova.plugin.QCordova"/>
       </feature>
@@ -65,6 +66,7 @@
   <platform name="ios">
     
     <config-file target="config.xml" parent="/widget">
+      <preference name="CRIPageLoadPromptInterval" value="60" />
       <feature name="QCordova">
         <param name="ios-package" value="QCordova" />
         <param name="onload" value="true" />
