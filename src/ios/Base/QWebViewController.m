@@ -135,23 +135,17 @@
     if(!params) {
         return mainUrl;
     }
-    
-    NSString *paramsString = @"";
-    
-    for (NSString* key in params) {
-        id value = [params objectForKey:key];
-        if(value != nil)
-            paramsString = [paramsString stringByAppendingString:[NSString stringWithFormat:@"%@=%@&", key, (NSString*)value]];
+
+    NSURLComponents *components = [NSURLComponents componentsWithString:mainUrl];
+    NSMutableArray<NSURLQueryItem*> *queryItems = [NSMutableArray array];
+     
+    for (NSString *key in params) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:key value:params[key]]];
     }
     
-    NSString* newUrl = [[NSString alloc] init];
-    if([mainUrl rangeOfString:@"?"].length > 0) {
-        newUrl = [NSString stringWithFormat:@"%@&%@",mainUrl, paramsString];
-    } else {
-        newUrl = [NSString stringWithFormat:@"%@?%@",mainUrl, paramsString];
-    }
-    
-    return newUrl;
+    components.queryItems = queryItems;
+     
+    return [components.URL absoluteString];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView*)theWebView
