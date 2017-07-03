@@ -67,8 +67,12 @@
 }
 
 - (void)dealloc {
+#if __has_feature(objc_arc)
+    
+#else
     [self.qWebViewController release];
     [super dealloc];
+#endif
 }
 
 @end

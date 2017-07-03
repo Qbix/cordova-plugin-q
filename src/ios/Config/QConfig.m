@@ -22,6 +22,7 @@
 @synthesize cacheBaseUrl;
 @synthesize openUrlScheme;
 @synthesize userAgentSuffix;
+@synthesize applicationKey;
 
 -(id) init {
     self = [super init];
@@ -181,6 +182,16 @@
 -(NSString*)userAgentSuffix {
     return [self getValueFromStorage:USERAGENTSUFFIX_FLAG];
 }
+
+#define APPLICATIONKEY_FLAG @"applicationKey"
+-(void)setApplicationKey:(NSString *)mApplicationKey {
+    [self saveValueToStorage:mApplicationKey forKey:APPLICATIONKEY_FLAG];
+}
+
+-(NSString*)applicationKey {
+    return [self getValueFromStorage:APPLICATIONKEY_FLAG];
+}
+
 
 +(NSString*) UUID {
     UIDevice *dev = [UIDevice currentDevice];

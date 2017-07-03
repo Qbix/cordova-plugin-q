@@ -2,6 +2,7 @@
 #import "QChooseLinkViewController.h"
 #import "QChooseImageViewController.h"
 #import "QCustomChooseWebViewController.h"
+#import "QSignManager.h"
 
 @interface QCordova()
     @property(nonatomic, strong) NSString *callbackId;
@@ -108,6 +109,24 @@
                                resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }
+
+- (void)sign:(CDVInvokedUrlCommand*)command {
+    NSString* callbackId = [command callbackId];
+    NSDictionary* parameters = [[command arguments] objectAtIndex:0];
+    
+    [QSignManager sign:parameters withCallback:^(NSDictionary *signData, NSString *error) {
+        CDVPluginResult* result = nil;
+        if(!error) {
+            result = [CDVPluginResult
+                      resultWithStatus:CDVCommandStatus_OK messageAsDictionary:signData];
+        } else {
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error];
+        }
+        
+        [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    }];
+}
+
 //changeInnerUrlEvent: function(url, successCallback, errorCallback) {
 //    cordova.exec(successCallback, errorCallback, "QCordova", "changeInnerUrlEvent", [url]);
 //},

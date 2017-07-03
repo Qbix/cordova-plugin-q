@@ -5,8 +5,11 @@
 
   <name>Q.Cordova</name>
 
+
   <engines>
-    <engine name="cordova" version=">=3.4.0"/>
+    <engine name="cordova" version=">=6.4.0" />
+    <engine name="cordova-android" version=">=4.0.0" />
+    <engine name="cordova-ios" version=">=4.3.1" />
   </engines>
 
   <asset src="www/q_cordova.js" target="js/q_cordova.js"/>
@@ -22,7 +25,6 @@
   <dependency id="cordova-plugin-customurlscheme" url="https://github.com/EddyVerbruggen/Custom-URL-scheme"/>
   <dependency id="cordova-plugin-remote-injection" url="https://github.com/TruckMovers/cordova-plugin-remote-injection"/>
 
-
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
@@ -32,6 +34,12 @@
         <param name="android-package" value="com.q.cordova.plugin.QCordova"/>
       </feature>
     </config-file>
+
+
+    
+     <config-file target="AndroidManifest.xml" parent="/manifest">
+        <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+      </config-file>
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
           <!-- <intent-filter>
@@ -64,14 +72,21 @@
   </platform>
 
   <platform name="ios">
+    <!-- <hook type="before_plugin_install" src="scripts/prepareCocoaPods.js" /> -->
+    <hook type="after_plugin_install" src="scripts/add_swift_support.js"/>
+    <hook type="after_platform_add" src="scripts/add_swift_support.js"/>
+
     
     <config-file target="config.xml" parent="/widget">
+      <preference name="deployment-target" value="8.3" />
       <preference name="CRIPageLoadPromptInterval" value="60" />
       <feature name="QCordova">
         <param name="ios-package" value="QCordova" />
         <param name="onload" value="true" />
       </feature>
     </config-file>
+
+    <header-file src="src/ios/Q-Bridging-Header.h" target-dir="QCordovaPlugin"/>
 
     <header-file src="src/ios/Base/Q.h" target-dir="QCordovaPlugin/Base"/>
     <source-file src="src/ios/Base/Q.m" target-dir="QCordovaPlugin/Base"/>
@@ -112,8 +127,11 @@
     <source-file src="src/ios/Utils/QJsonModel/QJSONModel.m" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
     <header-file src="src/ios/Utils/NSString/NSString+SHA1.h" target-dir="QCordovaPlugin/Utils/NSString"/>
     <source-file src="src/ios/Utils/NSString/NSString+SHA1.m" target-dir="QCordovaPlugin/Utils/NSString"/>
+    <header-file src="src/ios/Utils/QSignManager/QSignManager.h" target-dir="QCordovaPlugin/Utils/QSignManager"/>
+    <source-file src="src/ios/Utils/QSignManager/QSignManager.m" target-dir="QCordovaPlugin/Utils/QSignManager"/>
+    <source-file src="src/ios/Utils/QSignManager/QCryptoRSAManager.swift"/>
+    <source-file src="src/ios/Utils/QSignManager/QSignUtils.swift"/>
 
-    
 
     <header-file src="src/ios/TestQ/MultiTestBaseViewController.h" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
     <source-file src="src/ios/TestQ/MultiTestBaseViewController.m" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
@@ -127,6 +145,8 @@
     <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
 
+    <framework src="SwiftyRSA" type="podspec" spec="1.2.0" />
+    
     <!-- <config-file target="*-Info.plist" parent="CFBundleURLTypes">
       <array>
         <dict>

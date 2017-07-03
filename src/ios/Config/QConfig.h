@@ -26,6 +26,7 @@
 @property (nonatomic, copy) NSString *pathToBundle;
 @property (nonatomic, copy) NSString *openUrlScheme;
 @property (nonatomic, copy) NSString *userAgentSuffix;
+@property (nonatomic, copy) NSString *applicationKey;
 
 
 -(id) initWithFilename:(NSString*) filename;

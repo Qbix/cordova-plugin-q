@@ -44,5 +44,8 @@ module.exports = {
     },
     chooseImageEvent: function(image, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "QCordova", "chooseImageEvent", [image]);
+    },
+    sign: function(parameters, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "QCordova", "sign", [parameters]);
     }
 };

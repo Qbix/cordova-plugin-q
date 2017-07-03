@@ -1,7 +1,7 @@
 {
   "Q": {
 	"cordova": {
-	  "cacheBaseUrl":"groups-cache",
+	  "cacheBaseUrl":"groups.intercept",
 	  "pathToBundle":"www/Bundle",
 	  "injectCordovaScripts":true,
 	  "bundleTimestamp":1457567385,
