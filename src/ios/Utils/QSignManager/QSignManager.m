@@ -8,7 +8,7 @@
 
 #import "QSignManager.h"
 #import "QConfig.h"
-### put-here-<ProjectName>-Swift.h ###
+#import "Groups-Swift.h"
 
 @implementation QSignManager
 
