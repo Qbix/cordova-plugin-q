@@ -140,7 +140,11 @@
     NSMutableArray<NSURLQueryItem*> *queryItems = [NSMutableArray array];
      
     for (NSString *key in params) {
-        [queryItems addObject:[NSURLQueryItem queryItemWithName:key value:params[key]]];
+        if([params[key] isKindOfClass:[NSString class]]) {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:key value:params[key]]];
+        } else {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:key value:[params[key] stringValue]]];
+        }
     }
     
     components.queryItems = queryItems;
