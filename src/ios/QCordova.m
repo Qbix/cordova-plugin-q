@@ -127,6 +127,20 @@
     }];
 }
 
+- (void)info:(CDVInvokedUrlCommand*)command {
+    NSString* callbackId = [command callbackId];
+    
+    NSDictionary* params = @{
+                             @"Q.appId":[QConfig UUID],
+                             @"Q.udid":[QConfig bundleID]
+                             };
+    
+    CDVPluginResult* result = [CDVPluginResult
+     resultWithStatus:CDVCommandStatus_OK messageAsDictionary:params];
+    
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
 //changeInnerUrlEvent: function(url, successCallback, errorCallback) {
 //    cordova.exec(successCallback, errorCallback, "QCordova", "changeInnerUrlEvent", [url]);
 //},

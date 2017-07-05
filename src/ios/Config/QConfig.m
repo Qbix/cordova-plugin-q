@@ -198,5 +198,9 @@
     return [[dev identifierForVendor] UUIDString];
 }
 
++(NSString*) bundleID {
+    return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 
 @end

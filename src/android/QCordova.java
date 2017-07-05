@@ -12,6 +12,14 @@ public class QCordova extends CordovaPlugin {
             String key = data.getString(0);
             callbackContext.success(QConfig.getInstance(cordova.getActivity()).getConfigValue(key));
             return true;
+        } else if(action.equals("info")) {
+            JSONObject object = new JSONObject();
+
+            QConfig config = QConfig.getInstance(cordova.getActivity().getApplicationContext());
+            object.put("Q.appId", config.getPackageName());
+            object.put("Q.udid", config.getUdid());
+            callbackContext.success(object);
+            return true;
         }
 
         return false;

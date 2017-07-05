@@ -47,5 +47,8 @@ module.exports = {
     },
     sign: function(parameters, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "QCordova", "sign", [parameters]);
+    },
+    info: function(successCallback, errorCallback) {
+       cordova.exec(successCallback, errorCallback, "QCordova", "info");
     }
 };

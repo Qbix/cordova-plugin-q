@@ -35,5 +35,6 @@
 -(NSString*) getPingUrlRelativePath;
 
 +(NSString*) UUID;
++(NSString*) bundleID;
 
 @end
