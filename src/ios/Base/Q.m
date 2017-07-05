@@ -121,13 +121,15 @@ static Q *instance = nil;
 -(NSDictionary*) getAdditionalParamsForUrl {
     QConfig *conf = [[QConfig alloc] init];
     NSMutableDictionary *paramsLoadUrl = [NSMutableDictionary dictionary];
-    [paramsLoadUrl setObject:[NSString stringWithString:[QConfig UUID]] forKey:@"Q.udid"];
+    [paramsLoadUrl setObject:[NSString stringWithString:[QConfig UUID]] forKey:@"Q.Users.udid"];
     [paramsLoadUrl setObject:[NSString stringWithString:CDV_VERSION] forKey:@"Q.cordova"];
-    //Add signature for request
-    NSNumber *timestamp = [NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]];
-    NSString *unEncodedSignature = [NSString stringWithFormat:@"%@%@",[QConfig UUID], [timestamp stringValue]];
-    [paramsLoadUrl setObject:timestamp forKey:@"Q.t"];
-    [paramsLoadUrl setObject:[unEncodedSignature sha1] forKey:@"Q.sig"];
+    [paramsLoadUrl setObject:[QConfig bundleID] forKey:@"Q.Users.appId"];
+    
+//    //Add signature for request
+//    NSNumber *timestamp = [NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]];
+//    NSString *unEncodedSignature = [NSString stringWithFormat:@"%@%@",[QConfig UUID], [timestamp stringValue]];
+//    [paramsLoadUrl setObject:timestamp forKey:@"Q.t"];
+//    [paramsLoadUrl setObject:[unEncodedSignature sha1] forKey:@"Q.sig"];
 
     if([conf enableLoadBundleCache]) {
         [paramsLoadUrl setObject:[NSNumber numberWithLong:[conf bundleTimestamp]] forKey:@"Q.ct"];

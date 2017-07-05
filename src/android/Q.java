@@ -282,9 +282,9 @@ public class Q {
     private Map<String, String> getAdditionalParamsForUrl() {
         Map<String, String> params = new HashMap<String, String>();
 
-        final TelephonyManager tm = (TelephonyManager) getActivity().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-        //params.put("Q.udid", tm.getDeviceId());
-        params.put("Q.udid", "TestUdid");
+        QConfig config = QConfig.getInstance(getContext());
+        params.put("Q.Users.udid", config.getUdid());
+        params.put("Q.Users.appId", config.getPackageName());
 
         params.put("Q.cordova", CordovaWebView.CORDOVA_VERSION);
         if(QConfig.getInstance(getActivity()).getEnableLoadBundleCache()) {
