@@ -159,11 +159,13 @@ public class QConfig {
     }
 
     public String getUdid() {
-        this.udid = android.provider.Settings.System.getString(ctx.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        String udid = android.provider.Settings.System.getString(ctx.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
         return udid;
     }
 
-    private String udid;
+    public String getPackageName() {
+        return ctx.getPackageName();
+    }
 
     public void acceptPingResponse(PingResponse response) {
         this.setPingUrl(response.pingUrl);
