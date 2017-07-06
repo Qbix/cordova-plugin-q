@@ -26,6 +26,7 @@ struct QSignError: Error {
     }
     
     func sign(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
+        NSLog("START")
         let unEncryptedString: String
         do {
             unEncryptedString = try self.getStringToSign(parameters)
@@ -35,34 +36,31 @@ struct QSignError: Error {
             return nil
         }
         
+        print(unEncryptedString)
+        print(password)
         var signParameters = NSMutableDictionary(dictionary: parameters);
         
-        signParameters["Q.hmac"] = QCryptoRSAManager.sharedInstance.sha256(string:unEncryptedString+password);
+        signParameters["Q.hmac"] = QCryptoRSAManager.sharedInstance.hmacSha1(string:unEncryptedString, password: password);
         
         if(QCryptoRSAManager.sharedInstance.isSecureKeyPairWithAutogenerate()) {
             let privateKeyRef = QCryptoRSAManager.sharedInstance.getPrivateKeyReference()
-            let publicKeyRef = QCryptoRSAManager.sharedInstance.getPublicKeyReference()
             guard let clear = try? ClearMessage(string: unEncryptedString, using: .utf8) else {
                 return nil;
             }
             guard let privateKey = try? PrivateKey(reference: privateKeyRef!) else {
                 return nil;
             }
-            guard let publicKey = try? PublicKey(reference: publicKeyRef!).base64String() else {
-                return nil;
-            }
-            guard let signature = try? clear.signed(with: privateKey, digestType: .sha1) else {
+            guard let signature = try? clear.signed(with: privateKey, digestType: .sha512) else {
                 return nil;
             }
             
             let base64String = signature.base64String
             
             signParameters["Q.sig"] = base64String;
-            signParameters["Q.pubKey"] = publicKey;
+            signParameters["Q.pubkey"] = QCryptoRSAManager.sharedInstance.getExportedPublicKey();
             
-            return signParameters as! [String : Any]
+            return signParameters as? [String : Any]
         }
-        
         return nil
     }
     
@@ -80,8 +78,7 @@ struct QSignError: Error {
         }
         
         var signParameters = NSMutableDictionary(dictionary: parameters);
-        
-        signParameters["Q.hmac"] = QCryptoRSAManager.sharedInstance.sha256(string:unEncryptedString+password);
+        signParameters["Q.hmac"] = QCryptoRSAManager.sharedInstance.hmacSha1(string:unEncryptedString, password: password);
         
         QCryptoRSAManager.sharedInstance.getSecureKeyPairWithAutogenerate { (_ privateKeyRef:SecKey?, _ publicKeyRef:SecKey?) in
             
@@ -93,11 +90,7 @@ struct QSignError: Error {
                 completion([:], "Internal error. Invalid private key");
                 return;
             }
-            guard let publicKey = try? PublicKey(reference: publicKeyRef!).base64String() else {
-                completion([:], "Internal error. Invalid public key");
-                return;
-            }
-            guard let signature = try? clear.signed(with: privateKey, digestType: .sha1) else {
+            guard let signature = try? clear.signed(with: privateKey, digestType: .sha512) else {
                 completion([:], "Internal error. Invalid encrypted result");
                 return;
             }
@@ -105,7 +98,7 @@ struct QSignError: Error {
             let base64String = signature.base64String
             
             signParameters["Q.sig"] = base64String;
-            signParameters["Q.pubKey"] = publicKey;
+            signParameters["Q.pubkey"] = QCryptoRSAManager.sharedInstance.getExportedPublicKey();
             completion(signParameters as! [String : Any], nil);
         }
     }
