@@ -10,7 +10,8 @@
 	  "url":"http://encompasstest.com/Shipping/",
 	  "baseUrl":"http://encompasstest.com/Shipping/",
 	  "openUrlScheme":"qcordova",
-	  "userAgentSuffix":"QCordova AppleWebKit"
+	  "userAgentSuffix":"QCordova AppleWebKit",
+	  "applicationKey":"Password"
 	}
   }
 }

@@ -16,4 +16,8 @@
     [[QSignUtils sharedInstance] sign:[[[QConfig alloc] init] applicationKey] inputParameters:parameters completion:callback];
 }
 
++(NSDictionary*) sign:(NSDictionary*) parameters {
+    return [[QSignUtils sharedInstance] sign:[[[QConfig alloc] init] applicationKey] inputParameters:parameters];
+}
+
 @end

@@ -25,12 +25,48 @@ struct QSignError: Error {
         return _singletonInstance
     }
     
-    func sign(_ password:String, inputParameters parameters: [String:Any], completion: @escaping (_ signParameters: [String:Any], _ error: String?) -> Void) {
+    func sign(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
+        let unEncryptedString: String
+        do {
+            unEncryptedString = try self.getStringToSign(parameters)
+        } catch let error as QSignError {
+            return nil
+        } catch {
+            return nil
+        }
         
-//        guard let unEncryptedString = try? self.getStringToSign(parameters) else {
-//            completion([:], true)
-//            return
-//        }
+        var signParameters = NSMutableDictionary(dictionary: parameters);
+        
+        signParameters["Q.hmac"] = QCryptoRSAManager.sharedInstance.sha256(string:unEncryptedString+password);
+        
+        if(QCryptoRSAManager.sharedInstance.isSecureKeyPairWithAutogenerate()) {
+            let privateKeyRef = QCryptoRSAManager.sharedInstance.getPrivateKeyReference()
+            let publicKeyRef = QCryptoRSAManager.sharedInstance.getPublicKeyReference()
+            guard let clear = try? ClearMessage(string: unEncryptedString, using: .utf8) else {
+                return nil;
+            }
+            guard let privateKey = try? PrivateKey(reference: privateKeyRef!) else {
+                return nil;
+            }
+            guard let publicKey = try? PublicKey(reference: publicKeyRef!).base64String() else {
+                return nil;
+            }
+            guard let signature = try? clear.signed(with: privateKey, digestType: .sha1) else {
+                return nil;
+            }
+            
+            let base64String = signature.base64String
+            
+            signParameters["Q.sig"] = base64String;
+            signParameters["Q.pubKey"] = publicKey;
+            
+            return signParameters as! [String : Any]
+        }
+        
+        return nil
+    }
+    
+    func sign(_ password:String, inputParameters parameters: [String:Any], completion: @escaping (_ signParameters: [String:Any], _ error: String?) -> Void) {
         
         let unEncryptedString: String
         do {
@@ -71,7 +107,6 @@ struct QSignError: Error {
             signParameters["Q.sig"] = base64String;
             signParameters["Q.pubKey"] = publicKey;
             completion(signParameters as! [String : Any], nil);
-
         }
     }
     

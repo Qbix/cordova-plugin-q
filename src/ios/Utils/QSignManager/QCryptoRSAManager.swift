@@ -34,6 +34,43 @@ enum AsymmetricCryptoException: Error {
     }
     
     // MARK: - Manage keys
+    func createSecureKeyPair() -> Bool {
+        // private key parameters
+        let privateKeyParams: [String: AnyObject] = [
+            kSecAttrIsPermanent as String: true as AnyObject,
+            kSecAttrApplicationTag as String: kQCryptoRSAManagerApplicationTag as AnyObject
+        ]
+        
+        // private key parameters
+        let publicKeyParams: [String: AnyObject] = [
+            kSecAttrIsPermanent as String: true as AnyObject,
+            kSecAttrApplicationTag as String: kQCryptoRSAManagerApplicationTag as AnyObject
+        ]
+        
+        // global parameters for our key generation
+        let parameters: [String: AnyObject] = [
+            kSecAttrKeyType as String:          kQCryptoRSAManagerKeyType,
+            kSecAttrKeySizeInBits as String:    kQCryptoRSAManagerKeySize as AnyObject,
+            kSecPublicKeyAttrs as String:       publicKeyParams as AnyObject,
+            kSecPrivateKeyAttrs as String:      privateKeyParams as AnyObject,
+            ]
+        
+            var pubKey, privKey: SecKey?
+            let status = SecKeyGeneratePair(parameters as CFDictionary, &pubKey, &privKey)
+            
+            if status == errSecSuccess {
+                return true;
+            } else {
+                var error = AsymmetricCryptoException.unknownError
+                switch (status) {
+                case errSecDuplicateItem: error = .duplicateFoundWhileTryingToCreateKey
+                case errSecItemNotFound: error = .keyNotFound
+                case errSecAuthFailed: error = .authFailed
+                default: break
+                }
+                return false
+            }
+    }
     
     func createSecureKeyPair(_ completion: ((_ success: Bool, _ error: AsymmetricCryptoException?) -> Void)? = nil) {
         // private key parameters
@@ -130,6 +167,19 @@ enum AsymmetricCryptoException: Error {
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async { () -> Void in
             let status = SecItemDelete(deleteQuery as CFDictionary) // delete private key
             DispatchQueue.main.async(execute: { completion?(status == errSecSuccess) })        }
+    }
+    
+    func isSecureKeyPairWithAutogenerate() -> Bool {
+        if(!self.keyPairExists()) {
+            if(self.createSecureKeyPair()) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+        
     }
     
     func getSecureKeyPairWithAutogenerate(_ completion: ((_ privateKey: SecKey?, _ publicKey:SecKey?) -> Void)?) {

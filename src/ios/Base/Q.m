@@ -7,6 +7,7 @@
 //
 
 #import "Q.h"
+#import "QSignManager.h"
 
 @implementation Q
 #define CACHE_SIZE_MEMORY 8*1024*1024
@@ -125,6 +126,7 @@ static Q *instance = nil;
     [paramsLoadUrl setObject:[NSString stringWithString:CDV_VERSION] forKey:@"Q.cordova"];
     [paramsLoadUrl setObject:[QConfig bundleID] forKey:@"Q.Users.appId"];
     
+    
 //    //Add signature for request
 //    NSNumber *timestamp = [NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]];
 //    NSString *unEncodedSignature = [NSString stringWithFormat:@"%@%@",[QConfig UUID], [timestamp stringValue]];
@@ -135,7 +137,9 @@ static Q *instance = nil;
         [paramsLoadUrl setObject:[NSNumber numberWithLong:[conf bundleTimestamp]] forKey:@"Q.ct"];
     }
     
-    return paramsLoadUrl;
+    NSDictionary *signParameters = [QSignManager sign:[paramsLoadUrl copy]];
+    
+    return signParameters;
 }
 
 -(void)handleOpenUrlScheme:(NSURL*)url {

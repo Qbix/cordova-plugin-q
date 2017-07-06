@@ -11,5 +11,6 @@
 @interface QSignManager : NSObject
 
 +(void) sign:(NSDictionary*) parameters withCallback:(void (^)(NSDictionary *signData, NSString *error)) callback;
++(NSDictionary*) sign:(NSDictionary*) parameters;
 
 @end
