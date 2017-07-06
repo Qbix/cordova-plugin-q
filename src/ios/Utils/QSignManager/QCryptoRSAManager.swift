@@ -113,6 +113,14 @@ enum AsymmetricCryptoException: Error {
         }
     }
     
+    func getExportedPublicKey() -> String? {
+        if let exportablePEMKey = CryptoExportImportManager().exportPublicKeyToPEM(getPublicKeyData()!, keyType: kQCryptoRSAManagerKeyType as String, keySize: kQCryptoRSAManagerKeySize) {
+            return exportablePEMKey;
+        } else {
+            return nil
+        }
+    }
+    
     func getPublicKeyData() -> Data? {
         let parameters = [
             kSecClass as String: kSecClassKey,
@@ -336,13 +344,90 @@ enum AsymmetricCryptoException: Error {
         }
     }
     
-    func sha256(string: String) -> NSString? {
+    enum HMACAlgorithm {
+        case MD5, SHA1, SHA224, SHA256, SHA384, SHA512
+        
+        func toCCHmacAlgorithm() -> CCHmacAlgorithm {
+            var result: Int = 0
+            switch self {
+            case .MD5:
+                result = kCCHmacAlgMD5
+            case .SHA1:
+                result = kCCHmacAlgSHA1
+            case .SHA224:
+                result = kCCHmacAlgSHA224
+            case .SHA256:
+                result = kCCHmacAlgSHA256
+            case .SHA384:
+                result = kCCHmacAlgSHA384
+            case .SHA512:
+                result = kCCHmacAlgSHA512
+            }
+            return CCHmacAlgorithm(result)
+        }
+        
+        func digestLength() -> Int {
+            var result: CInt = 0
+            switch self {
+            case .MD5:
+                result = CC_MD5_DIGEST_LENGTH
+            case .SHA1:
+                result = CC_SHA1_DIGEST_LENGTH
+            case .SHA224:
+                result = CC_SHA224_DIGEST_LENGTH
+            case .SHA256:
+                result = CC_SHA256_DIGEST_LENGTH
+            case .SHA384:
+                result = CC_SHA384_DIGEST_LENGTH
+            case .SHA512:
+                result = CC_SHA512_DIGEST_LENGTH
+            }
+            return Int(result)
+        }
+    }
+    
+    func hmacSha1(string: String, password: String) -> String? {
+        //let inputData: NSData = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)! as NSData
+        guard let inputData = string.data(using: String.Encoding.utf8, allowLossyConversion: false) else { return nil }
+        guard let keyData = password.data(using: String.Encoding.utf8, allowLossyConversion: false) else { return nil }
+        
+        let algorithm = HMACAlgorithm.SHA1
+        let digestLen = algorithm.digestLength()
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
+        
+        CCHmac(algorithm.toCCHmacAlgorithm(), (keyData as NSData).bytes, keyData.count, (inputData as NSData).bytes, inputData.count, result)
+        let data = NSData(bytes: result, length: digestLen)
+        result.deinitialize()
+        //return
+        //return (data as NSData).base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+        
+//        let cKey = key.cStringUsingEncoding(NSUTF8StringEncoding)
+//        let cData = self.cStringUsingEncoding(NSUTF8StringEncoding)
+//        var result = [CUnsignedChar](count: Int(algorithm.digestLength()), repeatedValue: 0)
+//        let length : Int = Int(strlen(cKey!))
+//        let data : Int = Int(strlen(cData!))
+//        CCHmac(algorithm.toCCHmacAlgorithm(), cKey!,length , cData!, data, &result)
+        
+        //let hmacData:NSData = NSData(bytes: result, length: (Int(algorithm.digestLength())))
+        
+        var bytes = [UInt8](repeating: 0, count: data.length)
+        data.getBytes(&bytes, length: data.length)
+        
+        var hexString = ""
+        for byte in bytes {
+            hexString += String(format:"%02hhx", UInt8(byte))
+        }
+        return hexString
+    }
+    
+    func sha1(string: String) -> NSString? {
+        print(string)
         guard let messageData = string.data(using:String.Encoding.utf8) else { return nil }
-        var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
+        var digestData = Data(count: Int(CC_SHA1_DIGEST_LENGTH))
         
         _ = digestData.withUnsafeMutableBytes {digestBytes in
             messageData.withUnsafeBytes {messageBytes in
-                CC_SHA256(messageBytes, CC_LONG(messageData.count), digestBytes)
+                CC_SHA1(messageBytes, CC_LONG(messageData.count), digestBytes)
             }
         }
         
