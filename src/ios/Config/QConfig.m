@@ -7,6 +7,7 @@
 //
 
 #import "QConfig.h"
+#import <Obfuscator/Obfuscator.h>
 
 @implementation QConfig
 
@@ -23,6 +24,12 @@
 @synthesize openUrlScheme;
 @synthesize userAgentSuffix;
 @synthesize applicationKey;
+
+// Paste obfuscation key
+//Original: "Hjduswm23USMadnacn"
+const unsigned char _key[] = { 0x7D, 0x5F, 0x51, 0x17, 0x40, 0x43, 0x5E, 0x5, 0x7, 0x65, 0x30, 0x7A, 0x50, 0x2, 0xA, 0x2, 0x51, 0x56, 0x00 };
+const unsigned char *appKey = &_key[0];
+// end
 
 -(id) init {
     self = [super init];
@@ -183,15 +190,10 @@
     return [self getValueFromStorage:USERAGENTSUFFIX_FLAG];
 }
 
-#define APPLICATIONKEY_FLAG @"applicationKey"
--(void)setApplicationKey:(NSString *)mApplicationKey {
-    [self saveValueToStorage:mApplicationKey forKey:APPLICATIONKEY_FLAG];
-}
-
 -(NSString*)applicationKey {
-    return [self getValueFromStorage:APPLICATIONKEY_FLAG];
+    Obfuscator *o = [Obfuscator newWithSalt:[QConfig class],[NSString class], nil];
+    return [o reveal:appKey];
 }
-
 
 +(NSString*) UUID {
     UIDevice *dev = [UIDevice currentDevice];
