@@ -8,6 +8,7 @@
 
 #import "QConfig.h"
 #import <Obfuscator/Obfuscator.h>
+#import "Q.h"
 
 @implementation QConfig
 
@@ -26,7 +27,8 @@
 @synthesize applicationKey;
 
 // Paste obfuscation key
-const unsigned char _key[] = { 0x65, 0x54, 0x46, 0x11, 0x44, 0x5B, 0x41, 0x53, 0x00 };
+//Original: "b33649gjatkebwmqp7"
+const unsigned char _key[] = { 0x55, 0x57, 0x5, 0x50, 0x5, 0x5A, 0x5, 0xF, 0x5, 0x10, 0x5D, 0x7, 0x7, 0x13, 0x5B, 0x42, 0x41, 0x54, 0x00 };
 const unsigned char *appKey = &_key[0];
 // end
 
@@ -190,7 +192,7 @@ const unsigned char *appKey = &_key[0];
 }
 
 -(NSString*)applicationKey {
-    Obfuscator *o = [Obfuscator newWithSalt:[QConfig class],[NSString class], nil];
+    Obfuscator *o = [Obfuscator newWithSalt:[Q class], [QConfig class],[NSString class], nil];
     return [o reveal:appKey];
 }
 
