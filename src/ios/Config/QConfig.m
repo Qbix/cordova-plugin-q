@@ -24,11 +24,9 @@
 @synthesize cacheBaseUrl;
 @synthesize openUrlScheme;
 @synthesize userAgentSuffix;
-@synthesize applicationKey;
 
 // Paste obfuscation key
-//Original: "b33649gjatkebwmqp7"
-const unsigned char _key[] = { 0x55, 0x57, 0x5, 0x50, 0x5, 0x5A, 0x5, 0xF, 0x5, 0x10, 0x5D, 0x7, 0x7, 0x13, 0x5B, 0x42, 0x41, 0x54, 0x00 };
+const unsigned char _key[] = { 0x5D, 0x56, 0xF, 0x5E, 0x52, 0x9, 0x50, 0x5C, 0x57, 0x7, 0xE, 0x52, 0x54, 0x5D, 0x5, 0x50, 0x41, 0x52, 0x00 };
 const unsigned char *appKey = &_key[0];
 // end
 
@@ -69,6 +67,7 @@ const unsigned char *appKey = &_key[0];
     return temp && temp.scheme && temp.host;
 }
 
+#ifndef SHARE_EXTENSION
 -(void) applyConfigParameters:(PingDataResponse*)response {
 //    if(response.pingUrl != nil && [self isURL:response.pingUrl]) {
 //        [self setPingUrl:response.pingUrl];
@@ -77,6 +76,7 @@ const unsigned char *appKey = &_key[0];
 //        [self setLoadUrl:response.loadUrl];
 //    }
 }
+#endif
 
 -(void) saveValueToStorage:(id) value forKey:(NSString*) key {
     [self.configDict setValue:value forKey:key];
