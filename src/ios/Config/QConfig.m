@@ -8,7 +8,6 @@
 
 #import "QConfig.h"
 #import <Obfuscator/Obfuscator.h>
-#import "Q.h"
 
 @implementation QConfig
 
@@ -24,7 +23,6 @@
 @synthesize cacheBaseUrl;
 @synthesize openUrlScheme;
 @synthesize userAgentSuffix;
-@synthesize applicationKey;
 
 // Paste obfuscation key
 //Original: "a7263837gajevejaywbmeja"
@@ -69,6 +67,7 @@ const unsigned char *appKey = &_key[0];
     return temp && temp.scheme && temp.host;
 }
 
+#ifndef SHARE_EXTENSION
 -(void) applyConfigParameters:(PingDataResponse*)response {
 //    if(response.pingUrl != nil && [self isURL:response.pingUrl]) {
 //        [self setPingUrl:response.pingUrl];
@@ -77,6 +76,7 @@ const unsigned char *appKey = &_key[0];
 //        [self setLoadUrl:response.loadUrl];
 //    }
 }
+#endif
 
 -(void) saveValueToStorage:(id) value forKey:(NSString*) key {
     [self.configDict setValue:value forKey:key];
@@ -191,8 +191,9 @@ const unsigned char *appKey = &_key[0];
     return [self getValueFromStorage:USERAGENTSUFFIX_FLAG];
 }
 
--(NSString*)applicationKey {
-    Obfuscator *o = [Obfuscator newWithSalt:[Q class],[QConfig class],[NSString class], nil];
++(NSString*)applicationKey {
+    
+    Obfuscator *o = [Obfuscator newWithSalt:NSClassFromString(@"Q"),[QConfig class],[NSString class], nil];
     return [o reveal:appKey];
 }
 

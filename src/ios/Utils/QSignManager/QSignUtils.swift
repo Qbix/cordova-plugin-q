@@ -25,6 +25,25 @@ struct QSignError: Error {
         return _singletonInstance
     }
     
+    func signWithHmac(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
+        let unEncryptedString: String
+        do {
+            unEncryptedString = try self.getStringToSign(parameters)
+        } catch let error as QSignError {
+            return nil
+        } catch {
+            return nil
+        }
+        
+        print(unEncryptedString)
+        print(password)
+        var signParameters = NSMutableDictionary(dictionary: parameters);
+        
+        signParameters["Q.hmac"] = QCryptoRSAManager.sharedInstance.hmacSha1(string:unEncryptedString, password: password);
+        
+        return signParameters as? [String : Any]
+    }
+    
     func sign(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
         NSLog("START")
         let unEncryptedString: String
@@ -38,7 +57,7 @@ struct QSignError: Error {
         
         print(unEncryptedString)
         print(password)
-        var signParameters = NSMutableDictionary(dictionary: parameters);
+        var signParameters =  NSMutableDictionary(dictionary: parameters);
         
         signParameters["Q.hmac"] = QCryptoRSAManager.sharedInstance.hmacSha1(string:unEncryptedString, password: password);
         

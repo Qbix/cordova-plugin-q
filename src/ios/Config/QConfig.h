@@ -7,7 +7,9 @@
 // 
 
 #import <Foundation/Foundation.h>
+#ifndef SHARE_EXTENSION
 #import "PingDataResponse.h"
+#endif
 
 @interface QConfig : NSObject
 
@@ -26,14 +28,18 @@
 @property (nonatomic, copy) NSString *pathToBundle;
 @property (nonatomic, copy) NSString *openUrlScheme;
 @property (nonatomic, copy) NSString *userAgentSuffix;
-@property (nonatomic, copy) NSString *applicationKey;
 
+
+#ifndef SHARE_EXTENSION
+-(void) applyConfigParameters:(PingDataResponse*)response;
+#endif
 
 -(id) initWithFilename:(NSString*) filename;
--(void) applyConfigParameters:(PingDataResponse*)response;
+
 -(NSString*) getPingUrlServer;
 -(NSString*) getPingUrlRelativePath;
 
++(NSString*) applicationKey;
 +(NSString*) UUID;
 +(NSString*) bundleID;
 

@@ -9,15 +9,18 @@
 #import "QSignManager.h"
 #import "QConfig.h"
 #import "Groups-Swift.h"
-
 @implementation QSignManager
 
 +(void) sign:(NSDictionary*) parameters withCallback:(void (^)(NSDictionary *signData, NSString *error)) callback {
-    [[QSignUtils sharedInstance] sign:[[[QConfig alloc] init] applicationKey] inputParameters:parameters completion:callback];
+    [[QSignUtils sharedInstance] sign:[QConfig applicationKey] inputParameters:parameters completion:callback];
 }
 
 +(NSDictionary*) sign:(NSDictionary*) parameters {
-    return [[QSignUtils sharedInstance] sign:[[[QConfig alloc] init] applicationKey] inputParameters:parameters];
+    return [[QSignUtils sharedInstance] sign:[QConfig applicationKey] inputParameters:parameters];
+}
+
++(NSDictionary*) signWithHmac:(NSDictionary*) parameters {
+    return [[QSignUtils sharedInstance] signWithHmac:[QConfig applicationKey] inputParameters:parameters];
 }
 
 @end
