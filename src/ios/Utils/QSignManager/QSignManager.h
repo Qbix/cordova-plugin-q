@@ -12,5 +12,6 @@
 
 +(void) sign:(NSDictionary*) parameters withCallback:(void (^)(NSDictionary *signData, NSString *error)) callback;
 +(NSDictionary*) sign:(NSDictionary*) parameters;
++(NSDictionary*) signWithHmac:(NSDictionary*) parameters;
 
 @end
