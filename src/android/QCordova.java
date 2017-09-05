@@ -3,6 +3,7 @@ package com.q.cordova.plugin;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class QCordova extends CordovaPlugin {
 
