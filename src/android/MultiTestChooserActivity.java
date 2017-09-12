@@ -101,8 +101,8 @@ public class MultiTestChooserActivity extends Activity {
         //startActivity((new Intent(this, MainActivity.class)).putExtra(QTESTURL, url));
         addNewBookmark(url);
         MultiTestChooserActivity.setLoadUrl(url);
-        //setResult(RESULT_OK);
-        startActivity((new Intent(this, MainActivity.class)).putExtra(QTESTURL, url));
+        Intent result = (new Intent()).putExtra(QTESTURL, url);
+        setResult(Activity.RESULT_OK, result);
         finish();
     }
 

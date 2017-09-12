@@ -8,7 +8,8 @@
 
 #import "QSignManager.h"
 #import "QConfig.h"
-#import "Groups-Swift.h"
+### put-here-<ProjectName>-Swift.h ###
+
 @implementation QSignManager
 
 +(void) sign:(NSDictionary*) parameters withCallback:(void (^)(NSDictionary *signData, NSString *error)) callback {
