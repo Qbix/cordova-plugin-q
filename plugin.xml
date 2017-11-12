@@ -24,6 +24,8 @@
   <dependency id="cordova-plugin-inappbrowser" url="https://github.com/apache/cordova-plugin-inappbrowser"/>
   <dependency id="cordova-plugin-customurlscheme" url="https://github.com/EddyVerbruggen/Custom-URL-scheme"/>
   <dependency id="cordova-plugin-remote-injection" url="https://github.com/TruckMovers/cordova-plugin-remote-injection"/>
+  <dependency id="cordova-plugin-browsertab" url="https://github.com/google/cordova-plugin-browsertab"/>
+  
 
   <platform name="android">
 

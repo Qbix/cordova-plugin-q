@@ -15,18 +15,20 @@
 - (NSString*) fileMIMEType:(NSString*) file {
     
     NSDictionary *mimeDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"image/png",
-                              @"png",
-                              @"image/jpeg",
-                              @"jpg",
-                              @"image/gif",
-                              @"gif",
-                              @"application/x-javascript",
-                              @"js",
-                              @"text/css",
-                              @"css",
-                              @"text/html",
-                              @"html",
+                              @"image/png", @"png",
+                              @"image/jpeg", @"jpg",
+                              @"image/jpeg", @"jpeg",
+                              @"image/gif", @"gif",
+                              @"application/javascript", @"js",
+                              @"application/javascript", @"javascript",
+                              @"application/json", @"json",
+                              @"text/css", @"css",
+                              @"text/html", @"html",
+                              @"application/octet-stream", @"handlebars",
+                              @"audio/m4a", @"m4a",
+                              @"audio/wav", @"wav",
+                              @"audio/mp3", @"mp3",
+                              @"video/mp4", @"mp4",
                               nil];
     
     return [mimeDict objectForKey:[file pathExtension]];

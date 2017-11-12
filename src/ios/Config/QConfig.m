@@ -191,7 +191,7 @@ const unsigned char *appKey = &_key[0];
     return [self getValueFromStorage:USERAGENTSUFFIX_FLAG];
 }
 
--(NSString*)applicationKey {
++(NSString*)applicationKey {
     Obfuscator *o = [Obfuscator newWithSalt:[Q class], [QConfig class],[NSString class], nil];
     return [o reveal:appKey];
 }
