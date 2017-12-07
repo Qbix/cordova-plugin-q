@@ -21,12 +21,17 @@
   <preference name="URL_SCHEME" default="qcordova" />
   
   <dependency id="cordova-plugin-safariviewcontroller" url="https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller"/>
-  <dependency id="cordova-plugin-inappbrowser" url="https://github.com/apache/cordova-plugin-inappbrowser"/>
+  <!-- <dependency id="cordova-plugin-inappbrowser" url="https://github.com/apache/cordova-plugin-inappbrowser"/> -->
   <dependency id="cordova-plugin-customurlscheme" url="https://github.com/EddyVerbruggen/Custom-URL-scheme"/>
   <dependency id="cordova-plugin-remote-injection" url="https://github.com/TruckMovers/cordova-plugin-remote-injection"/>
   <dependency id="cordova-plugin-browsertab" url="https://github.com/google/cordova-plugin-browsertab"/>
+  <dependency id="cordova-plugin-statusbar" url="https://github.com/apache/cordova-plugin-statusbar"/>
+  <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device"/>
+  <dependency id="cordova-plugin-badge" url="https://github.com/katzer/cordova-plugin-badge.git"/>
+  <dependency id="ionic-plugin-keyboard" url="https://github.com/driftyco/ionic-plugin-keyboard.git"/>
+  <dependency id="cordova-plugin-camera" url="https://github.com/apache/cordova-plugin-camera"/>
+  <dependency id="cordova-plugin-local-notifications" url="https://github.com/katzer/cordova-plugin-local-notifications"/>
   
-
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
@@ -148,7 +153,7 @@
     <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
 
-    <framework src="SwiftyRSA" type="podspec" spec="1.2.0" />
+    <!-- <framework src="SwiftyRSA" type="podspec" spec="1.2.0" /> -->
     <framework src="Obfuscator" type="podspec" spec="2.0" />
     
     <!-- <config-file target="*-Info.plist" parent="CFBundleURLTypes">

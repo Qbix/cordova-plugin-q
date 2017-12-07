@@ -87,7 +87,7 @@ public class QbixWebViewClient extends SystemWebViewClient {
         InputStream is = null;
         try {
             is = view.getContext().getAssets().open(filePath);
-            if(is != null && is.available() <= 0)
+            if(is == null || is.available() <= 0)
                 return super.shouldInterceptRequest(view, url);
         } catch (IOException e) {
             e.printStackTrace();
