@@ -7,6 +7,7 @@
 //
 
 #import "MultiTestChooserViewController.h"
+#import "AppDelegate.h"
 
 @interface MultiTestChooserViewController () 
 
@@ -41,7 +42,10 @@
 -(void) loadQCordovaApp:(NSString*) url {
     QWebViewController* qWebViewController = [[QWebViewController alloc] initWithUrl:url andParameters:[[Q getInstance] getAdditionalParamsForUrl]];
     
-    [self presentViewController:qWebViewController animated:YES completion:nil];
+    AppDelegate *delegate = ((AppDelegate*)[[UIApplication sharedApplication] delegate]);
+    delegate.viewController = qWebViewController;
+    delegate.window.rootViewController =delegate.viewController;
+    [delegate.window reloadInputViews];
     
     [super addNewBookmark:url];
 }
