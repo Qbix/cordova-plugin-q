@@ -30,7 +30,7 @@
   <dependency id="cordova-plugin-badge" url="https://github.com/katzer/cordova-plugin-badge.git"/>
   <dependency id="ionic-plugin-keyboard" url="https://github.com/driftyco/ionic-plugin-keyboard.git"/>
   <dependency id="cordova-plugin-camera" url="https://github.com/apache/cordova-plugin-camera"/>
-  <dependency id="cordova-plugin-local-notifications" url="https://github.com/katzer/cordova-plugin-local-notifications"/>
+  <dependency id="cordova-plugin-local-notification" url="https://github.com/katzer/cordova-plugin-local-notifications"/>
   
   <platform name="android">
 
