@@ -24,7 +24,7 @@
   <!-- <dependency id="cordova-plugin-inappbrowser" url="https://github.com/apache/cordova-plugin-inappbrowser"/> -->
   <dependency id="cordova-plugin-customurlscheme" url="https://github.com/EddyVerbruggen/Custom-URL-scheme"/>
   <dependency id="cordova-plugin-remote-injection" url="https://github.com/TruckMovers/cordova-plugin-remote-injection"/>
-  <dependency id="cordova-plugin-browsertab" url="https://github.com/google/cordova-plugin-browsertab"/>
+  <dependency id="cordova-plugin-browsertab" url="https://github.com/Qbix/cordova-plugin-browsertab"/>
   <dependency id="cordova-plugin-statusbar" url="https://github.com/apache/cordova-plugin-statusbar"/>
   <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device"/>
   <dependency id="cordova-plugin-badge" url="https://github.com/katzer/cordova-plugin-badge.git"/>
