@@ -41,8 +41,6 @@
         <param name="android-package" value="com.q.cordova.plugin.QCordova"/>
       </feature>
     </config-file>
-
-
     
      <config-file target="AndroidManifest.xml" parent="/manifest">
         <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -153,7 +151,7 @@
     <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
 
-    <!-- <framework src="SwiftyRSA" type="podspec" spec="1.2.0" /> -->
+    <framework src="SwiftyRSA" type="podspec" spec="1.2.0" />
     <framework src="Obfuscator" type="podspec" spec="2.0" />
     
     <!-- <config-file target="*-Info.plist" parent="CFBundleURLTypes">
