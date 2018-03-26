@@ -123,7 +123,7 @@ module.exports = function(context) {
             
                     if (content.indexOf(header) < 0) {
                         if(content.includes(templateString)) {
-                            content = content.replace(templateString, "#import \""+projectName+"-Swift.h\"");
+                            content = content.replace(templateString, "#import \""+projectName.replace(" ", "_")+"-Swift.h\"");
                         }
                     }
 
