@@ -8,6 +8,7 @@
 
 #import "QConfig.h"
 #import <Obfuscator/Obfuscator.h>
+#import "Q.h"
 
 @implementation QConfig
 
@@ -25,7 +26,7 @@
 @synthesize userAgentSuffix;
 
 // Paste obfuscation key
-const unsigned char _key[] = { 0x5E, 0x56, 0x4F, 0x52, 0x44, 0xA, 0x50, 0xB, 0xE, 0xD, 0x2, 0x51, 0xB, 0xE, 0x5D, 0x1, 0x2, 0x00 };
+const unsigned char _key[] = { 0x5D, 0x56, 0xF, 0x5E, 0x52, 0x9, 0x50, 0x5C, 0x57, 0x7, 0xE, 0x52, 0x54, 0x5D, 0x5, 0x50, 0x41, 0x52, 0x00 };
 const unsigned char *appKey = &_key[0];
 // end
 
@@ -191,10 +192,10 @@ const unsigned char *appKey = &_key[0];
 }
 
 +(NSString*)applicationKey {
-    
-    Obfuscator *o = [Obfuscator newWithSalt:NSClassFromString(@"Q"),[QConfig class],[NSString class], nil];
+    Obfuscator *o = [Obfuscator newWithSalt:[Q class], [QConfig class],[NSString class], nil];
     return [o reveal:appKey];
 }
+
 
 +(NSString*) UUID {
     UIDevice *dev = [UIDevice currentDevice];

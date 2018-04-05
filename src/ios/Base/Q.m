@@ -122,9 +122,9 @@ static Q *instance = nil;
 -(NSDictionary*) getAdditionalParamsForUrl {
     QConfig *conf = [[QConfig alloc] init];
     NSMutableDictionary *paramsLoadUrl = [NSMutableDictionary dictionary];
-    [paramsLoadUrl setObject:[NSString stringWithString:[QConfig UUID]] forKey:@"Q.Users.udid"];
+    [paramsLoadUrl setObject:[NSString stringWithString:[QConfig UUID]] forKey:@"Q.udid"];
     [paramsLoadUrl setObject:[NSString stringWithString:CDV_VERSION] forKey:@"Q.cordova"];
-    [paramsLoadUrl setObject:[QConfig bundleID] forKey:@"Q.Users.appId"];
+    [paramsLoadUrl setObject:[QConfig bundleID] forKey:@"Q.appId"];
     
     
 //    //Add signature for request
