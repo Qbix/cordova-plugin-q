@@ -283,8 +283,8 @@ public class Q {
         Map<String, String> params = new HashMap<String, String>();
 
         QConfig config = QConfig.getInstance(getContext());
-        params.put("Q.Users.udid", config.getUdid());
-        params.put("Q.Users.appId", config.getPackageName());
+        params.put("Q.udid", config.getUdid());
+        params.put("Q.appId", config.getPackageName());
 
         params.put("Q.cordova", CordovaWebView.CORDOVA_VERSION);
         if(QConfig.getInstance(getActivity()).getEnableLoadBundleCache()) {
