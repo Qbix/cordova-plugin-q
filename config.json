@@ -1,0 +1,17 @@
+{
+  "Q": {
+	"cordova": {
+	  "cacheBaseUrl":"groups.intercept",
+	  "pathToBundle":"www/Bundle",
+	  "injectCordovaScripts":true,
+	  "bundleTimestamp":1457567385,
+	  "enableLoadBundleCache":false,
+	  "pingUrl":"http://groups.qbix.com/iphone/daily/",
+	  "url":"http://encompasstest.com/Shipping/",
+	  "baseUrl":"http://encompasstest.com/Shipping/",
+	  "openUrlScheme":"qcordova",
+	  "userAgentSuffix":"QCordova AppleWebKit",
+	  "applicationKey":"Password"
+	}
+  }
+}
