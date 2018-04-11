@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'cordova-plugin-q'
-  spec.version      = '0.3.2'
+  spec.version      = '0.3.3'
   spec.license      = { :type => 'BSD' }
   spec.homepage     = 'https://kvofreelance@bitbucket.org/qbixtemp/cordova-plugin-q.git'
   spec.authors      = { 'Igor Martsekha' => 'igor@qbix.com' }
