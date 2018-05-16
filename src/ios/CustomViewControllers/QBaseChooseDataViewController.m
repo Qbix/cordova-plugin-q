@@ -59,6 +59,12 @@
     [self closeVC];
 }
 
+-(void) contentChanged:(NSString*) html {
+    if(self.delegate != nil) {
+        [self.delegate contentChanged:html withCallback:self.callbackId];
+    }
+}
+
 -(void) closeVC {
     self.delegate = nil;
     [self.qWebViewController setDelegate:nil];

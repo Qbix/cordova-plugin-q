@@ -18,6 +18,15 @@
     [self.delegate chooseImage:image];
 }
 
+- (void)webViewDidFinishLoad:(UIWebView*)theWebView {
+    [super webViewDidFinishLoad:theWebView];
+    
+    NSString *html = [[super getWebView] stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
+    
+    if(self.delegate != nil)
+        [self.delegate contentChanged:html];
+}
+
 - (void)dealloc {
 #if __has_feature(objc_arc)
     

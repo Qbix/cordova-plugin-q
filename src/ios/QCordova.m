@@ -157,7 +157,19 @@
 
 -(void) chooseLink:(NSString*) url withCallback:(NSString*) callbackId {
     if(callbackId != nil) {
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:url];
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        [params setObject:url forKey:@"link"];
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:params];
+        [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    }
+}
+
+-(void) contentChanged:(NSString *)html withCallback:(NSString *)callbackId {
+    if(callbackId != nil) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        [params setObject:html forKey:@"html"];
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:params];
+        [result setKeepCallbackAsBool:YES];
         [self.commandDelegate sendPluginResult:result callbackId:callbackId];
     }
 }

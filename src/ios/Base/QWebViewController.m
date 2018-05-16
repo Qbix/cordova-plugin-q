@@ -152,8 +152,7 @@
     return [components.URL absoluteString];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView*)theWebView
-{
+- (void)webViewDidFinishLoad:(UIWebView*)theWebView {
     NSLog(@"catch webViewDidFinishLoad");
     QConfig *conf = [[QConfig alloc] init];
     

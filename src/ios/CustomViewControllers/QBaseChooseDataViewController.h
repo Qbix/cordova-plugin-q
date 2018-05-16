@@ -12,6 +12,7 @@
 @protocol QBaseChooseDataViewControllerDelegate <NSObject>
 -(void) changeUrl:(NSString*) newUrl;
 -(void) chooseImage:(NSString*) image;
+-(void) contentChanged:(NSString*) html;
 @end
 
 @interface QBaseChooseDataViewController : UIViewController<QBaseChooseDataViewControllerDelegate>

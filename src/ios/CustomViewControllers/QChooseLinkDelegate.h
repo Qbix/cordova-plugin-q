@@ -11,5 +11,6 @@
 @protocol QChooseLinkDelegate <NSObject>
 -(void) cancelChooseLink:(NSString*) callback;
 -(void) chooseLink:(NSString*) link withCallback:(NSString*) callback;
+-(void) contentChanged:(NSString*) html withCallback:(NSString*) callback;
 @end
 
