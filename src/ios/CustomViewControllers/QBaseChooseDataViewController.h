@@ -19,6 +19,8 @@
 @property(nonatomic,strong) NSString *startUrl;
 @property(nonatomic,strong) id<QChooseLinkDelegate> delegate;
 @property(nonatomic,strong) NSString *callbackId;
+@property(nonatomic,strong) UIColor *navigationBarBackgroundColor;
+@property(nonatomic,strong) UIColor *navigationBarButtonsColor;
 @property(nonatomic, strong) NSString *currentUrl;
 @property(nonatomic, strong) NSString *injectedJavascriptCode;
 

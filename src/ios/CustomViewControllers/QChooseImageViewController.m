@@ -21,13 +21,45 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(copyToClipboard:) name:UIPasteboardChangedNotification object:nil];
     
     //customize choose image hint view
-    [self.bottomImageSelectHint setBackgroundColor:[self.navigationController.navigationBar barTintColor]];
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
-                                      forBarPosition:UIBarPositionAny
-                                          barMetrics:UIBarMetricsDefault];
+    if([self navigationBarBackgroundColor] != nil) {
+        [self.navigationController.navigationBar setBarTintColor:[self navigationBarBackgroundColor]];
+    }
+    if([self navigationBarButtonsColor] != nil) {
+        [self.navigationItem.leftBarButtonItem setTintColor:[self navigationBarButtonsColor]];
+    }
+}
+
+- (CGRect)frameForView:(UIView *)view {
+    return [view convertRect:view.bounds toView:nil];;
+}
+
+-(CABasicAnimation*) getPulseAnimation {
+    CABasicAnimation *pulseAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    pulseAnimation.duration=1.0;
+    pulseAnimation.repeatCount=HUGE_VALF;
+    pulseAnimation.autoreverses=YES;
+    pulseAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+    pulseAnimation.toValue=[NSNumber numberWithFloat:0.5];
+    return pulseAnimation;
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    CGRect navigationBarRect = [self.navigationController.navigationBar frame];
+    CGRect cancelBtnRect = [self frameForView:[self.navigationItem.leftBarButtonItem valueForKey:@"view"]];
     
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    CGFloat labelWidth = navigationBarRect.size.width - 2*navigationBarRect.origin.x - 2*(2*cancelBtnRect.origin.x + cancelBtnRect.size.width);
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, labelWidth, 44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 2;
+    label.font = [UIFont boldSystemFontOfSize: 14.0f];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = self.navigationItem.leftBarButtonItem.tintColor;
+    label.text = @"Choose an Image\nby tapping on it";
+    [label.layer addAnimation:[self getPulseAnimation] forKey:@"animateOpacity"];
+    
+    self.navigationItem.titleView = label;
     
     
 }

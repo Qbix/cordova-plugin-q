@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -43,8 +43,8 @@
                                 <action selector="closeAction:" destination="Nwv-k0-nUO" id="8Ia-3C-g1i"/>
                             </connections>
                         </barButtonItem>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="CCp-Md-x2Q">
-                            <rect key="frame" x="102.5" y="7" width="170" height="30"/>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="CCp-Md-x2Q">
+                            <rect key="frame" x="103" y="7" width="169" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -69,7 +69,7 @@
             </objects>
             <point key="canvasLocation" x="1064.8" y="121.88905547226388"/>
         </scene>
-        <!--Choose an Image-->
+        <!--Choose Image View Controller-->
         <scene sceneID="fOg-tN-77W">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="v6v-cK-b2d" customClass="QChooseImageViewController" sceneMemberID="viewController">
@@ -78,54 +78,31 @@
                         <viewControllerLayoutGuide type="bottom" id="Hhn-4o-GcV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cVM-p7-5zD">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ek-dx-DhW">
-                                <rect key="frame" x="0.0" y="20" width="375" height="583"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
                                     <segue destination="sVg-ks-Y6G" kind="embed" identifier="QWebViewSegue" id="JO2-Ep-Egs"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsT-Jc-lJx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by tapping on it" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiY-vY-n5o">
-                                        <rect key="frame" x="124" y="0.5" width="127" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="kiY-vY-n5o" firstAttribute="centerY" secondItem="fsT-Jc-lJx" secondAttribute="centerY" id="8ke-bU-cdC"/>
-                                    <constraint firstItem="kiY-vY-n5o" firstAttribute="centerX" secondItem="fsT-Jc-lJx" secondAttribute="centerX" id="IWA-ur-fnH"/>
-                                    <constraint firstAttribute="height" constant="20" id="zdX-By-Pda"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Hhn-4o-GcV" firstAttribute="top" secondItem="8Ek-dx-DhW" secondAttribute="bottom" id="01n-15-MZE"/>
-                            <constraint firstItem="fsT-Jc-lJx" firstAttribute="top" secondItem="vJk-g2-LCp" secondAttribute="bottom" id="NQY-7Z-Svs"/>
-                            <constraint firstItem="fsT-Jc-lJx" firstAttribute="leading" secondItem="cVM-p7-5zD" secondAttribute="leadingMargin" constant="-16" id="QDx-Ub-fIO"/>
                             <constraint firstItem="8Ek-dx-DhW" firstAttribute="leading" secondItem="cVM-p7-5zD" secondAttribute="leading" id="Su5-ba-Msc"/>
                             <constraint firstAttribute="trailing" secondItem="8Ek-dx-DhW" secondAttribute="trailing" id="ThL-66-maj"/>
-                            <constraint firstItem="8Ek-dx-DhW" firstAttribute="top" secondItem="fsT-Jc-lJx" secondAttribute="bottom" id="aDJ-AY-msU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="fsT-Jc-lJx" secondAttribute="trailing" constant="-16" id="yPV-hQ-PzI"/>
+                            <constraint firstItem="8Ek-dx-DhW" firstAttribute="top" secondItem="vJk-g2-LCp" secondAttribute="bottom" id="VpZ-7Z-Sgd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose an Image" id="WYL-Q7-TAV">
+                    <navigationItem key="navigationItem" id="WYL-Q7-TAV">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="hp4-zB-98P">
                             <connections>
                                 <action selector="cancelAction:" destination="v6v-cK-b2d" id="XX9-vA-N0Z"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="bottomImageSelectHint" destination="fsT-Jc-lJx" id="swe-7c-2vd"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vg7-zg-ELs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -137,7 +114,7 @@
                 <navigationController storyboardIdentifier="QChooseLinkViewControllerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="hYr-PZ-DS5" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="O8Y-UO-gCe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -172,10 +149,9 @@
             <objects>
                 <navigationController storyboardIdentifier="QChooseImageViewControllerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="Hx7-k2-dka" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" shadowImage="arrow_up.png" id="etF-NC-kWU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="etF-NC-kWU">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -195,7 +171,7 @@
                         <viewControllerLayoutGuide type="bottom" id="1Zp-P3-iAD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="d22-I9-Ahl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="583"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -205,7 +181,4 @@
             <point key="canvasLocation" x="1878" y="922"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="arrow_up.png" width="53" height="41"/>
-    </resources>
 </document>
