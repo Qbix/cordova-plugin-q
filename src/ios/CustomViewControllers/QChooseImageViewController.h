@@ -12,6 +12,7 @@
 @interface QChooseImageViewController : QBaseChooseDataViewController
 - (IBAction)cancelAction:(id)sender;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *bottomImageSelectHint;
+@property(nonatomic, strong) NSString* injectScript;
 
 
 @end

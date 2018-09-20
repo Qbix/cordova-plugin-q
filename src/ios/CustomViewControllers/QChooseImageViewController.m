@@ -74,8 +74,11 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self setInjectedJavascriptCode:@"(function() {setInterval(function() {var top = 0;var imgs = document.getElementsByTagName('img');for (var i = 0, l = imgs.length; i < l; ++i) {var img = imgs[i];var found = null;var p = img;while (p = p.parentNode) {if (p.tagName && p.tagName.toUpperCase() === 'A') {found = p;break;}}if (found) {continue;}if (!img._addedEventHandlers) {img._addedEventHandlers = true;img.addEventListener('touchstart', _handleTouchStart);img.addEventListener('touchend', _handleTouchEnd);}function _handleTouchStart(e) {top = document.body.scrollTop;}function _handleTouchEnd(e) {if (Math.abs(top - document.body.scrollTop) > 10) return;var src = e.target.getAttribute('src');console.log(src);Q.Cordova.chooseImageEvent(src, null, null)}}}, 300);})();"];
-    
+    if(self.injectScript != nil) {
+        [self setInjectedJavascriptCode:self.injectScript];
+    } else {
+        [self setInjectedJavascriptCode:@"(function() {setInterval(function() {var top = 0;var imgs = document.getElementsByTagName('img');for (var i = 0, l = imgs.length; i < l; ++i) {var img = imgs[i];var found = null;var p = img;while (p = p.parentNode) {if (p.tagName && p.tagName.toUpperCase() === 'A') {found = p;break;}}if (found) {continue;}if (!img._addedEventHandlers) {img._addedEventHandlers = true;img.addEventListener('touchstart', _handleTouchStart);img.addEventListener('touchend', _handleTouchEnd);}function _handleTouchStart(e) {top = document.body.scrollTop;}function _handleTouchEnd(e) {if (Math.abs(top - document.body.scrollTop) > 10) return;var src = e.target.getAttribute('src');console.log(src);Q.Cordova.chooseImageEvent(src, null, null)}}}, 300);})();"];
+    }
     [super prepareForSegue:segue sender:sender];
 }
 
