@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7oY-PV-3GR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7oY-PV-3GR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,7 +14,7 @@
             <objects>
                 <navigationController id="7oY-PV-3GR" customClass="MultiTestUINavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Cc-ax-r8W">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -37,13 +37,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter url or name of project" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ADw-gB-Ha4">
-                                <rect key="frame" x="20" y="87" width="560" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter url or name of project" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ADw-gB-Ha4">
+                                <rect key="frame" x="16" y="87" width="343" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VMf-4R-K90">
-                                <rect key="frame" x="16" y="125" width="343" height="522"/>
+                                <rect key="frame" x="16" y="223" width="343" height="424"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="simpleCell" id="e2h-pi-7Yk">
@@ -60,14 +60,29 @@
                                     <outlet property="delegate" destination="Gng-UI-xOv" id="ZQ0-lB-cHx"/>
                                 </connections>
                             </tableView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tr4-Nd-eHz">
+                                <rect key="frame" x="20" y="125" width="343" height="90"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="hMd-C4-6fC"/>
+                                </constraints>
+                                <string key="text">1. "http://&lt;url&gt;" || "https://&lt;url&gt;" - app direct load this adress
+2. "local" - open index.html file in local bundle
+3. any other input - open url "http://qbixstaging.com/&lt;your input&gt;"</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VMf-4R-K90" firstAttribute="trailing" secondItem="2KM-l8-mW1" secondAttribute="trailingMargin" id="2HJ-zy-yMb"/>
+                            <constraint firstItem="Tr4-Nd-eHz" firstAttribute="top" secondItem="ADw-gB-Ha4" secondAttribute="bottom" constant="8" id="9Qs-vX-Q6x"/>
                             <constraint firstItem="VMf-4R-K90" firstAttribute="leading" secondItem="2KM-l8-mW1" secondAttribute="leadingMargin" id="BGI-FU-KmA"/>
-                            <constraint firstItem="VMf-4R-K90" firstAttribute="top" secondItem="ADw-gB-Ha4" secondAttribute="bottom" constant="8" symbolic="YES" id="EUy-a0-M6E"/>
+                            <constraint firstItem="VMf-4R-K90" firstAttribute="top" secondItem="Tr4-Nd-eHz" secondAttribute="bottom" constant="8" id="D8H-iC-khF"/>
+                            <constraint firstItem="Tr4-Nd-eHz" firstAttribute="leading" secondItem="2KM-l8-mW1" secondAttribute="leadingMargin" constant="4" id="Oqo-Te-Nd4"/>
                             <constraint firstItem="ADw-gB-Ha4" firstAttribute="leading" secondItem="2KM-l8-mW1" secondAttribute="leadingMargin" id="Pyn-KB-K8l"/>
                             <constraint firstItem="sWL-wA-Y21" firstAttribute="top" secondItem="VMf-4R-K90" secondAttribute="bottom" constant="20" id="RxI-DA-1Xn"/>
+                            <constraint firstItem="Tr4-Nd-eHz" firstAttribute="trailing" secondItem="2KM-l8-mW1" secondAttribute="trailingMargin" constant="4" id="ZK6-Ti-9Ki"/>
                             <constraint firstItem="ADw-gB-Ha4" firstAttribute="trailing" secondItem="2KM-l8-mW1" secondAttribute="trailingMargin" id="gRc-tm-vkD"/>
                             <constraint firstItem="ADw-gB-Ha4" firstAttribute="top" secondItem="YcB-2u-8sW" secondAttribute="bottom" constant="23" id="iXU-T7-VFw"/>
                         </constraints>

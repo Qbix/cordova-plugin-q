@@ -28,12 +28,17 @@
 - (BOOL)textFieldShouldReturn:(UITextField*) textField {
     [self.view endEditing:YES];
     
-    NSURL *url = [super getNSURLFromString:textField.text];
-    if(url) {
+    if([textField.text isEqualToString:@"local"]) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"index.html"]];
         [self loadQCordovaApp:url.description];
     } else {
-        NSString* project = [textField.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        [self loadQCordovaApp:[NSString stringWithFormat:@"http://qbixstaging.com/%@", project]];
+        NSURL *url = [super getNSURLFromString:textField.text];
+        if(url) {
+            [self loadQCordovaApp:url.description];
+        } else {
+            NSString* project = [textField.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+            [self loadQCordovaApp:[NSString stringWithFormat:@"http://qbixstaging.com/%@", project]];
+        }
     }
     
     return YES;
