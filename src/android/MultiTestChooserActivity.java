@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.q.cordova.MainActivity;
 import com.q.cordova.R;
 
 /**
@@ -89,11 +88,15 @@ public class MultiTestChooserActivity extends Activity {
 
     private void onInputFinished() {
         String query = inputEditText.getText().toString();
-        URL url = getNSURLFromString(query);
-        if(url != null) {
-            loadQCordovaApp(url.toString());
+        if(query.equalsIgnoreCase("local")) {
+            loadQCordovaApp("index.html");
         } else {
-            loadQCordovaApp("http://qbixstaging.com/"+ Uri.encode(query));
+            URL url = getNSURLFromString(query);
+            if (url != null) {
+                loadQCordovaApp(url.toString());
+            } else {
+                loadQCordovaApp("http://qbixstaging.com/" + Uri.encode(query));
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.webkit.WebSettings;
@@ -65,13 +66,14 @@ public class Q {
         this.testMode = testMode;
     }
 
-    public static Q initWith(CordovaActivity activity) {
+    private static Q initWith(QActivity activity, boolean testMode) {
         if(instance == null) {
+            activity.init();
             instance = new Q();
         }
         instance.setContext(activity.getApplicationContext());
         instance.setActivity(activity);
-        instance.initialize();
+        instance.initialize(testMode);
 
         // if(activity.getIntent().getAction()!=null && activity.getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
         //     if(activity.getIntent().getData()!=null) {
@@ -83,19 +85,18 @@ public class Q {
         return instance;
     }
 
-    public static Q getInstance() {
+    public static Q getInstance(QActivity activity, boolean testMode) {
         if(instance == null) {
-            RuntimeException exception = new RuntimeException("Q plugin isn\'t inited. Please run static method initWith(Activity activity)");
-            throw exception;
+            initWith(activity, testMode);
         }
 
         return instance;
     }
 
 
-    private void initialize() {
+    private void initialize(boolean testMode) {
         initSharedCache();
-        setTestMode(false);
+        setTestMode(testMode);
 
         if(!QConfig.getInstance(this.getContext()).getUserAgentSuffix().isEmpty()) {
             WebSettings settings = getSystemWebSettings();
@@ -114,8 +115,8 @@ public class Q {
         }
     }
 
-    public void showQWebView() {
-        this.getActivity().loadUrl(prepeareQGroupsController(null));
+    public void showQWebView(@Nullable String url) {
+        this.getActivity().loadUrl(prepeareQGroupsController(url));
     }
 
     public void showQTestWebView(String url) {
@@ -126,20 +127,24 @@ public class Q {
     private void sendPingRequest() {
         // Sent request
         final Context applicationContext = this.getContext().getApplicationContext();
-        NetworkApi api = new NetworkService(applicationContext).getApi();
-        api.ping(QConfig.getInstance(applicationContext).getUdid()).enqueue(new Callback<PingResponse>() {
-            @Override
-            public void onResponse(Call<PingResponse> call, Response<PingResponse> response) {
-                if (response.isSuccessful()) {
-                    //QConfig.getInstance(applicationContext).acceptPingResponse(response.body());
+        try {
+            NetworkApi api = new NetworkService(applicationContext).getApi();
+            api.ping(QConfig.getInstance(applicationContext).getUdid()).enqueue(new Callback<PingResponse>() {
+                @Override
+                public void onResponse(Call<PingResponse> call, Response<PingResponse> response) {
+                    if (response.isSuccessful()) {
+                        //QConfig.getInstance(applicationContext).acceptPingResponse(response.body());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<PingResponse> call, Throwable t) {
+                @Override
+                public void onFailure(Call<PingResponse> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        } catch (Exception e) {
+
+        }
     }
 
     // private void handleOpenUrl(Uri data) {
@@ -258,6 +263,10 @@ public class Q {
     public String prepeareQGroupsController(String remoteUrl) {
         if(remoteUrl == null)
             remoteUrl = QConfig.getInstance(getActivity()).getUrl();
+
+        if(!remoteUrl.startsWith("http") || !remoteUrl.startsWith("file")) {
+            remoteUrl = "file:///android_asset/www/" + remoteUrl;
+        }
 
         Map<String, String> additionalParams = getAdditionalParamsForUrl();
         if(additionalParams == null)

@@ -57,6 +57,7 @@
     </config-file>
 
     <source-file src="src/android/Q.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QActivity.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QCordova.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QConfig.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/FileSystemHelper.java" target-dir="src/com/q/cordova/plugin/"/>
