@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.q.cordova.R;
+import <packaged>.R;
 
 /**
  * Created by adventis on 11/13/16.
