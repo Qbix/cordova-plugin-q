@@ -264,7 +264,7 @@ public class Q {
         if(remoteUrl == null)
             remoteUrl = QConfig.getInstance(getActivity()).getUrl();
 
-        if(!remoteUrl.startsWith("http") || !remoteUrl.startsWith("file")) {
+        if(!remoteUrl.startsWith("http") && !remoteUrl.startsWith("file")) {
             remoteUrl = "file:///android_asset/www/" + remoteUrl;
         }
 
