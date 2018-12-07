@@ -137,8 +137,9 @@
     }
 
     NSURLComponents *components = [NSURLComponents componentsWithString:mainUrl];
+    
     NSMutableArray<NSURLQueryItem*> *queryItems = [NSMutableArray array];
-     
+    
     for (NSString *key in params) {
         if([params[key] isKindOfClass:[NSString class]]) {
             [queryItems addObject:[NSURLQueryItem queryItemWithName:key value:params[key]]];
@@ -146,6 +147,11 @@
             [queryItems addObject:[NSURLQueryItem queryItemWithName:key value:[params[key] stringValue]]];
         }
     }
+    
+    for (NSURLQueryItem *item in [components queryItems]) {
+        [queryItems addObject:item];
+    }
+    
     
     components.queryItems = queryItems;
      

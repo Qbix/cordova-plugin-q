@@ -8,6 +8,8 @@
 
 #import "Q.h"
 #import "QSignManager.h"
+#import "MultiTestChooserViewController.h"
+#import "MultiTestUINavigationController.h"
 
 @implementation Q
 #define CACHE_SIZE_MEMORY 8*1024*1024
@@ -18,11 +20,15 @@
 static Q *instance = nil;
 
 + (Q*)initTestWith:(CDVAppDelegate *)appDelegate {
+    return [Q initTestWith:appDelegate andInitUrl:nil];
+}
+
++ (Q*)initTestWith:(CDVAppDelegate *)appDelegate andInitUrl:(NSString*) url {
     if (instance == nil) {
         instance = [[super alloc] init];
     }
     [instance setAppDelegate:appDelegate];
-    [instance initializeTest];
+    [instance initializeTestWithUrl:url];
     
     return instance;
 }
@@ -62,12 +68,13 @@ static Q *instance = nil;
     self.appDelegate.viewController = [self prepeareQGroupsController];
 }
 
--(void) initializeTest {
+-(void) initializeTestWithUrl:(NSString*) url {
     [self initSharedCache];
     
     UIStoryboard *testStoryboard = [UIStoryboard storyboardWithName:@"QTestStoryboard" bundle:nil];
-    UIViewController *testLaunchViewController = [testStoryboard instantiateInitialViewController];
-    self.appDelegate.viewController = (CDVViewController*)testLaunchViewController;
+    MultiTestUINavigationController *navigationController = (MultiTestUINavigationController*)[testStoryboard instantiateInitialViewController];
+    [(MultiTestChooserViewController*)navigationController.viewControllers[0] setLaunchUrl:url];
+    self.appDelegate.viewController = (CDVViewController*)navigationController;
 }
 
 -(void) sendPingRequest {

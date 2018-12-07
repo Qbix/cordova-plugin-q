@@ -19,6 +19,7 @@
 @property(nonatomic, retain) CDVAppDelegate *appDelegate;
 
 +(Q*)initTestWith:(CDVAppDelegate *)appDelegate;
++(Q*)initTestWith:(CDVAppDelegate *)appDelegate andInitUrl:(NSString*) url;
 +(Q*) initWith:(CDVAppDelegate*) appDelegate;
 +(Q*) getInstance;
 
