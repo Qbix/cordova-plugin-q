@@ -78,7 +78,6 @@
     <source-file src="build-extras.gradle" target-dir="../android" />
 
     <hook type="after_plugin_install" src="scripts/android_modify_source_files.js"/>
-    <hook type="before_prepare" src="scripts/android_modify_source_files.js"/>
 
   </platform>
 
