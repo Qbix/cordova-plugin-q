@@ -72,10 +72,13 @@
 
     <framework src="com.squareup.retrofit2:retrofit:2.0.0" />
     <framework src="com.squareup.retrofit2:converter-gson:2.0.0" />
+    
+    <framework src="src/android/fastlaneScreenshotTest/fastlaneScreenshotTest.gradle" custom="true" type="gradleReference"/>
 
     <source-file src="build-extras.gradle" target-dir="../android" />
 
     <hook type="after_plugin_install" src="scripts/android_modify_source_files.js"/>
+    <hook type="before_prepare" src="scripts/android_modify_source_files.js"/>
 
   </platform>
 
