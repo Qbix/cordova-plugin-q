@@ -15,7 +15,7 @@ module.exports = function(context) {
     var packageName = cfg.packageName()
 
     changeSourceFiles(androidPlatformPath, packageName)
-    changeMainActivity(androidPlatformPath, packageName)
+    // changeMainActivity(androidPlatformPath, packageName)
     copyFastlaneScreenshotTest(androidPlatformPath, packageName, projectRoot)
 
 	function changeSourceFiles(androidPlatformPath, packageName) {
