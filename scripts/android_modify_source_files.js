@@ -65,7 +65,7 @@ module.exports = function(context) {
         // Copy AndroidManifest.xml file
         var androidManifestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','AndroidManifest.xml')
         var androidManifestTestFile = path.join(androidPlatformPath, "androidTest", "AndroidManifest.xml")
-        fs.writeFileSync(androidManifestPath, fs.readFileSync(androidManifestTestFile));
+        fs.writeFileSync(androidManifestTestFile, fs.readFileSync(androidManifestPath));
         
     }
 
