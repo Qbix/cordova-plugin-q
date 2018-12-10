@@ -50,8 +50,8 @@ module.exports = function(context) {
         var androidTestFile = path.join(androidPlatformPath, "androidTest", "java", packageAsFolder)
         mkdirRecursiveSync(androidTestFile);
         androidTestFile = path.join(androidTestFile, "MainActivityTest.java")
-        var androidPlatformPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','MainActivityTest.java')
-        fs.writeFileSync(androidTestFile, fs.readFileSync(androidPlatformPath));
+        var androidUITestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','MainActivityTest.java')
+        fs.writeFileSync(androidTestFile, fs.readFileSync(androidUITestPath));
         if (fs.existsSync(androidTestFile)) {
             mainActivityContent = fs.readFileSync(androidTestFile, 'utf-8');
           
@@ -61,6 +61,12 @@ module.exports = function(context) {
         } else {
             console.log("Not exist")
         }
+
+        // Copy AndroidManifest.xml file
+        var androidManifestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','AndroidManifest.xml')
+        var androidManifestTestFile = path.join(androidPlatformPath, "androidTest", "AndroidManifest.xml")
+        fs.writeFileSync(androidManifestPath, fs.readFileSync(androidManifestTestFile));
+        
     }
 
     function mkdirRecursiveSync(path) {
