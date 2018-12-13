@@ -15,7 +15,7 @@ module.exports = function(context) {
     var packageName = cfg.packageName()
 
     changeSourceFiles(androidPlatformPath, packageName)
-    // changeMainActivity(androidPlatformPath, packageName)
+    copyStubActivity(androidPlatformPath, packageName)
     copyFastlaneScreenshotTest(androidPlatformPath, packageName, projectRoot)
 
 	function changeSourceFiles(androidPlatformPath, packageName) {
@@ -31,15 +31,17 @@ module.exports = function(context) {
         }
 	}
 
-    function changeMainActivity(androidPlatformPath,packageName) {
+    function copyStubActivity(androidPlatformPath,packageName) {
+        var stubActivityPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android','StubActivity.java')
+        
         var mainActivityFolder = packageName.split(".").join("/")
-        var mainActivityPath = path.join(androidPlatformPath, "src", mainActivityFolder, "MainActivity.java")
-        if (fs.existsSync(mainActivityPath)) {
-            mainActivityContent = fs.readFileSync(mainActivityPath, 'utf-8');
+        var mainActivityPath = path.join(androidPlatformPath, "src", mainActivityFolder, 'StubActivity.java')
+        if (fs.existsSync(stubActivityPath)) {
+            stubActivityContent = fs.readFileSync(stubActivityPath, 'utf-8');
           
-            mainActivityContent = mainActivityContent.replace(/CordovaActivity/gi, "QActivity")
+            stubActivityContent = stubActivityContent.replace(/<packaged>/gi, packageName)
 
-            fs.writeFileSync(mainActivityPath, mainActivityContent, 'utf-8');
+            fs.writeFileSync(mainActivityPath, stubActivityContent, 'utf-8');
         } else {
             console.log("Not exist")
         }
