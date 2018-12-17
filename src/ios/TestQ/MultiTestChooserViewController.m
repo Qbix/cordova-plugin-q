@@ -8,8 +8,9 @@
 
 #import "MultiTestChooserViewController.h"
 #import "AppDelegate.h"
+#import "Q.h"
 
-@interface MultiTestChooserViewController () 
+@interface MultiTestChooserViewController ()
 
 @end
 
@@ -19,6 +20,9 @@
     [super viewDidLoad];
     self.inputTextField.delegate = self;
     [super setDelegate:self];
+    if(self.launchUrl != nil) {
+        [self load:self.launchUrl];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,20 +32,24 @@
 - (BOOL)textFieldShouldReturn:(UITextField*) textField {
     [self.view endEditing:YES];
     
-    if([textField.text isEqualToString:@"local"]) {
+    [self load:textField.text];
+    
+    return YES;
+}
+
+-(void) load:(NSString*) inputText {
+    if([inputText isEqualToString:@"local"]) {
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"index.html"]];
         [self loadQCordovaApp:url.description];
     } else {
-        NSURL *url = [super getNSURLFromString:textField.text];
+        NSURL *url = [super getNSURLFromString:inputText];
         if(url) {
             [self loadQCordovaApp:url.description];
         } else {
-            NSString* project = [textField.text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+            NSString* project = [inputText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
             [self loadQCordovaApp:[NSString stringWithFormat:@"http://qbixstaging.com/%@", project]];
         }
     }
-    
-    return YES;
 }
 
 -(void) loadQCordovaApp:(NSString*) url {

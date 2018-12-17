@@ -103,6 +103,8 @@
 
     <header-file src="src/ios/Base/Q.h" target-dir="QCordovaPlugin/Base"/>
     <source-file src="src/ios/Base/Q.m" target-dir="QCordovaPlugin/Base"/>
+    <header-file src="src/ios/Base/QDelegate.h" target-dir="QCordovaPlugin/Base"/>
+    <source-file src="src/ios/Base/QDelegate.m" target-dir="QCordovaPlugin/Base"/>
     <header-file src="src/ios/Base/QWebViewController.h" target-dir="QCordovaPlugin/Base"/>
     <source-file src="src/ios/Base/QWebViewController.m" target-dir="QCordovaPlugin/Base"/>
 
