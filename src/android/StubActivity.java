@@ -1,4 +1,4 @@
-package <packaged>
+package <packaged>;
 
 import org.apache.cordova.CordovaActivity;
 
