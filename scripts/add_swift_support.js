@@ -17,8 +17,10 @@ module.exports = function(context) {
     var iosPlatformPath = path.join(projectRoot, 'platforms', 'ios')
     var packageName = cfg.packageName()
 
+    var fastlaneFolderInPlugins = path.join(projectRoot,"plugins","com.q.cordova","src","ios","fastlane");
+    var fastlaneFolderInProject = path.join(iosPlatformPath,"QFastlaneUITests");
 
-    copyFolderRecursiveSync(path.join(projectRoot,"src","ios","fastlane"), path.join(iosPlatformPath,"QFastlaneUITests"));
+    copyFolderRecursiveSync(fastlaneFolderInPlugins, fastlaneFolderInProject);
     run();
 
     function copyFileSync( source, target ) {
@@ -38,7 +40,7 @@ module.exports = function(context) {
         var files = [];
 
         //check if folder needs to be created or integrated
-        var targetFolder = path.join( target, path.basename( source ) );
+        var targetFolder = path.join( target );
         if ( !fs.existsSync( targetFolder ) ) {
             fs.mkdirSync( targetFolder );
         }
