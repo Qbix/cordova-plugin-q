@@ -7,15 +7,13 @@
 
 import XCTest
 
-class EditHTMLUITests: XCTestCase {
+class QFastlaneUITests: XCTestCase {
 
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchEnvironment = [ "Fastlane": "1" ]
-//        setupSnapshot(app)
-//        setLanguage(app)
         app.launch()
     }
 
@@ -42,14 +40,14 @@ class EditHTMLUITests: XCTestCase {
             additionalParameters += "Q.language=\(localization!)"
         }
         
-        let url = getArg(app: app, key: "-init_url");
+        let url = getArg(app: app, key: "-init_url")!;
         
-        let fullUrl = "\(url!)?\(additionalParameters)"
+        let fullUrl = "\(url)?\(additionalParameters)"
         print(fullUrl);
         app.textFields["Please enter url or name of project"].tap()
         app.textFields["Please enter url or name of project"].typeText(fullUrl)
         app/*@START_MENU_TOKEN@*/.buttons["Go"]/*[[".keyboards.buttons[\"Go\"]",".buttons[\"Go\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         sleep(10)
-        snapshot("\(Data(url!.utf8).hashValue)_screenshot")
+        snapshot("\(Data(url.utf8).hashValue)_screenshot")
     }
 }

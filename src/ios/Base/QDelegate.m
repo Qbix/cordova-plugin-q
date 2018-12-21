@@ -12,10 +12,9 @@
 
 +(void) handleLaunchMode:(CDVAppDelegate*) delegate {
     if([QDelegate isFastlaneScreenshot]) {
-        NSString *initUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"init_url"];
-        [Q initTestWith:delegate andInitUrl:initUrl];
+        [Q initTestWith:delegate];
     } else {
-        [Q initWith:delegate]; //added this line in first'
+        [Q initWith:delegate];
         [[Q getInstance] showQWebView];
     }
 }
