@@ -49,11 +49,11 @@ module.exports = function(context) {
     }
 
     function replaceMainActivity(androidPlatformPath, packageName) {
-        var mainActivityPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android','MainActivity.java')
+        var stubActivityPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android','MainActivity.java')
         var mainActivityFolder = packageName.split(".").join("/")
         var mainActivityPath = path.join(androidPlatformPath, "src", mainActivityFolder, 'MainActivity.java')
-        if (fs.existsSync(mainActivityPath)) {
-            mainActivityContent = fs.readFileSync(mainActivityPath, 'utf-8');
+        if (fs.existsSync(stubActivityPath)) {
+            mainActivityContent = fs.readFileSync(stubActivityPath, 'utf-8');
           
             mainActivityContent = mainActivityContent.replace(/<packaged>/gi, packageName)
 
