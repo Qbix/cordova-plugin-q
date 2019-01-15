@@ -83,8 +83,17 @@ module.exports = function(context) {
         // Copy AndroidManifest.xml file
         var androidManifestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','AndroidManifest.xml')
         var androidManifestTestFile = path.join(androidPlatformPath, "androidTest", "AndroidManifest.xml")
-        fs.writeFileSync(androidManifestTestFile, fs.readFileSync(androidManifestPath));
-        
+        var content = fs.readFileSync(androidManifestPath);
+        content = content.replace(/<packageId>/gi, packageName);
+        fs.writeFileSync(androidManifestTestFile, content);
+
+        // Copy debug AndroidManifest.xml file
+        androidManifestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','debug','AndroidManifest.xml')
+        androidManifestTestFile = path.join(androidPlatformPath, "src", "debug", "AndroidManifest.xml")
+        mkdirRecursiveSync(androidManifestTestFile);
+        content = fs.readFileSync(androidManifestPath);
+        content = content.replace(/<packageId>/gi, packageName);
+        fs.writeFileSync(androidManifestTestFile, content);
     }
 
     function mkdirRecursiveSync(path) {
