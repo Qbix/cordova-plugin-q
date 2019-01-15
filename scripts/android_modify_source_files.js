@@ -16,6 +16,7 @@ module.exports = function(context) {
 
     changeSourceFiles(androidPlatformPath, packageName)
     copyStubActivity(androidPlatformPath, packageName)
+    replaceMainActivity(androidPlatformPath, packageName)
     copyFastlaneScreenshotTest(androidPlatformPath, packageName, projectRoot)
 
 	function changeSourceFiles(androidPlatformPath, packageName) {
@@ -42,6 +43,21 @@ module.exports = function(context) {
             stubActivityContent = stubActivityContent.replace(/<packaged>/gi, packageName)
 
             fs.writeFileSync(mainActivityPath, stubActivityContent, 'utf-8');
+        } else {
+            console.log("Not exist")
+        }
+    }
+
+    function replaceMainActivity(androidPlatformPath, packageName) {
+        var mainActivityPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android','MainActivity.java')
+        var mainActivityFolder = packageName.split(".").join("/")
+        var mainActivityPath = path.join(androidPlatformPath, "src", mainActivityFolder, 'MainActivity.java')
+        if (fs.existsSync(mainActivityPath)) {
+            mainActivityContent = fs.readFileSync(mainActivityPath, 'utf-8');
+          
+            mainActivityContent = mainActivityContent.replace(/<packaged>/gi, packageName)
+
+            fs.writeFileSync(mainActivityPath, mainActivityContent, 'utf-8');
         } else {
             console.log("Not exist")
         }
