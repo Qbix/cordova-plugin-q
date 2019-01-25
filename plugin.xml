@@ -147,6 +147,7 @@
     <source-file src="src/ios/Utils/QSignManager/QCryptoRSAManager.swift"/>
     <source-file src="src/ios/Utils/QSignManager/QSignUtils.swift"/>
     <source-file src="src/ios/Utils/QSignManager/CryptoExportImportManager.swift"/>
+    <source-file src="src/ios/QbixAppGroupManager.swift"/>
 
 
     <header-file src="src/ios/TestQ/MultiTestBaseViewController.h" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
