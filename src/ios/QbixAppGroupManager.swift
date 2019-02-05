@@ -33,7 +33,7 @@ class QbixAppGroupManager:NSObject {
     @objc func initApp() {
         var appInfo = Dictionary<String, Any>.init();
         let lastOpen = Date.init().timeIntervalSince1970;
-        let appName = Bundle.init(identifier: "BundleIdentifier")?.object(forInfoDictionaryKey: kCFBundleExecutableKey as String)
+        let appName = Bundle.main.infoDictionary!["CFBundleDisplayName"] as! String
 
         if(self.sharedUserDefaults.dictionary(forKey: self.appBundleID) != nil) {
             appInfo = self.sharedUserDefaults.dictionary(forKey: self.appBundleID)!;
@@ -52,5 +52,9 @@ class QbixAppGroupManager:NSObject {
     
     @objc func isAppInstalled(appBundleID:String) -> Bool {
         return self.sharedUserDefaults.dictionary(forKey: appBundleID) != nil
+    }
+
+    @objc func getApp(appBundleID:String) -> Dictionary<String,Any>? {
+        return self.sharedUserDefaults.dictionary(forKey: appBundleID)
     }
 }
