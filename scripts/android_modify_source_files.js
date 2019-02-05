@@ -36,7 +36,7 @@ module.exports = function(context) {
         var stubActivityPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android','StubActivity.java')
         
         var mainActivityFolder = packageName.split(".").join("/")
-        var mainActivityPath = path.join(androidPlatformPath, "app","src", mainActivityFolder, 'StubActivity.java')
+        var mainActivityPath = path.join(androidPlatformPath, "app/src/main/java", mainActivityFolder, 'StubActivity.java')
         if (fs.existsSync(stubActivityPath)) {
             stubActivityContent = fs.readFileSync(stubActivityPath, 'utf-8');
           
@@ -51,7 +51,7 @@ module.exports = function(context) {
     function replaceMainActivity(androidPlatformPath, packageName) {
         var stubActivityPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android','MainActivity.java')
         var mainActivityFolder = packageName.split(".").join("/")
-        var mainActivityPath = path.join(androidPlatformPath, "app","src", mainActivityFolder, 'MainActivity.java')
+        var mainActivityPath = path.join(androidPlatformPath, "app/src/main/java", mainActivityFolder, 'MainActivity.java')
         if (fs.existsSync(stubActivityPath)) {
             mainActivityContent = fs.readFileSync(stubActivityPath, 'utf-8');
           
