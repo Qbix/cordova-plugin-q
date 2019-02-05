@@ -6,6 +6,6 @@ public class MainActivity extends QActivity
 {
     @Override
     public boolean isTestMode() {
-        return BuildConfig.DEBUG;;
+        return BuildConfig.DEBUG;
     }
 }
