@@ -24,6 +24,8 @@ dependencies {
     androidTestCompile 'tools.fastlane:screengrab:1.2.0'
 }
 
+ext.cdvMinSdkVersion=19
+
 android {
 	sourceSets {
 		androidTest {
