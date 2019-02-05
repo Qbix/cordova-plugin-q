@@ -20,7 +20,7 @@ module.exports = function(context) {
     copyFastlaneScreenshotTest(androidPlatformPath, packageName, projectRoot)
 
 	function changeSourceFiles(androidPlatformPath, packageName) {
-		var multiTestChooserActivityPath = path.join(androidPlatformPath, "src", "com","q","cordova", "plugin", "MultiTestChooserActivity.java")
+		var multiTestChooserActivityPath = path.join(androidPlatformPath, "app/src/main/java", "com","q","cordova", "plugin", "MultiTestChooserActivity.java")
 		if (fs.existsSync(multiTestChooserActivityPath)) {
             multiTestChooserContent = fs.readFileSync(multiTestChooserActivityPath, 'utf-8');
           
