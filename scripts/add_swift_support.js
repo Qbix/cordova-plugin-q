@@ -23,6 +23,62 @@ module.exports = function(context) {
     copyFolderRecursiveSync(fastlaneFolderInPlugins, fastlaneFolderInProject);
     run();
 
+    function insertInString(source, index, string) {
+      if (index > 0)
+        return source.substring(0, index) + string + source.substring(index, source.length);
+      else
+        return string + source;
+    };
+
+    function addDependency(content, importString) {
+        if(content.indexOf(importString) == -1) {
+            newRowIndex = 0;
+            var lastIndexOf = content.lastIndexOf("#import")
+            if(lastIndexOf > -1) {
+                for(var i=lastIndexOf; i < content.length; i++) {
+                    var char_value = content[i];
+                    if(char_value == '\n') {
+                        newRowIndex = i++;
+                        break;
+                    }
+                }    
+            }
+            content = insertInString(content, newRowIndex, "\n"+importString+"\n")
+        }
+        return content
+    }
+
+    function setupReferenceToQClasses(projectname) {
+        // AppDelegate.h
+        var appDelegateHPath = path.join(iosPlatformPath,projectname,"Classes","AppDelegate.h");
+        appDelegateHContent = fs.readFileSync(appDelegateHPath, 'utf-8');
+        
+        appDelegateHContent = addDependency(appDelegateHContent, "#import \"Q.h\"");
+        fs.writeFileSync(appDelegateHPath, appDelegateHContent);
+
+        // AppDelegate.m
+        var appDelegateMPath = path.join(iosPlatformPath,projectname,"Classes","AppDelegate.m");
+        appDelegateMContent = fs.readFileSync(appDelegateMPath, 'utf-8');
+
+        appDelegateMContent = addDependency(appDelegateMContent, "#import \"QDelegate.h\"");        
+        var index = appDelegateMContent.indexOf("self.viewController = [[MainViewController alloc] init];");
+        if(index > -1) {
+            appDelegateMContent = appDelegateMContent.replace(
+                "self.viewController = [[MainViewController alloc] init];", 
+                "[QDelegate handleLaunchMode:self];\n  // In case of using app group\n  // [[[QbixAppGroupManager alloc] initWithAppBundleID:[[NSBundle mainBundle] bundleIdentifier]] initApp];");
+        }
+        fs.writeFileSync(appDelegateMPath, appDelegateMContent);
+
+        // MyApp-Prefix.pch:
+        var prefixPCHPath = path.join(iosPlatformPath,projectname,projectname+"-Prefix.pch");
+        prefixPCHContent = fs.readFileSync(prefixPCHPath, 'utf-8');
+
+        if(prefixPCHContent.indexOf("#import \"QConfig.h\"") == -1) {
+            prefixPCHContent = insertInString(prefixPCHContent, prefixPCHContent.length, "#import \"QConfig.h\"\n")
+            fs.writeFileSync(prefixPCHPath, prefixPCHContent);
+        }
+    }
+
     function copyFileSync( source, target ) {
         var targetFile = target;
 
@@ -76,6 +132,9 @@ module.exports = function(context) {
             projectFile,
             xcodeProject,
             bridgingHeaderPath;
+
+
+        setupReferenceToQClasses(projectName);
 
         IOS_DEPLOYMENT_TARGET = cfg.getPreference('deployment-target', 'ios')+"" || '8.0'
 
