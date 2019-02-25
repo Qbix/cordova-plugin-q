@@ -72,7 +72,7 @@ module.exports = function(context) {
         podFileContent = podFileContent.replace("platform :ios, '8.0'", "platform :ios, '"+IOS_DEPLOYMENT_TARGET+"'")
         
         // Add SwiftyRSA
-        var swiftyRSAItem = "pod 'SwiftyRSA', '1.2.0'";
+        var swiftyRSAItem = "pod 'SwiftyRSA', '1.5.0'";
         if(podFileContent.indexOf(swiftyRSAItem) == -1) {
             podFileContent = addPod(podFileContent, swiftyRSAItem);
         }
