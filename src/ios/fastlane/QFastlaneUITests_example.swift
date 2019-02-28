@@ -47,7 +47,7 @@ class QFastlaneUITests: XCTestCase {
         app.textFields["Please enter url or name of project"].tap()
         app.textFields["Please enter url or name of project"].typeText(fullUrl)
         app/*@START_MENU_TOKEN@*/.buttons["Go"]/*[[".keyboards.buttons[\"Go\"]",".buttons[\"Go\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        sleep(10)
+        sleep(20)
         snapshot("\(Data(url.utf8).hashValue)_screenshot")
     }
 }
