@@ -47,7 +47,6 @@ public abstract class QActivity extends CordovaActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode == MULTI_TEST_RESULT_CODE && resultCode == RESULT_OK) {
             if(intent != null && intent.getStringExtra(MultiTestChooserActivity.QTESTURL) != null) {
-                isMultiChooserResponse = true;
                 Q.getInstance(this, isTestMode()).showQTestWebView(intent.getStringExtra(MultiTestChooserActivity.QTESTURL));
             }
         }
