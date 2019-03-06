@@ -65,7 +65,7 @@ module.exports = function(context) {
 
     function copyFastlaneScreenshotTest(androidPlatformPath, packageName, projectRoot) {
         var packageAsFolder = packageName.split(".").join("/")
-        var androidTestFile = path.join(androidPlatformPath, "androidTest", "java", packageAsFolder)
+        var androidTestFile = path.join(androidPlatformPath, "app", "src", "androidTest", "java", packageAsFolder)
         mkdirRecursiveSync(androidTestFile);
         androidTestFile = path.join(androidTestFile, "MainActivityTest.java")
         var androidUITestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','MainActivityTest.java')
@@ -82,14 +82,14 @@ module.exports = function(context) {
 
         // Copy AndroidManifest.xml file
         var androidManifestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','AndroidManifest.xml')
-        var androidManifestTestFile = path.join(androidPlatformPath, "androidTest", "AndroidManifest.xml")
+        var androidManifestTestFile = path.join(androidPlatformPath, "app", "src", "androidTest", "AndroidManifest.xml")
         var content = fs.readFileSync(androidManifestPath, 'utf-8');
         content = content.replace(/<packageId>/gi, packageName);
         fs.writeFileSync(androidManifestTestFile, content);
 
         // Copy debug AndroidManifest.xml file
         androidManifestPath = path.join(projectRoot, 'plugins', 'com.q.cordova','/src/android/fastlaneScreenshotTest','debug','AndroidManifest.xml')
-        androidManifestTestFile = path.join(androidPlatformPath, "src", "debug")
+        androidManifestTestFile = path.join(androidPlatformPath, "app", "src", "debug")
         mkdirRecursiveSync(androidManifestTestFile);
         androidManifestTestFile = path.join(androidManifestTestFile, 'AndroidManifest.xml');
         content = fs.readFileSync(androidManifestPath, 'utf-8');

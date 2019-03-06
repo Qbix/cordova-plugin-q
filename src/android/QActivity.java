@@ -7,7 +7,7 @@ import org.apache.cordova.CordovaActivity;
 
 public abstract class QActivity extends CordovaActivity {
     private final int MULTI_TEST_RESULT_CODE = 1;
-    private boolean isMultiChooserResponse = false;
+    private static boolean androidTestMode = false;
 
     public abstract boolean isTestMode();
 
@@ -23,7 +23,7 @@ public abstract class QActivity extends CordovaActivity {
         }
 
         Q instance = Q.getInstance(this, isTestMode());
-        if(isTestMode()) {
+        if(isTestMode() && !androidTestMode) {
             startMultiChooserActivity();
         } else {
             instance.showQWebView(null);
@@ -31,9 +31,11 @@ public abstract class QActivity extends CordovaActivity {
     }
 
     private void startMultiChooserActivity() {
-//        if(!isMultiChooserResponse) {
-            startActivityForResult(new Intent(this, MultiTestChooserActivity.class), MULTI_TEST_RESULT_CODE);
-//        }
+        startActivityForResult(new Intent(this, MultiTestChooserActivity.class), MULTI_TEST_RESULT_CODE);
+    }
+
+    public static void setAndroidTestMode(boolean androidTestMode) {
+        QActivity.androidTestMode = androidTestMode;
     }
 
     public void init() {

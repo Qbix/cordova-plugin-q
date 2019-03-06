@@ -27,12 +27,12 @@ dependencies {
 ext.cdvMinSdkVersion=19
 
 android {
-	sourceSets {
-		androidTest {
-			java.srcDirs = ['androidTest']
-			manifest.srcFile 'androidTest/AndroidManifest.xml'
-		}
-	}
+	// sourceSets {
+	// 	androidTest {
+	// 		java.srcDirs = ['androidTest']
+	// 		manifest.srcFile 'androidTest/AndroidManifest.xml'
+	// 	}
+	// }
 
 	defaultConfig {
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

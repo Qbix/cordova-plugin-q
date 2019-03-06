@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,13 @@ import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
 public class MainActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class) {
+        @Override
+        protected void beforeActivityLaunched() {
+            MainActivity.setAndroidTestMode(true);
+            super.beforeActivityLaunched();
+        }
+    };
 
     @Test
     public void mainActivityTest() {
