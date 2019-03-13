@@ -3,7 +3,6 @@ var fs = require("fs");
 var path = require("path");
 
 module.exports = function(context) {
-	console.log("Hello world");
 	var cordova_util = context.requireCordovaModule('cordova-lib/src/cordova/util');
 	var ConfigParser = context.requireCordovaModule('cordova-common').ConfigParser;
 	var projectRoot = cordova_util.isCordova()

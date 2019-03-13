@@ -45,7 +45,6 @@ module.exports = function(context) {
       };
 
     function run() {
-        console.log("Run Q2 plugin");
         var cordova_util = context.requireCordovaModule('cordova-lib/src/cordova/util'),
             ConfigParser = CORDOVA_VERSION >= 6.0
               ? context.requireCordovaModule('cordova-common').ConfigParser
