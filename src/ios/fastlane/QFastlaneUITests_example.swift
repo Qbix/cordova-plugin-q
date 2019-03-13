@@ -48,6 +48,19 @@ class QFastlaneUITests: XCTestCase {
         app.textFields["Please enter url or name of project"].typeText(fullUrl)
         app/*@START_MENU_TOKEN@*/.buttons["Go"]/*[[".keyboards.buttons[\"Go\"]",".buttons[\"Go\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         sleep(20)
-        snapshot("\(Data(url.utf8).hashValue)_screenshot")
+        let preName = md5String(string: url);//MD5(string: url).base64EncodedString()
+        snapshot("\(preName!)_screenshot")
+    }
+
+    func md5String(string: String) -> String? {
+        guard let data = string.data(using: String.Encoding.utf8) else { return nil }
+        
+        let hash = data.withUnsafeBytes { (bytes: UnsafePointer<Data>) -> [UInt8] in
+            var hash: [UInt8] = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+            CC_MD5(bytes, CC_LONG(data.count), &hash)
+            return hash
+        }
+        
+        return hash.map { String(format: "%02x", $0) }.joined()
     }
 }
