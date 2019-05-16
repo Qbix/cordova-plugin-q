@@ -21,11 +21,11 @@ struct QSignError: Error {
 
 @objc class QSignUtils: NSObject {
     /** Shared instance */
-    class var sharedInstance: QSignUtils {
+    @objc class func sharedInstance() -> QSignUtils {
         return _singletonInstance
     }
     
-    func signWithHmac(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
+    @objc  func signWithHmac(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
         let unEncryptedString: String
         do {
             unEncryptedString = try self.getStringToSign(parameters)
@@ -44,7 +44,7 @@ struct QSignError: Error {
         return signParameters as? [String : Any]
     }
     
-    func sign(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
+    @objc func sign(_ password:String, inputParameters parameters: [String:Any]) -> [String:Any]? {
         NSLog("START")
         let unEncryptedString: String
         do {
@@ -83,7 +83,7 @@ struct QSignError: Error {
         return nil
     }
     
-    func sign(_ password:String, inputParameters parameters: [String:Any], completion: @escaping (_ signParameters: [String:Any], _ error: String?) -> Void) {
+    @objc func sign(_ password:String, inputParameters parameters: [String:Any], completion: @escaping (_ signParameters: [String:Any], _ error: String?) -> Void) {
         
         let unEncryptedString: String
         do {
