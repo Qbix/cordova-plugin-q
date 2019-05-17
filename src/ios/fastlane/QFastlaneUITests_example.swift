@@ -8,6 +8,7 @@
 import XCTest
 
 class QFastlaneUITests: XCTestCase {
+    let beeper = DarwinNotificationCenterBeeper();
 
     override func setUp() {
         super.setUp()
@@ -40,16 +41,28 @@ class QFastlaneUITests: XCTestCase {
             additionalParameters += "Q.language=\(localization!)"
         }
         
-        let url = getArg(app: app, key: "-init_url")!;
+        let urls = getArg(app: app, key: "-init_url")!;
         
-        let fullUrl = "\(url)?\(additionalParameters)"
-        print(fullUrl);
-        app.textFields["Please enter url or name of project"].tap()
-        app.textFields["Please enter url or name of project"].typeText(fullUrl)
-        app/*@START_MENU_TOKEN@*/.buttons["Go"]/*[[".keyboards.buttons[\"Go\"]",".buttons[\"Go\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        sleep(20)
-        let preName = md5String(string: url);//MD5(string: url).base64EncodedString()
-        snapshot("\(preName!)_screenshot")
+        let urlList = urls.components(separatedBy: "|");
+
+        for currentUrl in urlList {
+            let url = currentUrl.trimmingCharacters(in: .whitespaces);
+
+            let fullUrl = "\(url)?\(additionalParameters)"
+            print(fullUrl);
+            app.textFields["Please enter url or name of project"].tap()
+            app.textFields["Please enter url or name of project"].typeText(fullUrl)
+            app.buttons["Open"].tap()
+            sleep(20)
+            let preName = md5String(string: url);//MD5(string: url).base64EncodedString()
+            snapshot("\(preName!)_screenshot")
+            sleep(2)
+            beeper.beep(identifier: BeeperConstants.reload)
+            sleep(2)
+
+            
+        }
+
     }
 
     func md5String(string: String) -> String? {

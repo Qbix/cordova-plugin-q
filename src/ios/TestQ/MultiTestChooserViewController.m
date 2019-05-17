@@ -57,10 +57,13 @@
     
     AppDelegate *delegate = ((AppDelegate*)[[UIApplication sharedApplication] delegate]);
     delegate.viewController = qWebViewController;
-    delegate.window.rootViewController =delegate.viewController;
+    delegate.window.rootViewController = delegate.viewController;
     [delegate.window reloadInputViews];
     
     [super addNewBookmark:url];
 }
 
+- (IBAction)openUrlInWebView:(id)sender {
+    [self load:self.inputTextField.text];
+}
 @end

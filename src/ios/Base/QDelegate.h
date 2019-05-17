@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QDelegate : NSObject
 
 +(void) handleLaunchMode:(CDVAppDelegate*) delegate;
++(void) resetApp;
 
 @end
 

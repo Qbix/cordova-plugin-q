@@ -60,12 +60,21 @@ module.exports = function(context) {
         var appDelegateMPath = path.join(iosPlatformPath,projectname,"Classes","AppDelegate.m");
         appDelegateMContent = fs.readFileSync(appDelegateMPath, 'utf-8');
 
-        appDelegateMContent = addDependency(appDelegateMContent, "#import \"QDelegate.h\"");        
-        var index = appDelegateMContent.indexOf("self.viewController = [[MainViewController alloc] init];");
+
+        appDelegateMContent = addDependency(appDelegateMContent, "#import \"QDelegate.h\"");
+        appDelegateMContent = addDependency(appDelegateMContent, "#import \""+projectname.replace(" ", "_")+"-Swift.h\"");
+
+        var index = appDelegateMContent.indexOf("@implementation AppDelegate");
+        if(index > -1) {
+            appDelegateMContent = appDelegateMContent.replace(
+                "@implementation AppDelegate", 
+                "@implementation AppDelegate\n DarwinNotificationCenterBeeper *beeper;");
+        }
+        index = appDelegateMContent.indexOf("self.viewController = [[MainViewController alloc] init];");
         if(index > -1) {
             appDelegateMContent = appDelegateMContent.replace(
                 "self.viewController = [[MainViewController alloc] init];", 
-                "[QDelegate handleLaunchMode:self];\n  // In case of using app group\n  // [[[QbixAppGroupManager alloc] initWithAppBundleID:[[NSBundle mainBundle] bundleIdentifier]] initApp];");
+                "[QDelegate handleLaunchMode:self];\n beeper = [[DarwinNotificationCenterBeeper alloc] initWithPrefix:[BeeperConstants prefix]];\n [beeper registerWithIdentifier:[BeeperConstants reload] handler:^{[QDelegate resetApp];}];\n // In case of using app group\n  // [[[QbixAppGroupManager alloc] initWithAppBundleID:[[NSBundle mainBundle] bundleIdentifier]] initApp];");
         }
         fs.writeFileSync(appDelegateMPath, appDelegateMContent);
 

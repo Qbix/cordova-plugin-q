@@ -68,6 +68,14 @@ static Q *instance = nil;
     self.appDelegate.viewController = [self prepeareQGroupsController];
 }
 
+-(void) resetTestMode {
+    UIStoryboard *testStoryboard = [UIStoryboard storyboardWithName:@"QTestStoryboard" bundle:nil];
+    MultiTestUINavigationController *navigationController = (MultiTestUINavigationController*)[testStoryboard instantiateInitialViewController];
+    [(MultiTestChooserViewController*)navigationController.viewControllers[0] setLaunchUrl:nil];
+    self.appDelegate.window.rootViewController = (CDVViewController*)navigationController;
+    [self.appDelegate.window makeKeyAndVisible];
+}
+
 -(void) initializeTestWithUrl:(NSString*) url {
     [self initSharedCache];
     

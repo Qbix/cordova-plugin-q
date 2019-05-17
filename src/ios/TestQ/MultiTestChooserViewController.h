@@ -15,5 +15,6 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *inputTextField;
 @property (strong, nonatomic) NSString *launchUrl;
+- (IBAction)openUrlInWebView:(id)sender;
 
 @end

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7oY-PV-3GR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7oY-PV-3GR">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,7 +38,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter url or name of project" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ADw-gB-Ha4">
-                                <rect key="frame" x="16" y="87" width="343" height="30"/>
+                                <rect key="frame" x="16" y="87" width="289" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="289" id="9bC-Wh-A7X"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go"/>
                             </textField>
@@ -72,19 +75,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZ3-v1-QUs">
+                                <rect key="frame" x="313" y="85" width="46" height="30"/>
+                                <state key="normal" title="Open"/>
+                                <connections>
+                                    <action selector="openUrlInWebView:" destination="Gng-UI-xOv" eventType="touchUpInside" id="Puu-bO-iYn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VMf-4R-K90" firstAttribute="trailing" secondItem="2KM-l8-mW1" secondAttribute="trailingMargin" id="2HJ-zy-yMb"/>
-                            <constraint firstItem="Tr4-Nd-eHz" firstAttribute="top" secondItem="ADw-gB-Ha4" secondAttribute="bottom" constant="8" id="9Qs-vX-Q6x"/>
                             <constraint firstItem="VMf-4R-K90" firstAttribute="leading" secondItem="2KM-l8-mW1" secondAttribute="leadingMargin" id="BGI-FU-KmA"/>
                             <constraint firstItem="VMf-4R-K90" firstAttribute="top" secondItem="Tr4-Nd-eHz" secondAttribute="bottom" constant="8" id="D8H-iC-khF"/>
+                            <constraint firstItem="yZ3-v1-QUs" firstAttribute="trailing" secondItem="2KM-l8-mW1" secondAttribute="trailingMargin" id="KgO-lH-w9l"/>
                             <constraint firstItem="Tr4-Nd-eHz" firstAttribute="leading" secondItem="2KM-l8-mW1" secondAttribute="leadingMargin" constant="4" id="Oqo-Te-Nd4"/>
-                            <constraint firstItem="ADw-gB-Ha4" firstAttribute="leading" secondItem="2KM-l8-mW1" secondAttribute="leadingMargin" id="Pyn-KB-K8l"/>
+                            <constraint firstItem="yZ3-v1-QUs" firstAttribute="leading" secondItem="ADw-gB-Ha4" secondAttribute="trailing" constant="8" id="PVn-bp-TjE"/>
                             <constraint firstItem="sWL-wA-Y21" firstAttribute="top" secondItem="VMf-4R-K90" secondAttribute="bottom" constant="20" id="RxI-DA-1Xn"/>
                             <constraint firstItem="Tr4-Nd-eHz" firstAttribute="trailing" secondItem="2KM-l8-mW1" secondAttribute="trailingMargin" constant="4" id="ZK6-Ti-9Ki"/>
-                            <constraint firstItem="ADw-gB-Ha4" firstAttribute="trailing" secondItem="2KM-l8-mW1" secondAttribute="trailingMargin" id="gRc-tm-vkD"/>
-                            <constraint firstItem="ADw-gB-Ha4" firstAttribute="top" secondItem="YcB-2u-8sW" secondAttribute="bottom" constant="23" id="iXU-T7-VFw"/>
+                            <constraint firstItem="Tr4-Nd-eHz" firstAttribute="top" secondItem="ADw-gB-Ha4" secondAttribute="bottom" constant="8" symbolic="YES" id="cgI-xd-HBE"/>
+                            <constraint firstItem="ADw-gB-Ha4" firstAttribute="leading" secondItem="VMf-4R-K90" secondAttribute="leading" id="dCr-XI-bIU"/>
+                            <constraint firstItem="yZ3-v1-QUs" firstAttribute="top" secondItem="YcB-2u-8sW" secondAttribute="bottom" constant="21" id="fhA-Hl-tcl"/>
+                            <constraint firstItem="ADw-gB-Ha4" firstAttribute="top" secondItem="YcB-2u-8sW" secondAttribute="bottom" constant="23" id="fv9-MY-cSg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Enter or select project" id="Gn3-fT-1sf"/>

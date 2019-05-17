@@ -26,6 +26,7 @@
 //-(void) initPlugin:(CDVAppDelegate*) appDelegate;
 -(void) showQWebView;
 -(void) initSharedCache;
+-(void) resetTestMode;
 -(CordovaWebViewURLCache*) prepeareCordovaWebViewUrlCacheMemory:(int) cache_size_memory andDisk:(int) cache_size_disk;
 -(QWebViewController*) prepeareQGroupsController;
 -(QWebViewController*) prepeareQWebViewControllerWith:(NSString*) url;

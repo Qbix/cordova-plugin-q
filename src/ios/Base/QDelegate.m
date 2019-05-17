@@ -19,6 +19,10 @@
     }
 }
 
++(void) resetApp {
+    [[Q getInstance] resetTestMode];
+}
+
 +(BOOL) isFastlaneScreenshot {
     return [[[NSProcessInfo processInfo] environment] objectForKey:@"Fastlane"] != nil;
 }
