@@ -40,14 +40,15 @@ public class MainActivityTest {
         Bundle extras = InstrumentationRegistry.getArguments();
         String[] urls = new String[]{};
         if (extras.containsKey("urls")) {
-            urls = extras.getString("urls").split(",");
+            String value = extras.getString("urls").replace("\"","");
+            urls = value.split(",");
         }
 
         for (String url: urls) {
             String language = LocaleUtil.getTestLocale().getDisplayName();
             pauseTesting(5);
             mActivityTestRule.getActivity().loadUrl(url+"?Q.language"+language);
-            pauseTesting(10);
+            pauseTesting(20);
             Screengrab.screenshot(md5(url));
             pauseTesting(5);
         }
