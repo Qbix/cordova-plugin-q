@@ -47,7 +47,7 @@ public class MainActivityTest {
         for (String url: urls) {
             String language = LocaleUtil.getTestLocale().getDisplayName();
             pauseTesting(5);
-            mActivityTestRule.getActivity().loadUrl(url+"?Q.language"+language);
+            mActivityTestRule.getActivity().loadUrl(url+"?Q.language"+language+"&disableHandsOff=1");
             pauseTesting(20);
             Screengrab.screenshot(md5(url));
             pauseTesting(5);
