@@ -10,8 +10,16 @@
 
 @implementation QDelegate
 
++(BOOL) isDebug {
+#ifdef DEBUG
+    return true;
+#else
+    return false;
+#endif
+}
+
 +(void) handleLaunchMode:(CDVAppDelegate*) delegate {
-    if([QDelegate isFastlaneScreenshot]) {
+    if([QDelegate isFastlaneScreenshot] || [QDelegate isDebug]) {
         [Q initTestWith:delegate];
     } else {
         [Q initWith:delegate];

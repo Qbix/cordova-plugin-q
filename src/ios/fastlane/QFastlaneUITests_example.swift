@@ -41,7 +41,7 @@ class QFastlaneUITests: XCTestCase {
             additionalParameters += "Q.language=\(localization!)"
         }
         // Disable automatically do hadsoff feature which opens dialog to authentification.
-        additionalParameters += "&disableHandsOff=1";
+        additionalParameters += "&disableAutoLogin=1";
         
         let urls = getArg(app: app, key: "-init_url")!;
         
