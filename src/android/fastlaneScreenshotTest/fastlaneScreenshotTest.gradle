@@ -25,6 +25,7 @@ dependencies {
 }
 
 ext.cdvMinSdkVersion=19
+ext.cdvCompileSdkVersion=27
 
 android {
 	// sourceSets {
@@ -35,6 +36,7 @@ android {
 	// }
 
 	defaultConfig {
+		// multiDexEnabled true
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 	}
 }
