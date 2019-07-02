@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.DisplayMetrics;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -33,6 +34,16 @@ public class MainActivityTest {
         }
     };
 
+    public boolean isTablet() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        mActivityTestRule.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        float yInches= metrics.heightPixels/metrics.ydpi;
+        float xInches= metrics.widthPixels/metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+        return diagonalInches>=6.5;
+    }
+
     @Test
     public void mainActivityTest() {
         Screengrab.setDefaultScreenshotStrategy(new UiAutomatorScreenshotStrategy());
@@ -49,7 +60,7 @@ public class MainActivityTest {
             pauseTesting(5);
             mActivityTestRule.getActivity().loadUrl(url+"?Q.language"+language+"&disableAutoLogin=1");
             pauseTesting(20);
-            Screengrab.screenshot(md5(url));
+            Screengrab.screenshot((isTablet()? "tablet":"phone")+"_"+md5(url));
             pauseTesting(5);
         }
 
