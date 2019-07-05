@@ -94,9 +94,14 @@ public class MultiTestChooserActivity extends Activity {
             URL url = getNSURLFromString(query);
             if (url != null) {
                 loadQCordovaApp(url.toString());
-            } else {
-                loadQCordovaApp("http://qbixstaging.com/" + Uri.encode(query));
+                return;
             }
+            url = getNSURLFromString("https://"+query);
+            if (url != null) {
+                loadQCordovaApp(url.toString());
+                return;
+            }
+            loadQCordovaApp("http://qbixstaging.com/" + Uri.encode(query));
         }
     }
 

@@ -45,10 +45,16 @@
         NSURL *url = [super getNSURLFromString:inputText];
         if(url) {
             [self loadQCordovaApp:url.description];
-        } else {
-            NSString* project = [inputText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-            [self loadQCordovaApp:[NSString stringWithFormat:@"http://qbixstaging.com/%@", project]];
+            return;
         }
+        NSString *urlWithHttps = [NSString stringWithFormat:@"%@://%@", @"https",inputText];
+        url = [super getNSURLFromString:urlWithHttps];
+        if(url) {
+            [self loadQCordovaApp:url.description];
+            return;
+        }
+        NSString* project = [inputText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        [self loadQCordovaApp:[NSString stringWithFormat:@"https://qbixstaging.com/%@", project]];
     }
 }
 
