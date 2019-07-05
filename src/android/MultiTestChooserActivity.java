@@ -19,9 +19,12 @@ import android.widget.TextView;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import <packaged>.R;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by adventis on 11/13/16.
@@ -129,41 +132,44 @@ public class MultiTestChooserActivity extends Activity {
 
     private ArrayList<String> getBookmarksList() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Set<String> bookmarks = preferences.getStringSet("bookmarks", null);
-        if(bookmarks == null) {
-            return new ArrayList<String>();
+        String bookmarksRaw = preferences.getString("bookmarksList", null);
+        if(bookmarksRaw == null) {
+            return new ArrayList<>();
         }
 
-        ArrayList<String> arrayList = new ArrayList<String>();
-        for (String str : bookmarks) {
-            if (str != null)
-                arrayList.add(str);
-        }
 
-        return arrayList;
+        try {
+            JSONArray array = new JSONArray(bookmarksRaw);
+            ArrayList<String> arrayList = new ArrayList<String>();
+            for(int i=0; i < array.length(); i++) {
+                arrayList.add(array.getString(i));
+            }
+
+            return arrayList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     private void addNewBookmark(String newBookmark) {
-        ArrayList<String> tmpBookmarksList = getBookmarksList();
+        LinkedHashSet<String> tmpBookmarksList = new LinkedHashSet<>(getBookmarksList()) ;
 
-        Boolean isDuplicate = false;
-        for(int i=0; i < tmpBookmarksList.size(); i++) {
-            if(tmpBookmarksList.get(i).equalsIgnoreCase(newBookmark)) {
-                isDuplicate = true;
-                break;
-            }
-        }
-        if(!isDuplicate) {
-            tmpBookmarksList.add(newBookmark);
-        }
-
+        LinkedHashSet<String> newOrderSet = new LinkedHashSet<>();
+        newOrderSet.add(newBookmark);
+        newOrderSet.addAll(tmpBookmarksList);
+        
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        Set<String> bookmarksSet = new HashSet<String>();
-        for(String url: tmpBookmarksList)
-            bookmarksSet.add(url);
+        JSONArray jsonArray = new JSONArray();
+        StringBuilder sb = new StringBuilder();
+        for(String url: newOrderSet) {
+            if (!url.equalsIgnoreCase("")) {
+                jsonArray.put(url);
+            }
+        }
 
-        editor.putStringSet("bookmarks",bookmarksSet);
+        editor.putString("bookmarksList",jsonArray.toString());
         editor.apply();
     }
 }

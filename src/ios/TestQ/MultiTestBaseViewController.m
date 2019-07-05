@@ -121,17 +121,17 @@
 -(void) addNewBookmark:(NSString*) newBookmark {
     NSMutableArray* tmpBookmarksList = [NSMutableArray arrayWithArray:[self getBookmarksList]];
     
-    BOOL isDuplicate = NO;
+    NSMutableArray* bookmarksList = [NSMutableArray array];
+    [bookmarksList addObject:newBookmark];
+    
     for(int i=0; i < [tmpBookmarksList count]; i++) {
-        if([[tmpBookmarksList objectAtIndex:i] isEqualToString:newBookmark]) {
-            isDuplicate = YES;
+        NSString *oldItem = [tmpBookmarksList objectAtIndex:i];
+        if(![bookmarksList containsObject:oldItem]) {
+            [bookmarksList addObject:oldItem];
         }
     }
-    if(!isDuplicate) {
-        [tmpBookmarksList addObject:newBookmark];
-    }
     
-    [[NSUserDefaults standardUserDefaults] setObject:tmpBookmarksList forKey:BOOKMARK_FLAG];
+    [[NSUserDefaults standardUserDefaults] setObject:bookmarksList forKey:BOOKMARK_FLAG];
     
     [self reloadDataToTable];
 }
