@@ -42,6 +42,7 @@
     
      <config-file target="AndroidManifest.xml" parent="/manifest">
         <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+        <uses-permission android:name="android.permission.CAMERA"/>
       </config-file>
 
     <!-- <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
