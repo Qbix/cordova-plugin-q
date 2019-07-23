@@ -3,6 +3,7 @@
 #import "QChooseImageViewController.h"
 #import "QCustomChooseWebViewController.h"
 #import "QSignManager.h"
+#import "UIWebView+AdditionalOptions.h"
 
 @interface QCordova()
     @property(nonatomic, strong) NSString *callbackId;
@@ -137,6 +138,19 @@
     
     CDVPluginResult* result = [CDVPluginResult
      resultWithStatus:CDVCommandStatus_OK messageAsDictionary:params];
+    
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
+- (void) setSelectMenuShown:(CDVInvokedUrlCommand*)command {
+    NSString* callbackId = [command callbackId];
+    
+    BOOL isShown = [[[command arguments] objectAtIndex:0] boolValue];
+    
+    [UIWebView setSelectMenuShown:isShown];
+    
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK];
     
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }

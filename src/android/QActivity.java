@@ -2,12 +2,15 @@ package com.q.cordova.plugin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.Menu;
 
 import org.apache.cordova.CordovaActivity;
 
 public abstract class QActivity extends CordovaActivity {
     private final int MULTI_TEST_RESULT_CODE = 1;
     private static boolean androidTestMode = false;
+    public static boolean enableSelectContexMenu = true;
 
     public abstract boolean isTestMode();
 
@@ -40,6 +43,15 @@ public abstract class QActivity extends CordovaActivity {
 
     public void init() {
         super.init();
+    }
+
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+        if(!QActivity.enableSelectContexMenu) {
+            Menu menu = mode.getMenu();
+            menu.clear();
+        }
+        super.onActionModeStarted(mode);
     }
 
     @Override

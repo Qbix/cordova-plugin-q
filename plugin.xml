@@ -166,6 +166,9 @@
     <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
 
+    <header-file src="src/ios/UIWebView+AdditionalOptions.h" target-dir="QCordovaPlugin"/>
+    <source-file src="src/ios/UIWebView+AdditionalOptions.m" target-dir="QCordovaPlugin"/>
+
     <!-- <framework src="SwiftyRSA" type="podspec" spec="1.2.0" /> -->
     <framework src="Obfuscator" type="podspec" spec="2.0" />
     

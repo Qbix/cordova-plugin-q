@@ -68,5 +68,8 @@ module.exports = {
     },
     info: function(successCallback, errorCallback) {
        cordova.exec(successCallback, errorCallback, "QCordova", "info");
+    },
+    setSelectMenuShown: function(isShow, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "QCordova", "setSelectMenuShown", [isShow]);
     }
 };

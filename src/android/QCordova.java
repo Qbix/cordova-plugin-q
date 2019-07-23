@@ -21,6 +21,10 @@ public class QCordova extends CordovaPlugin {
             object.put("Q.udid", config.getUdid());
             callbackContext.success(object);
             return true;
+        } else if(action.equals("setSelectMenuShown")) {
+            boolean isEnable = data.getBoolean(0);
+            QActivity.enableSelectContexMenu = isEnable;
+            callbackContext.success();
         }
 
         return false;
