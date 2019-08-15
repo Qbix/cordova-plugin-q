@@ -98,6 +98,21 @@ __Example__:
 Q.Cordova.setSelectMenuShown(isShow, successCallback, metadataCallback, errorCallback)
 ```
 
+## sign
+generates a signature from the data.
+
+### Parameters
+-__data__: `data` is key-value object where value are number || string || array[Numbers] || array[Strings].  Value can't be array of arrays !!!
+-__successCallback__: return data & {Q.hmac: "hmacsha1(data,appKey)", Q.sig : "signWithPrivateKey(data)", Q.pubkey : "public key" }
+
+### Supporded platforms
+- __iOS__
+
+__Example__:
+```js
+Q.Cordova.sign(data, successCallback, errorCallback)
+```
+
 # Internal method (Please don't use)
 - changeInnerUrlEvent
 - chooseImageEvent
