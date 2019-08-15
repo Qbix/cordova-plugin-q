@@ -44,17 +44,11 @@
         <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
         <uses-permission android:name="android.permission.CAMERA"/>
       </config-file>
-
-    <!-- <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
-          <intent-filter>
-              <action android:name="android.intent.action.VIEW" />
-              <category android:name="android.intent.category.DEFAULT" />
-              <category android:name="android.intent.category.BROWSABLE" />
-              <data android:scheme="$URL_SCHEME" />
-          </intent-filter>
-    </config-file> -->
+      
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
         <activity android:name="com.q.cordova.plugin.MultiTestChooserActivity" />
+        <activity android:name="com.q.cordova.plugin.QChooseLinkActivity"/>
+        <activity android:name="com.q.cordova.plugin.QChooseImageActivity" android:launchMode="singleTop"/>
     </config-file>
 
     <source-file src="src/android/Q.java" target-dir="src/com/q/cordova/plugin/"/>
@@ -65,11 +59,20 @@
     <source-file src="src/android/QbixWebViewClient.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/BaseActivity.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/MultiTestChooserActivity.java" target-dir="src/com/q/cordova/plugin/"/>
+
+    <source-file src="src/android/QChooseLinkActivity.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QChooseImageActivity.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QCordovaAbstractActivity.java" target-dir="src/com/q/cordova/plugin/"/>
+
     <source-file src="src/android/network/NetworkApi.java" target-dir="src/com/q/cordova/plugin/network"/>
     <source-file src="src/android/network/NetworkService.java" target-dir="src/com/q/cordova/plugin/network"/>
     <source-file src="src/android/network/models/PingResponse.java" target-dir="src/com/q/cordova/plugin/network/models/"/>
 
     <source-file src="src/android/multi_test_chooser_activity.xml" target-dir="res/layout/"/>
+    <source-file src="src/android/q_choose_image_activity.xml" target-dir="res/layout/"/>
+    <source-file src="src/android/q_choose_link_activity.xml" target-dir="res/layout/"/>
+
+    
 
     <framework src="com.squareup.retrofit2:retrofit:2.0.0" />
     <framework src="com.squareup.retrofit2:converter-gson:2.0.0" />

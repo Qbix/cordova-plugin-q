@@ -25,17 +25,20 @@ public class QbixWebViewClient extends SystemWebViewClient {
     public void setIsReturnCahceFilesFromBundle(boolean isReturnCahceFilesFromBundle) {
         this.isReturnCahceFilesFromBundle = isReturnCahceFilesFromBundle;
     }
+
     private boolean isReturnCahceFilesFromBundle;
 
 
     public void setPathToBundle(String pathToBundle) {
         this.pathToBundle = pathToBundle;
     }
+
     private String pathToBundle;
 
     public void setRemoteCacheId(String remoteCacheId) {
         this.remoteCacheId = remoteCacheId;
     }
+
     private String remoteCacheId;
 
 
@@ -45,8 +48,7 @@ public class QbixWebViewClient extends SystemWebViewClient {
 
     private ArrayList<String> listOfJsInjects;
 
-    private Map<String, String> availableMimeType = new HashMap<String, String>()
-    {
+    private Map<String, String> availableMimeType = new HashMap<String, String>() {
         {
             put("png", "image/png");
             put("jpg", "image/jpeg");
@@ -62,7 +64,7 @@ public class QbixWebViewClient extends SystemWebViewClient {
 
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        URL urlParsed= null;
+        URL urlParsed = null;
         try {
             urlParsed = new URL(url);
         } catch (MalformedURLException e) {
@@ -74,11 +76,11 @@ public class QbixWebViewClient extends SystemWebViewClient {
         String relativePath = urlParsed.getPath();
         String filePath = null;
 
-        if(host.equalsIgnoreCase(remoteCacheId) && isReturnCahceFilesFromBundle) {
+        if (host.equalsIgnoreCase(remoteCacheId) && isReturnCahceFilesFromBundle) {
             filePath = handleForGroupsCache(relativePath);
         } else {
             String pathToLocalFile = isFileInListOfInjects(relativePath);
-            if(pathToLocalFile == null) {
+            if (pathToLocalFile == null) {
                 return super.shouldInterceptRequest(view, url);
             }
             filePath = pathToLocalFile;
@@ -87,73 +89,41 @@ public class QbixWebViewClient extends SystemWebViewClient {
         InputStream is = null;
         try {
             is = view.getContext().getAssets().open(filePath);
-            if(is == null || is.available() <= 0)
+            if (is == null || is.available() <= 0)
                 return super.shouldInterceptRequest(view, url);
         } catch (IOException e) {
             e.printStackTrace();
             return super.shouldInterceptRequest(view, url);
         }
 
-        WebResourceResponse response = new WebResourceResponse(fileMIMEType(relativePath),  "UTF-8", is);
+        WebResourceResponse response = new WebResourceResponse(fileMIMEType(relativePath), "UTF-8", is);
         return response;
     }
 
-//    -(NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
-//    {
-//        NSURL *requestUrl = [request URL];
-//
-//        // Get the path for the request
-//        NSString *pathString = [requestUrl relativePath];
-//        NSString *filePath = nil;
-//
-//        NSString* host = [requestUrl host];
-//        if([host isEqualToString:[self remoteCacheId]] && [self isReturnCahceFilesFromBundle]) {
-//        filePath = [self handleForGroupsCache:pathString];
-//    } else {
-//        NSString* pathToLocalFile = [self isFileInListOfInjects:[requestUrl relativePath]];
-//        if(pathToLocalFile == nil) {
-//            return [super cachedResponseForRequest:request];
-//        }
-//
-//        filePath = pathToLocalFile;
-//    }
-//
-//        // Load the data
-//        NSData *data = [NSData dataWithContentsOfFile:filePath];
-//        if(data == nil) return [super cachedResponseForRequest:request];
-//
-//        // Create the cacheable response
-//        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:[request URL] MIMEType:[self fileMIMEType: pathString] expectedContentLength:[data length] textEncodingName:nil];
-//        NSCachedURLResponse *cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:data];
-//
-//        return cachedResponse;
-//    }
-
-    private String fileMIMEType(String path)
-    {
+    private String fileMIMEType(String path) {
         String filename = getFileNameFromPath(path);
-        if(filename == null)
+        if (filename == null)
             return null;
 
         List<String> pathParts = Arrays.asList(filename.split("."));
-        if(pathParts != null && !pathParts.isEmpty()) {
-            return availableMimeType.get(pathParts.get(pathParts.size()-1));
+        if (pathParts != null && !pathParts.isEmpty()) {
+            return availableMimeType.get(pathParts.get(pathParts.size() - 1));
         }
 
         return null;
     }
 
     private String isFileInListOfInjects(String fileToSearch) {
-        if(listOfJsInjects == null || fileToSearch == null) {
+        if (listOfJsInjects == null || fileToSearch == null) {
             return null;
         }
 
         String fileName = getFileNameFromPath(fileToSearch);
-        if(fileName == null)
+        if (fileName == null)
             return null;
 
-        for(String file: listOfJsInjects) {
-            if(fileName.equalsIgnoreCase(getFileNameFromPath(file))
+        for (String file : listOfJsInjects) {
+            if (fileName.equalsIgnoreCase(getFileNameFromPath(file))
                     && fileToSearch.contains(file)) {
                 return file;
             }
@@ -165,15 +135,15 @@ public class QbixWebViewClient extends SystemWebViewClient {
 
     private String getFileNameFromPath(String path) {
         List<String> pathParts = Arrays.asList(path.split("/"));
-        if(pathParts != null && !pathParts.isEmpty()) {
-            return pathParts.get(pathParts.size()-1);
+        if (pathParts != null && !pathParts.isEmpty()) {
+            return pathParts.get(pathParts.size() - 1);
         }
 
         return null;
     }
 
     private String handleForGroupsCache(String pathString) {
-        String filePathTemp = pathToBundle+pathString;
+        String filePathTemp = pathToBundle + pathString;
 
         return filePathTemp;
     }
@@ -184,7 +154,7 @@ public class QbixWebViewClient extends SystemWebViewClient {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             view.evaluateJavascript(injectJS, null);
         } else {
-            view.loadUrl("javascript:"+injectJS);
+            view.loadUrl("javascript:" + injectJS);
         }
 
         super.onPageFinished(view, url);

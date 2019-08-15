@@ -25,9 +25,6 @@ function parseHtml(html) {
 }
                
 module.exports = {
-    hello: function(successCallback, errorCallback) {
-      cordova.exec(successCallback, errorCallback, "QCordova", "hello", []);
-    },
     schema: function(successCallback, errorCallback) {
     	this.readQConfigValue("openUrlScheme", successCallback, errorCallback);
     },
@@ -38,7 +35,8 @@ module.exports = {
         var innerFunction = function(params) {
             if(params["link"] != undefined) {
                successCallback(params["link"]);
-            } else if (isMetadata) {
+            }
+            if (isMetadata) {
                var data = parseHtml(params["html"])
                metadataCallback(data);
             }
@@ -50,9 +48,10 @@ module.exports = {
         var innerFunction = function(params) {
             if(params["link"] != undefined) {
                successCallback(params["link"]);
-            } else if(isMetadata) {
+            }
+            if(isMetadata) {
                var data = parseHtml(params["html"])
-               metadataCallback(params);
+               metadataCallback(data);
             }
         }
         cordova.exec(innerFunction, errorCallback, "QCordova", "chooseImage", [initialUrl]);

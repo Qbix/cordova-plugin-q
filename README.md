@@ -7,6 +7,7 @@ Get openUrl schema. Returns String value.
 
 ### Supporded platforms
 - __iOS__
+- __Android__
 
 __Example__:
 ```js
@@ -59,6 +60,7 @@ Open native view where user can navigate through webbrowser and select some link
 
 ### Supporded platforms
 - __iOS__
+- __Android__
 
 __Example__:
 ```js
@@ -66,7 +68,7 @@ Q.Cordova.chooseLink(initialUrl, isMetadata, successCallback, metadataCallback, 
 ```
 
 ## chooseImage
-Open native view where user can navigate through webbrowser and select some image. Link on selected image will receive in `successCallback`. Return selected image as link.
+Open native view where user can navigate through webbrowser and select some image. Link on selected image will receive in `successCallback`. Return selected image as link or in base64.
 
 ### Parameters
 -__initialUrl__: `initialUrl` which browser open automatically after invoking this method.
@@ -74,8 +76,29 @@ Open native view where user can navigate through webbrowser and select some imag
 
 ### Supporded platforms
 - __iOS__
+- __Android__
 
 __Example__:
 ```js
 Q.Cordova.chooseImage(initialUrl, isMetadata, successCallback, metadataCallback, errorCallback)
 ```
+
+## setSelectMenuShown
+This method allow/deny showing context menu when user long click on text.
+
+### Parameters
+-__isShow__: `isShow` depends to show Menu or not on long click.
+
+### Supporded platforms
+- __iOS__
+- __Android__
+
+__Example__:
+```js
+Q.Cordova.setSelectMenuShown(isShow, successCallback, metadataCallback, errorCallback)
+```
+
+# Internal method (Please don't use)
+- changeInnerUrlEvent
+- chooseImageEvent
+
