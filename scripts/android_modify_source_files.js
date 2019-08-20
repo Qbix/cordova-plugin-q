@@ -19,16 +19,23 @@ module.exports = function(context) {
     copyFastlaneScreenshotTest(androidPlatformPath, packageName, projectRoot)
 
 	function changeSourceFiles(androidPlatformPath, packageName) {
-		var multiTestChooserActivityPath = path.join(androidPlatformPath, "app/src/main/java", "com","q","cordova", "plugin", "MultiTestChooserActivity.java")
-		if (fs.existsSync(multiTestChooserActivityPath)) {
-            multiTestChooserContent = fs.readFileSync(multiTestChooserActivityPath, 'utf-8');
-          
-            multiTestChooserContent = multiTestChooserContent.replace(/<packaged>/gi, packageName)
+		var activitiesPathToChange = [
+            path.join(androidPlatformPath, "app/src/main/java", "com","q","cordova", "plugin", "MultiTestChooserActivity.java"),
+            path.join(androidPlatformPath, "app/src/main/java", "com","q","cordova", "plugin", "QChooseImageActivity.java"),
+            path.join(androidPlatformPath, "app/src/main/java", "com","q","cordova", "plugin", "QChooseLinkActivity.java"),
+        ];
+        activitiesPathToChange.forEach((item) => {
+            if (fs.existsSync(item)) {
+                multiTestChooserContent = fs.readFileSync(item, 'utf-8');
+              
+                multiTestChooserContent = multiTestChooserContent.replace(/<packaged>/gi, packageName)
 
-            fs.writeFileSync(multiTestChooserActivityPath, multiTestChooserContent, 'utf-8');
-        } else {
-        	console.log("Not exist")
-        }
+                fs.writeFileSync(item, multiTestChooserContent, 'utf-8');
+            } else {
+                console.log("Not exist")
+            }
+        });
+		
 	}
 
     function copyStubActivity(androidPlatformPath,packageName) {

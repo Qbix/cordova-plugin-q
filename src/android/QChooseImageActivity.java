@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qbix.yang2020.R;
+import <packaged>.R;
 
 import org.apache.cordova.engine.SystemWebView;
 

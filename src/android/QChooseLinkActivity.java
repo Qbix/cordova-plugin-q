@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.qbix.yang2020.R;
+import <packaged>.R;
 
 import org.apache.cordova.engine.SystemWebView;
 
