@@ -41,9 +41,13 @@ public class QChooseImageActivity extends QCordovaAbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        getActionBar().hide();
+        try {
+            getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            getActionBar().hide();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.q_choose_image_activity);
         setWebView(findViewById(R.id.webview_container));
         jsToInject = "(function() {setInterval(function() {" +
