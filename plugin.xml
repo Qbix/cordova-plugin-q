@@ -146,6 +146,8 @@
     <source-file src="src/ios/Utils/FileSystem/QFileSystemHelper.m" target-dir="QCordovaPlugin/Utils/FileSystem"/>
     <header-file src="src/ios/Utils/QJsonModel/QJSONModel.h" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
     <source-file src="src/ios/Utils/QJsonModel/QJSONModel.m" target-dir="QCordovaPlugin/Utils/QJsonModel"/>
+    <header-file src="src/ios/Utils/QKeychainStore/QKeychainStore.h" target-dir="QCordovaPlugin/Utils/QKeychainStore"/>
+    <source-file src="src/ios/Utils/QKeychainStore/QKeychainStore.m" target-dir="QCordovaPlugin/Utils/QKeychainStore"/>
     <header-file src="src/ios/Utils/NSString/NSString+SHA1.h" target-dir="QCordovaPlugin/Utils/NSString"/>
     <source-file src="src/ios/Utils/NSString/NSString+SHA1.m" target-dir="QCordovaPlugin/Utils/NSString"/>
     <header-file src="src/ios/Utils/QSignManager/QSignManager.h" target-dir="QCordovaPlugin/Utils/QSignManager"/>
