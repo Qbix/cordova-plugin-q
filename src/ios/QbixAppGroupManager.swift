@@ -34,6 +34,8 @@ class QbixAppGroupManager:NSObject {
         var appInfo = Dictionary<String, Any>.init();
         let lastOpen = Date.init().timeIntervalSince1970;
         let appName = Bundle.main.infoDictionary!["CFBundleDisplayName"] as! String
+//        let appName = Bundle.init(identifier: "BundleIdentifier")?.object(forInfoDictionaryKey: kCFBundleExecutableKey as String)
+
 
         if(self.sharedUserDefaults.dictionary(forKey: self.appBundleID) != nil) {
             appInfo = self.sharedUserDefaults.dictionary(forKey: self.appBundleID)!;

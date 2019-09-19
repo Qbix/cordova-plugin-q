@@ -18,9 +18,16 @@ function parseHtml(html) {
                
                
     data.html = html;
-    data.title = htmlDocument.getElementsByTagName("title")[0].innerHTML;
-    data.keyboards = getMetaContent(htmlDocument, "keywords");
-    data.description = getMetaContent(htmlDocument, "description");
+    if(htmlDocument !== undefined) {
+        var titleElements = htmlDocument.getElementsByTagName("title");
+        if(titleElements.length > 0) {
+            data.title = titleElements[0].innerHTML;
+        } else {
+            data.title="";
+        }
+        data.keyboards = getMetaContent(htmlDocument, "keywords");
+        data.description = getMetaContent(htmlDocument, "description");
+    }
     return data
 }
                
