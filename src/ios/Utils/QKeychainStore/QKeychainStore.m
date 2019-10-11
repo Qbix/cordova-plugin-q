@@ -24,7 +24,7 @@
 
 -(instancetype)initShareKeychainWithService:(NSString*) service andAppGroupId:(NSString*) appGroupId {
     if(self = [super init]) {
-        _keychain = [[A0SimpleKeychain keychainWithService:service accessGroup:appGroupId] retain];
+        _keychain = [A0SimpleKeychain keychainWithService:service accessGroup:appGroupId];
     }
     return self;
     
