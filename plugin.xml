@@ -174,7 +174,7 @@
     <header-file src="src/ios/UIWebView+AdditionalOptions.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/UIWebView+AdditionalOptions.m" target-dir="QCordovaPlugin"/>
 
-    <framework src="SimpleKeychain" type="podspec" spec="0.9.0"/>
+    <!-- <framework src="SimpleKeychain" type="podspec" spec="0.9.0"/> -->
     <framework src="Obfuscator" type="podspec" spec="2.0" />
     
     <!-- <config-file target="*-Info.plist" parent="CFBundleURLTypes">
