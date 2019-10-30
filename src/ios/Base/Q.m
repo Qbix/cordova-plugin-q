@@ -134,12 +134,21 @@ static Q *instance = nil;
     return [[QWebViewController alloc] initWithUrl:url andParameters:[self getAdditionalParamsForUrl]];
 }
 
+- (NSString*) getSystemLanguage{
+    NSString *preferredLang = [[NSLocale preferredLanguages] objectAtIndex:0];
+    if([preferredLang length] >= 2) {
+        preferredLang = [preferredLang substringWithRange:NSMakeRange(0, 2)];
+    }
+    return preferredLang;
+}
+
 -(NSDictionary*) getAdditionalParamsForUrl {
     QConfig *conf = [[QConfig alloc] init];
     NSMutableDictionary *paramsLoadUrl = [NSMutableDictionary dictionary];
     [paramsLoadUrl setObject:[NSString stringWithString:[QConfig UUID]] forKey:@"Q.udid"];
     [paramsLoadUrl setObject:[NSString stringWithString:CDV_VERSION] forKey:@"Q.cordova"];
     [paramsLoadUrl setObject:[QConfig bundleID] forKey:@"Q.appId"];
+    [paramsLoadUrl setObject:[self getSystemLanguage] forKey:@"Q.language"];
     
     
 //    //Add signature for request
