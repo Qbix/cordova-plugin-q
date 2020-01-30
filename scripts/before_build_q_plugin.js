@@ -22,7 +22,7 @@ module.exports = function(context) {
     function addPod(content, importString) {
         if(content.indexOf(importString) == -1) {
             newRowIndex = 0;
-            var lastIndexOf = content.lastIndexOf("pod")
+            var lastIndexOf = content.indexOf("pod")
             if(lastIndexOf > -1) {
                 for(var i=lastIndexOf; i < content.length; i++) {
                     var char_value = content[i];
@@ -73,7 +73,7 @@ module.exports = function(context) {
         // Add SwiftyRSA
         var swiftyRSAItem = "pod 'SwiftyRSA', '1.5.0'";
         if(podFileContent.indexOf(swiftyRSAItem) == -1) {
-            podFileContent = addPod(podFileContent, swiftyRSAItem);
+             podFileContent = addPod(podFileContent, swiftyRSAItem);
         }
         
     

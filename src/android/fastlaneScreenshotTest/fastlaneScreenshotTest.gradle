@@ -25,7 +25,7 @@ dependencies {
 }
 
 ext.cdvMinSdkVersion=19
-ext.cdvCompileSdkVersion=27
+ext.cdvCompileSdkVersion=28
 
 android {
 	// sourceSets {
