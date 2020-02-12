@@ -59,7 +59,7 @@ public class MainActivityTest {
             String language = LocaleUtil.getTestLocale().getDisplayName();
             pauseTesting(5);
             mActivityTestRule.getActivity().loadUrl(url+"?Q.language"+language+"&disableAutoLogin=1");
-            pauseTesting(20);
+            pauseTesting(40);
             Screengrab.screenshot((isTablet()? "tablet":"phone")+"_"+md5(url));
             pauseTesting(5);
         }
