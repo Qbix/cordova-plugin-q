@@ -155,6 +155,16 @@
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }
 
+- (void) getSchema:(CDVInvokedUrlCommand*)command {
+    NSString* callbackId = [command callbackId];
+    
+    
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:(CDVCommandStatus)CDVCommandStatus_OK messageAsString:[[[QConfig alloc] init] openUrlScheme]];
+    
+    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+}
+
 //changeInnerUrlEvent: function(url, successCallback, errorCallback) {
 //    cordova.exec(successCallback, errorCallback, "QCordova", "changeInnerUrlEvent", [url]);
 //},

@@ -42,5 +42,6 @@
 +(NSString*) applicationKey;
 +(NSString*) UUID;
 +(NSString*) bundleID;
+-(NSString*) openUrlScheme;
 
 @end

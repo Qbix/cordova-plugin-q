@@ -33,10 +33,7 @@ function parseHtml(html) {
                
 module.exports = {
     schema: function(successCallback, errorCallback) {
-    	this.readQConfigValue("openUrlScheme", successCallback, errorCallback);
-    },
-    readQConfigValue: function(key, successCallback, errorCallback) {
-		  cordova.exec(successCallback, errorCallback, "QCordova", "readQConfigValue", [key]);
+        cordova.exec(successCallback, errorCallback, "QCordova", "getSchema", []);
     },
     chooseLink: function(initialUrl, isMetadata, successCallback, metadataCallback, errorCallback) {
         var innerFunction = function(params) {
