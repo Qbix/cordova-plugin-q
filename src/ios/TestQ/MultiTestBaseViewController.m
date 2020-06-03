@@ -111,7 +111,13 @@
 -(NSArray*) getBookmarksList {
     NSArray* tmpBookmarksList = [[NSUserDefaults standardUserDefaults] objectForKey:BOOKMARK_FLAG];
     if(tmpBookmarksList == nil) {
-        return [[NSMutableArray alloc] initWithCapacity:0];
+        tmpBookmarksList = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    NSString *defaultUrl = [[[QConfig alloc] init] url];
+    if(![tmpBookmarksList containsObject:defaultUrl]) {
+        NSMutableArray *tmpBookmarksList2 = [NSMutableArray arrayWithArray:tmpBookmarksList];
+        [tmpBookmarksList2 addObject:defaultUrl];
+        tmpBookmarksList = [NSArray arrayWithArray:tmpBookmarksList2];
     }
     
     return tmpBookmarksList;
