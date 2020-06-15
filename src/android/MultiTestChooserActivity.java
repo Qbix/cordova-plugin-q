@@ -133,8 +133,10 @@ public class MultiTestChooserActivity extends Activity {
     private ArrayList<String> getBookmarksList() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String bookmarksRaw = preferences.getString("bookmarksList", null);
-        if(bookmarksRaw == null) {
-            return new ArrayList<>();
+        if(bookmarksRaw == null || bookmarksRaw.length() == 0) {
+            ArrayList<String> list = new ArrayList<String>();
+            list.add(QConfig.getInstance(this).getUrl());
+            return list;
         }
 
 
