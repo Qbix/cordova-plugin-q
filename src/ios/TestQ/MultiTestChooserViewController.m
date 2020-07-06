@@ -42,19 +42,27 @@
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"index.html"]];
         [self loadQCordovaApp:url.description];
     } else {
-        NSURL *url = [super getNSURLFromString:inputText];
-        if(url) {
+        if([inputText hasPrefix:@"file:///"]) {
+            inputText = [inputText stringByReplacingOccurrencesOfString:@"file:///" withString:@""];
+            NSURL *url = [NSURL URLWithString:inputText];
             [self loadQCordovaApp:url.description];
             return;
+        } else {
+            NSURL *url = [super getNSURLFromString:inputText];
+            if(url) {
+                [self loadQCordovaApp:url.description];
+                return;
+            }
+            
+            NSString *urlWithHttps = [NSString stringWithFormat:@"%@://%@", @"https",inputText];
+            url = [super getNSURLFromString:urlWithHttps];
+            if(url) {
+                [self loadQCordovaApp:url.description];
+                return;
+            }
+            NSString* project = [inputText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+            [self loadQCordovaApp:[NSString stringWithFormat:@"https://qbixstaging.com/%@", project]];
         }
-        NSString *urlWithHttps = [NSString stringWithFormat:@"%@://%@", @"https",inputText];
-        url = [super getNSURLFromString:urlWithHttps];
-        if(url) {
-            [self loadQCordovaApp:url.description];
-            return;
-        }
-        NSString* project = [inputText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        [self loadQCordovaApp:[NSString stringWithFormat:@"https://qbixstaging.com/%@", project]];
     }
 }
 
