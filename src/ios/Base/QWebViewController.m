@@ -76,8 +76,6 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewDidFinishLoad:) name:CDVPageDidLoadNotification object:nil];
-    // Do any additional setup after loading the view from its nib.
-   // ((UIWebView*)self.webView).delegate = self;
 }
 
 - (void)viewDidUnload
@@ -96,15 +94,9 @@
 
 /* Comment out the block below to over-ride */
 
-/*
-- (UIWebView*) newCordovaViewWithFrame:(CGRect)bounds
-{
-    return[super newCordovaViewWithFrame:bounds];
-}
-*/
 
--(UIWebView*) getWebView {
-    return (UIWebView*)self.webView;
+-(id<CDVWebViewEngineProtocol>) getWebView {
+    return (id<CDVWebViewEngineProtocol>)self.webView;
 }
 
 -(void) invokeJSCode:(NSString*) jsCode {
@@ -158,7 +150,7 @@
     return [components.URL absoluteString];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView*)theWebView {
+- (void)webViewDidFinishLoad:(id<CDVWebViewEngineProtocol>) webView {
     NSLog(@"catch webViewDidFinishLoad");
     QConfig *conf = [[QConfig alloc] init];
     
@@ -170,17 +162,6 @@
     if(self.injectedJavascriptCode != nil) {
         [self invokeJSCode:self.injectedJavascriptCode];
     }
-}
-
--(BOOL) isCordovaJS:(UIWebView*)webView {
-    NSString  *head = [webView stringByEvaluatingJavaScriptFromString: @"document.head.innerHTML"];
-    NSString  *body = [webView stringByEvaluatingJavaScriptFromString: @"document.body.innerHTML"];
-    NSString *html = [NSString stringWithFormat:@"%@%@", head, body];
-    if([html rangeOfString:@"/cordova.js\""].location == NSNotFound) {
-        return NO;
-    }
-    
-    return YES;
 }
 
 @end

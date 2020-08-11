@@ -3,7 +3,6 @@
 #import "QChooseImageViewController.h"
 #import "QCustomChooseWebViewController.h"
 #import "QSignManager.h"
-#import "UIWebView+AdditionalOptions.h"
 
 @interface QCordova()
     @property(nonatomic, strong) NSString *callbackId;
@@ -147,10 +146,8 @@
     
     BOOL isShown = [[[command arguments] objectAtIndex:0] boolValue];
     
-    [UIWebView setSelectMenuShown:isShown];
-    
     CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK];
+                               resultWithStatus:CDVCommandStatus_INVALID_ACTION];
     
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }

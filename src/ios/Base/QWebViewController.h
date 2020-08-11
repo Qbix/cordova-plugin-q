@@ -38,8 +38,8 @@
 - (void) invokeJSCode:(NSString*) jsCode;
 - (NSString*) getUrl:(NSString*) mainUrl withParams:(NSDictionary*) params;
 - (void) loadUrl:(NSString*) url;
-- (UIWebView*) getWebView;
-- (void)webViewDidFinishLoad:(UIWebView*)theWebView;
+- (id<CDVWebViewEngineProtocol>) getWebView;
+- (void)webViewDidFinishLoad:(id<CDVWebViewEngineProtocol>)theWebView;
 @end
 
 @interface QCommandDelegate : CDVCommandDelegateImpl

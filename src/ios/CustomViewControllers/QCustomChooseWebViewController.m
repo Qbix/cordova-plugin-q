@@ -18,13 +18,15 @@
     [self.delegate chooseImage:image];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView*)theWebView {
+- (void)webViewDidFinishLoad:(id<CDVWebViewEngineProtocol>)theWebView {
     [super webViewDidFinishLoad:theWebView];
     
-    NSString *html = [[super getWebView] stringByEvaluatingJavaScriptFromString:@"document.documentElement.outerHTML"];
+    [[super getWebView] evaluateJavaScript:@"document.documentElement.outerHTML" completionHandler:^(id html, NSError *error) {
+        if(self.delegate != nil && html != nil)
+            [self.delegate contentChanged:html];
+    }];
     
-    if(self.delegate != nil)
-        [self.delegate contentChanged:html];
+    
 }
 
 - (void)dealloc {
