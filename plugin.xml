@@ -29,6 +29,7 @@
   <dependency id="cordova-plugin-badge" url="https://github.com/katzer/cordova-plugin-badge.git#0.8.8"/>
   <dependency id="cordova-plugin-ionic-keyboard" url="https://github.com/ionic-team/cordova-plugin-ionic-keyboard.git"/>
   <dependency id="cordova-plugin-camera" url="https://github.com/apache/cordova-plugin-camera.git"/>
+  <dependency id="cordova-plugin-disable-ios11-statusbar" url="https://github.com/jcesarmobile/cordova-plugin-disable-ios11-statusbar.git"/>
   
   <platform name="android">
 
