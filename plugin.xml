@@ -23,7 +23,7 @@
   <dependency id="cordova-plugin-safariviewcontroller" url="https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller.git"/>
   <dependency id="cordova-plugin-customurlscheme" url="https://github.com/EddyVerbruggen/Custom-URL-scheme.git"/>
   <dependency id="cordova-plugin-remote-injection" url="https://github.com/Qbix/cordova-plugin-remote-injection.git"/>
-  <dependency id="cordova-plugin-browsertabs" url="https://github.com/Qbix/cordova-plugin-browsertabs.git#v1.0.0"/>
+  <dependency id="cordova-plugin-browsertabs" url="https://github.com/Qbix/cordova-plugin-browsertabs.git#v1.0.1"/>
   <dependency id="cordova-plugin-statusbar" url="https://github.com/apache/cordova-plugin-statusbar.git"/>
   <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device.git"/>
   <dependency id="cordova-plugin-badge" url="https://github.com/katzer/cordova-plugin-badge.git#0.8.8"/>
