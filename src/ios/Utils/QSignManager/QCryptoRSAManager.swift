@@ -1,4 +1,5 @@
 import UIKit
+import CommonCrypto
 
 // Singleton instance
 private let _singletonInstance = QCryptoRSAManager()

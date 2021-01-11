@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyRSA
+import CommonCrypto
 
 private let _singletonInstance = QSignUtils()
 
