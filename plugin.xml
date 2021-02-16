@@ -99,7 +99,6 @@
     </config-file>
 
     <config-file target="config.xml" parent="/widget">
-      <preference name="deployment-target" value="8.3" />
       <preference name="CRIPageLoadPromptInterval" value="60" />
       <feature name="QCordova">
         <param name="ios-package" value="QCordova" />
