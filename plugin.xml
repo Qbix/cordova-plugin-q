@@ -13,9 +13,15 @@
   </engines>
 
   <asset src="www/q_cordova.js" target="js/q_cordova.js"/>
+  <asset src="www/q-ios-wkwebview-exec.js" target="js/q-ios-wkwebview-exec.js"/>
+  <asset src="www/crypto-js.min.js" target="js/crypto-js.min.js"/>
+  <asset src="www/jsencrypt.min.js" target="js/jsencrypt.min.js"/>
 
   <js-module src="www/q_cordova.js" name="Q.Cordova">
     <clobbers target="Q.Cordova" />
+  </js-module>
+  <js-module src="www/q-ios-wkwebview-exec.js" name="ios-wkwebview-exec">
+    <clobbers target="cordova.exec" />
   </js-module>
 
   <preference name="URL_SCHEME" default="qcordova" />
@@ -100,6 +106,7 @@
 
     <config-file target="config.xml" parent="/widget">
       <preference name="CRIPageLoadPromptInterval" value="60" />
+      <preference name="CordovaWebViewEngine" value="QWKWebViewEngine" />
       <feature name="QCordova">
         <param name="ios-package" value="QCordova" />
         <param name="onload" value="true" />
@@ -158,7 +165,14 @@
     <source-file src="src/ios/Utils/QSignManager/CryptoExportImportManager.swift"/>
     <source-file src="src/ios/QbixAppGroupManager.swift"/>
     <source-file src="src/ios/fastlane/DarwinNotificationCenterBeeper.swift"/>
-
+    <header-file src="src/ios/JsonWebKey.h"/>
+    <source-file src="src/ios/JsonWebKey.m"/>
+    <header-file src="src/ios/QWKWebViewEngine.h"/>
+    <source-file src="src/ios/QWKWebViewEngine.m"/>
+    <header-file src="src/ios/QWKScriptMessage.h"/>
+    <source-file src="src/ios/QWKScriptMessage.m"/>
+    
+    
 
     <header-file src="src/ios/TestQ/MultiTestBaseViewController.h" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>
     <source-file src="src/ios/TestQ/MultiTestBaseViewController.m" target-dir="QCordovaPlugin/TestQ/MultiTestBaseViewController"/>

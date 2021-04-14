@@ -28,9 +28,16 @@ enum AsymmetricCryptoException: Error {
 }
 
 @objc(QCryptoRSAManager) open class QCryptoRSAManager: NSObject {
+    
+    public override init() {
+        super.init();
+        if(!self.keyPairExists()) {
+            self.createSecureKeyPair()
+        }
+    }
 
     /** Shared instance */
-    class var sharedInstance: QCryptoRSAManager {
+    @objc class var sharedInstance: QCryptoRSAManager {
         return _singletonInstance
     }
     
@@ -114,7 +121,7 @@ enum AsymmetricCryptoException: Error {
         }
     }
     
-    func getExportedPublicKey() -> String? {
+    @objc func getExportedPublicKey() -> String? {
         if let exportablePEMKey = CryptoExportImportManager().exportPublicKeyToPEM(getPublicKeyData()!, keyType: kQCryptoRSAManagerKeyType as String, keySize: kQCryptoRSAManagerKeySize) {
             return exportablePEMKey;
         } else {
@@ -179,16 +186,7 @@ enum AsymmetricCryptoException: Error {
     }
     
     func isSecureKeyPairWithAutogenerate() -> Bool {
-        if(!self.keyPairExists()) {
-            if(self.createSecureKeyPair()) {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return true
-        }
-        
+        return self.keyPairExists()
     }
     
     func getSecureKeyPairWithAutogenerate(_ completion: ((_ privateKey: SecKey?, _ publicKey:SecKey?) -> Void)?) {
@@ -238,6 +236,37 @@ enum AsymmetricCryptoException: Error {
                 return
             } else { DispatchQueue.main.async(execute: { completion(false, nil, .keyNotFound) }) }
         }
+    }
+    
+    @objc func decryptMessageWithPrivateKey(_ encryptedData: Data) -> String? {
+        if let privateKeyRef = self.getPrivateKeyReference() {
+            // prepare input input plain text
+            let encryptedText = (encryptedData as NSData).bytes.bindMemory(to: UInt8.self, capacity: encryptedData.count)
+            let encryptedTextLen = encryptedData.count
+            
+            // prepare output data buffer
+            var plainData = Data(count: kQCryptoRSAManagerCypheredBufferSize)
+            let plainText = plainData.withUnsafeMutableBytes({ (bytes: UnsafeMutablePointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
+                return bytes
+            })
+            var plainTextLen = plainData.count
+            
+            let status = SecKeyDecrypt(privateKeyRef, .PKCS1, encryptedText, encryptedTextLen, plainText, &plainTextLen)
+            
+            // analyze results and call the completion in main thread
+            
+                if status == errSecSuccess {
+                    // adjust NSData length
+                    plainData.count = plainTextLen
+                    // Generate and return result string
+                    if let string = NSString(data: plainData as Data, encoding: String.Encoding.utf8.rawValue) as? String {
+                        plainText.deinitialize()
+                        return string
+                    }
+                }
+                plainText.deinitialize()
+        }
+        return nil
     }
     
     func decryptMessageWithPrivateKey(_ encryptedData: Data, completion: @escaping (_ success: Bool, _ result: String?, _ error: AsymmetricCryptoException?) -> Void) {
@@ -437,7 +466,3 @@ enum AsymmetricCryptoException: Error {
     
     
 }
-
-
-
-

@@ -34,7 +34,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Uncomment to override the CDVCommandDelegateImpl used
-        // _commandDelegate = [[MainCommandDelegate alloc] initWithViewController:self];
+        _commandDelegate = [[QCommandDelegate alloc] initWithViewController:self];
         // Uncomment to override the CDVCommandQueue used
         // _commandQueue = [[MainCommandQueue alloc] initWithViewController:self];
     }
@@ -46,7 +46,7 @@
     self = [super init];
     if (self) {
         // Uncomment to override the CDVCommandDelegateImpl used
-        // _commandDelegate = [[MainCommandDelegate alloc] initWithViewController:self];
+        _commandDelegate = [[QCommandDelegate alloc] initWithViewController:self];
         // Uncomment to override the CDVCommandQueue used
         // _commandQueue = [[MainCommandQueue alloc] initWithViewController:self];
     }
@@ -183,6 +183,65 @@
 {
     return [super pathForResource:resourcepath];
 }
+
+- (void)sendPluginResult:(CDVPluginResult*)result callbackId:(NSString*)callbackId {
+    Class klass = NSClassFromString(@"QResultEncryptManager");
+    if (klass) {
+        id instance = [klass performSelector:@selector(sharedManager)];
+        
+        if((instance != NULL) && [((NSNumber*)[instance performSelector:@selector(isEncrypt:) withObject:callbackId]) boolValue]) {
+            CDV_EXEC_LOG(@"Exec(%@): Sending result. Status=%@", callbackId, result.status);
+                // This occurs when there is are no win/fail callbacks for the call.
+            if ([@"INVALID" isEqualToString:callbackId]) {
+                return;
+            }
+            NSString* origin = ((NSString*)[instance performSelector:@selector(getOriginForCallbackId:) withObject:callbackId]);
+            if(origin == nil) {
+                return;
+            }
+            
+            
+            // This occurs when the callback id is malformed.
+            if (![self performSelector:@selector(isValidCallbackId:) withObject:callbackId]) {
+                NSLog(@"Invalid callback id received by sendPluginResult");
+                return;
+            }
+            int status = [result.status intValue];
+            BOOL keepCallback = [result.keepCallback boolValue];
+            NSString* argumentsAsJSON = [result argumentsAsJSON];
+            
+            NSString* encryptedCallbackId = ((NSString*)[instance performSelector:@selector(encrypt:forCallbackId:) withObject:callbackId withObject:callbackId]);
+            
+            
+            argumentsAsJSON = ((NSString*)[instance performSelector:@selector(encrypt:forCallbackId:) withObject:argumentsAsJSON withObject:callbackId]);
+            
+            BOOL debug = NO;
+            
+        #ifdef DEBUG
+            debug = YES;
+        #endif
+            
+            NSString* js = [NSString stringWithFormat:@"cordova.require('cordova/exec').nativeCallback('%@',%d,'%@',%d, %d, '%@')", encryptedCallbackId, status, argumentsAsJSON, keepCallback, debug, origin];
+
+            [super performSelector:@selector(evalJsHelper:) withObject:js];
+            return;
+        }
+    }
+    
+    [super sendPluginResult:result callbackId:callbackId];
+}
+//
+//- (BOOL)isValidCallbackId:(NSString*)callbackId {
+//    if ((callbackId == nil) || (_callbackIdPattern == nil)) {
+//        return NO;
+//    }
+//
+//    // Disallow if too long or if any invalid characters were found.
+//    if (([callbackId length] > 100) || [_callbackIdPattern firstMatchInString:callbackId options:0 range:NSMakeRange(0, [callbackId length])]) {
+//        return NO;
+//    }
+//    return YES;
+//}
 
 @end
 
