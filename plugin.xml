@@ -36,6 +36,7 @@
   <dependency id="cordova-plugin-ionic-keyboard" url="https://github.com/ionic-team/cordova-plugin-ionic-keyboard.git"/>
   <dependency id="cordova-plugin-camera" url="https://github.com/apache/cordova-plugin-camera.git"/>
   <dependency id="cordova-plugin-disable-ios11-statusbar" url="https://github.com/jcesarmobile/cordova-plugin-disable-ios11-statusbar.git"/>
+  <dependency id="cordova-plugin-wkwebview-engine" url="https://github.com/Qbix/cordova-plugin-wkwebview-engine.git"/>
   
   <platform name="android">
 
