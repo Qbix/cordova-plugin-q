@@ -172,6 +172,8 @@
     <source-file src="src/ios/QWKWebViewEngine.m"/>
     <header-file src="src/ios/QWKScriptMessage.h"/>
     <source-file src="src/ios/QWKScriptMessage.m"/>
+    <header-file src="src/ios/QResultEncryptManager.h"/>
+    <source-file src="src/ios/QResultEncryptManager.m"/>
     
     
 
