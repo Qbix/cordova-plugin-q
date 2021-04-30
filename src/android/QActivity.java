@@ -6,6 +6,9 @@ import android.view.ActionMode;
 import android.view.Menu;
 
 import org.apache.cordova.CordovaActivity;
+import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.CordovaWebViewEngine;
+import org.apache.cordova.CordovaWebViewImpl;
 
 public abstract class QActivity extends CordovaActivity {
     private final int MULTI_TEST_RESULT_CODE = 1;
@@ -43,6 +46,16 @@ public abstract class QActivity extends CordovaActivity {
 
     public void init() {
         super.init();
+    }
+
+    @Override
+    protected CordovaWebView makeWebView() {
+        return new QCordovaWebViewImpl(makeWebViewEngine());
+    }
+
+    @Override
+    protected CordovaWebViewEngine makeWebViewEngine() {
+        return QCordovaWebViewImpl.createEngine(this, preferences);
     }
 
     @Override

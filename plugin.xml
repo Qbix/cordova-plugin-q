@@ -13,15 +13,11 @@
   </engines>
 
   <asset src="www/q_cordova.js" target="js/q_cordova.js"/>
-  <asset src="www/q-ios-wkwebview-exec.js" target="js/q-ios-wkwebview-exec.js"/>
-  <asset src="www/crypto-js.min.js" target="js/crypto-js.min.js"/>
-  <asset src="www/jsencrypt.min.js" target="js/jsencrypt.min.js"/>
+  <!-- <asset src="www/crypto-js.min.js" target="js/crypto-js.min.js"/>
+  <asset src="www/jsencrypt.min.js" target="js/jsencrypt.min.js"/> -->
 
   <js-module src="www/q_cordova.js" name="Q.Cordova">
     <clobbers target="Q.Cordova" />
-  </js-module>
-  <js-module src="www/q-ios-wkwebview-exec.js" name="ios-wkwebview-exec">
-    <clobbers target="cordova.exec" />
   </js-module>
 
   <preference name="URL_SCHEME" default="qcordova" />
@@ -59,6 +55,11 @@
         <activity android:name="com.q.cordova.plugin.QChooseImageActivity" android:launchMode="singleTop"/>
     </config-file>
 
+    <source-file src="src/android/QCordovaWebViewImpl.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QCryptoRSAManager.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QPluginManager.java" target-dir="src/com/q/cordova/plugin/"/>
+    <source-file src="src/android/QResultEncryptManager.java" target-dir="src/com/q/cordova/plugin/"/>
+    
     <source-file src="src/android/Q.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QActivity.java" target-dir="src/com/q/cordova/plugin/"/>
     <source-file src="src/android/QCordova.java" target-dir="src/com/q/cordova/plugin/"/>
@@ -95,6 +96,10 @@
   </platform>
 
   <platform name="ios">
+    <asset src="www/q-ios-wkwebview-exec.js" target="js/q-ios-wkwebview-exec.js"/>
+    <js-module src="www/q-ios-wkwebview-exec.js" name="ios-wkwebview-exec">
+      <clobbers target="cordova.exec" />
+    </js-module>
     <!-- <hook type="before_plugin_install" src="scripts/prepareCocoaPods.js" /> -->
     <hook type="after_plugin_install" src="scripts/add_swift_support.js"/>
     <hook type="after_platform_add" src="scripts/add_swift_support.js"/>

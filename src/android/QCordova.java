@@ -59,6 +59,9 @@ public class QCordova extends CordovaPlugin {
         } else if(action.equalsIgnoreCase("changeInnerUrlEvent")) {
             callbackContext.error("Not implemented. This method only uses in Android");
             return true;
+        }  else if(action.equalsIgnoreCase("schema")) {
+            callbackContext.error("Not implemented. This method only uses in Android");
+            return true;
         } else if(action.equalsIgnoreCase("chooseImageEvent")) {
             String imageUrl = data.getString(0);
             cordova.getActivity().startActivity(QChooseImageActivity.createIntentWithImageUrl(cordova.getContext(), imageUrl));
