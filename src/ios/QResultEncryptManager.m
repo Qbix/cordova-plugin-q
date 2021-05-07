@@ -51,8 +51,8 @@
     }
 
     NSError *error = nil;
+//    NSLog(@"ENCRYPT. Key:%@; IV:%@", [jsonWebKey getKey],[jsonWebKey getIv]);
     NSString* encryptedKey = [QResultEncryptManager encrypt:data withKey:[jsonWebKey getKey] andIv:[jsonWebKey getIv] error:&error];
-    NSLog(@"Encrypted key: %@", encryptedKey);
     return encryptedKey;
 }
 
@@ -103,7 +103,7 @@
     NSData* iv = [[NSData alloc] initWithBase64EncodedString:ivBase64 options:0];
     NSMutableData *result =  [QResultEncryptManager doAES:[plainText dataUsingEncoding:NSUTF8StringEncoding] withKey:key andIv:iv context:kCCEncrypt error:error];
     NSString* encrypted64 = [result base64EncodedStringWithOptions:0];
-    NSLog(@"Encrypted : %@",encrypted64);
+//    NSLog(@"Encrypted : %@",encrypted64);
     return encrypted64;
 }
 

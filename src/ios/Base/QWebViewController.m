@@ -188,47 +188,49 @@
     Class klass = NSClassFromString(@"QResultEncryptManager");
     if (klass) {
         id instance = [klass performSelector:@selector(sharedManager)];
+        CDV_EXEC_LOG(@"Exec(%@): Sending result. Status=%@", callbackId, result.status);
+            // This occurs when there is are no win/fail callbacks for the call.
+        if ([@"INVALID" isEqualToString:callbackId]) {
+            return;
+        }
+        
+        // This occurs when the callback id is malformed.
+        if (![self performSelector:@selector(isValidCallbackId:) withObject:callbackId]) {
+            NSLog(@"Invalid callback id received by sendPluginResult");
+            return;
+        }
+        int status = [result.status intValue];
+        BOOL keepCallback = [result.keepCallback boolValue];
+        NSString* argumentsAsJSON = [result argumentsAsJSON];
+        
+        BOOL debug = NO;
+        
+    #ifdef DEBUG
+        debug = YES;
+    #endif
+        
+        NSString* origin = ((NSString*)[instance performSelector:@selector(getOriginForCallbackId:) withObject:callbackId]);
+        if(origin == nil) {
+            return;
+        }
         
         if((instance != NULL) && [((NSNumber*)[instance performSelector:@selector(isEncrypt:) withObject:callbackId]) boolValue]) {
-            CDV_EXEC_LOG(@"Exec(%@): Sending result. Status=%@", callbackId, result.status);
-                // This occurs when there is are no win/fail callbacks for the call.
-            if ([@"INVALID" isEqualToString:callbackId]) {
-                return;
-            }
-            NSString* origin = ((NSString*)[instance performSelector:@selector(getOriginForCallbackId:) withObject:callbackId]);
-            if(origin == nil) {
-                return;
-            }
-            
-            
-            // This occurs when the callback id is malformed.
-            if (![self performSelector:@selector(isValidCallbackId:) withObject:callbackId]) {
-                NSLog(@"Invalid callback id received by sendPluginResult");
-                return;
-            }
-            int status = [result.status intValue];
-            BOOL keepCallback = [result.keepCallback boolValue];
-            NSString* argumentsAsJSON = [result argumentsAsJSON];
-            
             NSString* encryptedCallbackId = ((NSString*)[instance performSelector:@selector(encrypt:forCallbackId:) withObject:callbackId withObject:callbackId]);
             
             
             argumentsAsJSON = ((NSString*)[instance performSelector:@selector(encrypt:forCallbackId:) withObject:argumentsAsJSON withObject:callbackId]);
             
-            BOOL debug = NO;
-            
-        #ifdef DEBUG
-            debug = YES;
-        #endif
-            
+//            NSLog(@"ENCRYPT. CallbackId: %@; EncryptedCallbackId:%@",callbackId, encryptedCallbackId);
             NSString* js = [NSString stringWithFormat:@"cordova.require('cordova/exec').nativeCallback('%@',%d,'%@',%d, %d, '%@')", encryptedCallbackId, status, argumentsAsJSON, keepCallback, debug, origin];
 
             [super performSelector:@selector(evalJsHelper:) withObject:js];
             return;
+        } else {
+            NSString* js = [NSString stringWithFormat:@"cordova.require('cordova/exec').nativeCallback('%@',%d,%@,%d, %d, '%@')", callbackId, status, argumentsAsJSON, keepCallback, debug, origin];
+
+            [self performSelector:@selector(evalJsHelper:) withObject:js];
         }
     }
-    
-    [super sendPluginResult:result callbackId:callbackId];
 }
 //
 //- (BOOL)isValidCallbackId:(NSString*)callbackId {
