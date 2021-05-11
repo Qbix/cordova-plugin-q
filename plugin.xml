@@ -12,9 +12,9 @@
     <engine name="cordova-ios" version=">=4.3.1" />
   </engines>
 
-  <asset src="www/q_cordova.js" target="js/q_cordova.js"/>
-  <!-- <asset src="www/crypto-js.min.js" target="js/crypto-js.min.js"/>
-  <asset src="www/jsencrypt.min.js" target="js/jsencrypt.min.js"/> -->
+  <!-- <asset src="www/q_cordova.js" target="js/q_cordova.js"/> -->
+  <asset src="www/crypto-js.min.js" target="plugins/com.q.cordova/www/crypto-js.min.js"/>
+  <asset src="www/jsencrypt.min.js" target="plugins/com.q.cordova/www/jsencrypt.min.js"/>
 
   <js-module src="www/q_cordova.js" name="Q.Cordova">
     <clobbers target="Q.Cordova" />
