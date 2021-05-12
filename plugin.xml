@@ -35,7 +35,7 @@
   <dependency id="cordova-plugin-wkwebview-engine" url="https://github.com/Qbix/cordova-plugin-wkwebview-engine.git"/>
   
   <platform name="android">
-
+    <asset src="www/q-android-exec.js" target="plugins/com.q.cordova/www/q-android-exec.js"/>
     <config-file target="res/xml/config.xml" parent="/*">
       <!-- <preference name="AndroidLaunchMode" value="singleInstance"/> -->
       <preference name="CRIPageLoadPromptInterval" value="60" />
