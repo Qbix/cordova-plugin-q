@@ -31,7 +31,9 @@
         self.name = message.name;
         self.webView = message.webView;
         self.frameInfo = message.frameInfo;
-        self.world = message.world;
+        if (@available(iOS 14.0, *)) {
+            self.world = message.world;
+        }
     }
     return self;
 }

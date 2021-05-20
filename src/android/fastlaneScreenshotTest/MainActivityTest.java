@@ -1,9 +1,9 @@
 package <packaged>;
 
 import android.os.Bundle;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 import android.util.DisplayMetrics;
 
 import org.junit.ClassRule;
@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import androidx.test.espresso.Espresso;
 
 import tools.fastlane.screengrab.Screengrab;
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
@@ -60,6 +61,8 @@ public class MainActivityTest {
             pauseTesting(5);
             mActivityTestRule.getActivity().loadUrl(url+"?Q.language"+language+"&disableAutoLogin=1");
             pauseTesting(40);
+            Espresso.closeSoftKeyboard();
+            pauseTesting(5);
             Screengrab.screenshot((isTablet()? "tablet":"phone")+"_"+md5(url));
             pauseTesting(5);
         }
