@@ -172,11 +172,12 @@ window.addEventListener("message", (event) => {
                     const decodedIV = CryptoJS.enc.Base64.parse(iv);
                     
                     try {
-                    var decryptedCallbackId = CryptoJS.AES.decrypt(payload.callbackId, decodedKey, { iv: decodedIV }).toString(CryptoJS.enc.Utf8);
-                    payload.callbackId = decryptedCallbackId;
-                    
-                    var decryptedMessage = CryptoJS.AES.decrypt(payload.args, decodedKey, { iv: decodedIV }).toString(CryptoJS.enc.Utf8);
-                    payload.args = convertMessageToArgsNativeToJs(decryptedMessage);
+                        var decryptedCallbackId = CryptoJS.AES.decrypt(payload.callbackId, decodedKey, { iv: decodedIV }).toString(CryptoJS.enc.Utf8);
+                        payload.callbackId = decryptedCallbackId;
+                        
+                        var decryptedMessage = CryptoJS.AES.decrypt(payload.args, decodedKey, { iv: decodedIV }).toString(CryptoJS.enc.Utf8);
+                        try {decryptedMessage = JSON.parse(decryptedMessage);} catch(e) {}
+                        payload.args = convertMessageToArgsNativeToJs(decryptedMessage);
                     } catch(e) {
 //                        console.log("Error decode: "+window.origin+"; error: "+e);
                     }
