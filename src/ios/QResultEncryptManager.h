@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JsonWebKey.h"
+### put-here-<ProjectName>-Swift.h ###
 
 NS_ASSUME_NONNULL_BEGIN
 

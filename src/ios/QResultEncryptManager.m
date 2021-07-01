@@ -8,7 +8,6 @@
 #import "QResultEncryptManager.h"
 #import "JsonWebKey.h"
 #import <CommonCrypto/CommonCryptor.h>
-### put-here-<ProjectName>-Swift.h ###
 
 @interface QResultEncryptManager()
 @property(nonatomic, strong) NSMutableDictionary<NSString*, NSMutableDictionary<NSString*,JsonWebKey*>*>* originsEncryptTable;

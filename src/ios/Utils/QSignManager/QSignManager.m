@@ -8,7 +8,6 @@
 
 #import "QSignManager.h"
 #import "QConfig.h"
-### put-here-<ProjectName>-Swift.h ###
 
 @implementation QSignManager
 

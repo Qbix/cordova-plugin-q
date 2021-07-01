@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+### put-here-<ProjectName>-Swift.h ###
 
 @interface QSignManager : NSObject
 
