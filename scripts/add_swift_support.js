@@ -217,36 +217,40 @@ module.exports = function(context) {
         });
 
         
-
         // put valid swift2objc bridge
         //### put-here-<ProjectName>-Swift.h ###
     }
 
     function setSwift2ObjcHeader(iosProjectFilesPath, projectName) {
-        getSourceFiles(iosProjectFilesPath, function (headers) {
+        console.log("setSwift2ObjcHeader")
+        getSourceFiles(iosProjectFilesPath, function (sources) {
+            getHeaderFiles(iosProjectFilesPath, function (headers) {
+                const files = sources.concat(headers);
+                console.log("Header: "+files);
+                var templateString = "### put-here-<ProjectName>-Swift.h ###";        
 
-        
-        var templateString = "### put-here-<ProjectName>-Swift.h ###";        
+                files.forEach(function (file) {
+                    
+                    fs.lstat(file, (err, stats) => {
+                        if(err)
+                            return console.log(err); //Handle error
 
-        headers.forEach(function (header) {
-            fs.lstat(header, (err, stats) => {
-                if(err)
-                    return console.log(err); //Handle error
+                        if((stats.isFile() || stats.isSymbolicLink()) && !stats.isDirectory()) {
+                            var content = fs.readFileSync(file, 'utf-8');
+                    
+                            if (content.indexOf(file) < 0) {
+                                if(content.includes(templateString)) {
+                                    content = content.replace(templateString, "#import \""+projectName.replace(" ", "_")+"-Swift.h\"");
+                                }
+                            }
 
-                if((stats.isFile() || stats.isSymbolicLink()) && !stats.isDirectory()) {
-                    var content = fs.readFileSync(header, 'utf-8');
-            
-                    if (content.indexOf(header) < 0) {
-                        if(content.includes(templateString)) {
-                            content = content.replace(templateString, "#import \""+projectName.replace(" ", "_")+"-Swift.h\"");
+                            fs.writeFileSync(file, content, 'utf-8');
                         }
-                    }
-
-                    fs.writeFileSync(header, content, 'utf-8');
-                }
+                    });
+                    
+                });
             });
-            
-        });
+        
         
 
             // importBridgingHeaders(bridgingHeaderPath, headers);
@@ -267,6 +271,7 @@ module.exports = function(context) {
 
             // projectFile.write();
         });
+        console.log("setSwift2ObjcHeader end")
     }
 
     function getBridgingHeader(projectName, xcconfigContent, xcodeProject) {
@@ -331,6 +336,17 @@ module.exports = function(context) {
         var searchPath = path.join(xcodeProjectRootPath, 'Plugins');
 
         child_process.exec('find . -name "*.m"', { cwd: searchPath }, function (error, stdout, stderr) {
+            var headers = stdout.toString().split('\n').map(function (filePath) {
+                return path.join(searchPath, filePath); 
+            });
+            callback(headers);
+        });
+    }
+
+    function getHeaderFiles(xcodeProjectRootPath, callback) {
+        var searchPath = path.join(xcodeProjectRootPath, 'Plugins');
+
+        child_process.exec('find . -name "*.h"', { cwd: searchPath }, function (error, stdout, stderr) {
             var headers = stdout.toString().split('\n').map(function (filePath) {
                 return path.join(searchPath, filePath); 
             });

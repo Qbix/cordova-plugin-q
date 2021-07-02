@@ -194,7 +194,7 @@
     <header-file src="src/ios/QCordova.h" target-dir="QCordovaPlugin"/>
     <source-file src="src/ios/QCordova.m" target-dir="QCordovaPlugin"/>
 
-    <!-- <framework src="SimpleKeychain" type="podspec" spec="0.8.1"/> -->
+    <framework src="SimpleKeychain" type="podspec" spec="0.11.1"/>
     <framework src="SwiftyRSA" type="podspec" spec="1.5.0"/>
     <framework src="Obfuscator" type="podspec" spec="2.0" />
     
