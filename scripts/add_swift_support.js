@@ -192,6 +192,11 @@ module.exports = function(context) {
             bridgingHeaderPath = createBridgingHeader(xcodeProject, projectName, iosProjectFilesPath);
         }
 
+        
+        // put valid swift2objc bridge
+        //### put-here-<ProjectName>-Swift.h ###
+        setSwift2ObjcHeader(iosProjectFilesPath, projectName);
+
         getExistingBridgingHeaders(iosProjectFilesPath, function (headers) {
             importBridgingHeaders(bridgingHeaderPath, headers);
             var configurations = nonComments(xcodeProject.pbxXCBuildConfigurationSection()),
@@ -210,10 +215,6 @@ module.exports = function(context) {
             console.log('IOS project Runpath Search Paths set to: @executable_path/Frameworks ...');
 
             projectFile.write();
-
-            // put valid swift2objc bridge
-            //### put-here-<ProjectName>-Swift.h ###
-            setSwift2ObjcHeader(iosProjectFilesPath, projectName);
         });
 
         
