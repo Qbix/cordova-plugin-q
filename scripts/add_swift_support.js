@@ -1,12 +1,15 @@
 var child_process = require('child_process'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    Q = require('q');
 
 module.exports = function(context) {
     var IOS_DEPLOYMENT_TARGET = '8.3',
         SWIFT_VERSION = '4.2',
         COMMENT_KEY = /_comment$/,
         CORDOVA_VERSION = process.env.CORDOVA_VERSION;
+        
+    var deferral = new Q.defer();    
 
     var cordova_util = context.requireCordovaModule('cordova-lib/src/cordova/util');
     var ConfigParser = context.requireCordovaModule('cordova-common').ConfigParser;
@@ -192,40 +195,45 @@ module.exports = function(context) {
             bridgingHeaderPath = createBridgingHeader(xcodeProject, projectName, iosProjectFilesPath);
         }
 
-        
+
         // put valid swift2objc bridge
         //### put-here-<ProjectName>-Swift.h ###
-        setSwift2ObjcHeader(iosProjectFilesPath, projectName);
+        setSwift2ObjcHeader(iosProjectFilesPath, projectName, function(){
+            getExistingBridgingHeaders(iosProjectFilesPath, function (headers) {
+                importBridgingHeaders(bridgingHeaderPath, headers);
+                var configurations = nonComments(xcodeProject.pbxXCBuildConfigurationSection()),
+                    config, buildSettings;
 
-        getExistingBridgingHeaders(iosProjectFilesPath, function (headers) {
-            importBridgingHeaders(bridgingHeaderPath, headers);
-            var configurations = nonComments(xcodeProject.pbxXCBuildConfigurationSection()),
-                config, buildSettings;
+                for (config in configurations) {
+                    buildSettings = configurations[config].buildSettings;
+                    buildSettings['IPHONEOS_DEPLOYMENT_TARGET'] = IOS_DEPLOYMENT_TARGET;
+                    buildSettings['SWIFT_VERSION'] = SWIFT_VERSION;
+                    buildSettings['EMBEDDED_CONTENT_CONTAINS_SWIFT'] = "YES";
+                    buildSettings['LD_RUNPATH_SEARCH_PATHS'] = '"@executable_path/Frameworks"';
+                }
+                console.log('IOS project now has deployment target set as:[' + IOS_DEPLOYMENT_TARGET + '] ...');
+                console.log('IOS project option EMBEDDED_CONTENT_CONTAINS_SWIFT set as:[YES] ...');
+                console.log('IOS project swift_objc Bridging-Header set to:[' + bridgingHeaderPath + '] ...');
+                console.log('IOS project Runpath Search Paths set to: @executable_path/Frameworks ...');
 
-            for (config in configurations) {
-                buildSettings = configurations[config].buildSettings;
-                buildSettings['IPHONEOS_DEPLOYMENT_TARGET'] = IOS_DEPLOYMENT_TARGET;
-                buildSettings['SWIFT_VERSION'] = SWIFT_VERSION;
-                buildSettings['EMBEDDED_CONTENT_CONTAINS_SWIFT'] = "YES";
-                buildSettings['LD_RUNPATH_SEARCH_PATHS'] = '"@executable_path/Frameworks"';
-            }
-            console.log('IOS project now has deployment target set as:[' + IOS_DEPLOYMENT_TARGET + '] ...');
-            console.log('IOS project option EMBEDDED_CONTENT_CONTAINS_SWIFT set as:[YES] ...');
-            console.log('IOS project swift_objc Bridging-Header set to:[' + bridgingHeaderPath + '] ...');
-            console.log('IOS project Runpath Search Paths set to: @executable_path/Frameworks ...');
+                projectFile.write();
 
-            projectFile.write();
+                deferral.resolve();
+            });
         });
 
+        return deferral.promise;
         
         // put valid swift2objc bridge
         //### put-here-<ProjectName>-Swift.h ###
     }
 
-    function setSwift2ObjcHeader(iosProjectFilesPath, projectName) {
+    function setSwift2ObjcHeader(iosProjectFilesPath, projectName, resolve) {
         console.log("setSwift2ObjcHeader")
         getSourceFiles(iosProjectFilesPath, function (sources) {
+            console.log("Resolve sources");
             getHeaderFiles(iosProjectFilesPath, function (headers) {
+                console.log("Resolve headers");
                 const files = sources.concat(headers);
                 console.log("Header: "+files);
                 var templateString = "### put-here-<ProjectName>-Swift.h ###";        
@@ -239,17 +247,19 @@ module.exports = function(context) {
                         if((stats.isFile() || stats.isSymbolicLink()) && !stats.isDirectory()) {
                             var content = fs.readFileSync(file, 'utf-8');
                     
-                            if (content.indexOf(file) < 0) {
+                            // if (content.indexOf(file) < 0) {
                                 if(content.includes(templateString)) {
                                     content = content.replace(templateString, "#import \""+projectName.replace(" ", "_")+"-Swift.h\"");
                                 }
-                            }
+                            // }
 
                             fs.writeFileSync(file, content, 'utf-8');
                         }
                     });
                     
                 });
+
+                resolve();
             });
         
         
